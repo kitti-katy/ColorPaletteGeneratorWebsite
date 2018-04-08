@@ -53,7 +53,6 @@ class PaletteClass extends Component {
     }
 
     getNextColor(i){
-        console.log(this.props.state.baseColor)
         let color = new Color(this.props.state.baseColor ,
             {   hueChange: this.state.hue * (i) - 360 * (Math.floor( this.state.hue * i / 360)),
                 satChange : this.state.sat * (i) - 100 * (Math.floor(this.state.sat * i  / 100)),

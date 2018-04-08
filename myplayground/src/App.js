@@ -29,7 +29,7 @@ class App extends Component {
 
 
 
-const store = {state:{baseColor: new Color(100,100,100,0)}}
+const store = {state:{baseColor: new Color(100,0,100,0)}}
 const activators = {}
 let styledux = new Styledux(store, activators)
 window.sx  = styledux.store
