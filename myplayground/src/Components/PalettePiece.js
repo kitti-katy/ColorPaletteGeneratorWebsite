@@ -22,7 +22,7 @@ class PalletePiece extends Component {
 
 const paletteStyle = {
     paletteLine: {
-        height: '100px',
+        height: '40px',
         width: '10%',
         margin: '10px'
     }

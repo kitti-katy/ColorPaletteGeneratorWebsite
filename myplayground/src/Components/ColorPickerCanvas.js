@@ -4,6 +4,7 @@
 import React, {Component} from 'react';
 import Color from './Color';
 import sxConnect from "../Styledux/src/sxConnect"
+import _ from 'lodash'
 
 
 class ColorPickerCanvasClass extends Component {
@@ -13,6 +14,9 @@ class ColorPickerCanvasClass extends Component {
         this.state = {
             mouseDownPicker : false,
             mouseDownSaturation: false,
+            pickerCirclePositionX:0,
+            pickerCirclePositionY:0
+
         }
 
         // Picker
@@ -29,8 +33,15 @@ class ColorPickerCanvasClass extends Component {
 
         // RGB changers
 
+        //this._throttledMouseMove = _.throttle(this.mouseMovePicker.bind(this), 50)
+        //this._throttledMouseMove = _.throttle(this.getColor.bind(this), 50)
+
     }
 
+    /*throttledMouse = (e) => {
+        this._throttledMouseMove(e)
+    }
+    */
     generatePickerCanvas(color){
         let sat = color.hsl.sat
         let canvas = document.getElementById('canvasColorPicker')
@@ -59,16 +70,18 @@ class ColorPickerCanvasClass extends Component {
 
 
     componentDidMount() {
-
-      this.generatePickerCanvas()
-        console.log("DONE")
-        this.generateSaturationCanvas()
-        console.log("Done")
+        this.props.state.setSlice('pickerPositionX', 5 )
+        this.props.state.setSlice('pickerPositionY', 5 )
+      this.generatePickerCanvas(this.props.state.baseColor)
+        this.generateSaturationCanvas(this.props.state.baseColor)
     }
 
     mouseMovePicker(evt){
-        if(this.state.mouseDownPicker)
+        if(this.state.mouseDownPicker) {
             this.getColor(evt)
+            console.log(evt.clientX)
+
+        }
     }
 
     mouseMoveSaturation(evt){
@@ -86,16 +99,20 @@ class ColorPickerCanvasClass extends Component {
     }
 
     getColor(evt){
+
+
         this.setState({mouseDownPicker:true})
         let canvas = document.getElementById('canvasColorPicker')
         let rect = canvas.getBoundingClientRect()
         let x = evt.clientX - rect.left
         let y = evt.clientY - rect.top
+        this.props.state.setSlice('pickerPositionX', x-5  )
+        this.props.state.setSlice('pickerPositionY', y-5 )
         let ctx = canvas.getContext("2d");
         let imageData = ctx.getImageData(360-x, y, 1, 1).data;
-        this.props.state.setSlice('baseColor', new Color( imageData[0],  imageData[1],  imageData[2],0))
-        console.log(this.props.state.baseColor)
-        this.generateSaturationCanvas()
+        let newColor = new Color( imageData[0],  imageData[1],  imageData[2],0)
+        this.props.state.setSlice('baseColor', newColor )
+        this.generateSaturationCanvas(newColor)
         }
 
     changeSaturation(evt){
@@ -110,9 +127,11 @@ class ColorPickerCanvasClass extends Component {
         let hue = color.hsl.hue
         let light = color.hsl.light
         let newColor = new Color( imageData[0],  imageData[1],  imageData[2],0)
+        //did not work just without sat
         let sat = newColor.hsl.sat
-        this.props.state.setSlice('baseColor', new Color( hue,  sat,  light,1))
-        this.generatePickerCanvas()
+        let newColor2 = new Color( hue,  sat,  light,1)
+        this.props.state.setSlice('baseColor', newColor2 )
+        this.generatePickerCanvas(this.props.state.baseColor)
 
     }
 
@@ -123,9 +142,14 @@ render(){
         return (
             <div>
 
+            <svg width="15" height="15" style={{...pickerStyle.PickerCircle,
+        marginLeft: this.props.state.pickerPositionX, marginTop:this.props.state.pickerPositionY }}>
+        <circle cx='7.5' cy='7.5' r="7.5" stroke="green" stroke-width="1" fill="yellow" />
+        </svg>
+
             <canvas id = 'canvasColorPicker' width = '360' height = '200'
-                    onMouseMove={(e) => this.mouseMovePicker(e)}
-                    onMouseDown = {(e)=>this.getColor(e)}
+                    onMouseMove= {(e)=>this.mouseMovePicker(e)}//{this.throttledMouse}
+                    onMouseDown = {(e)=> this.getColor(e)}
                     onMouseUp={this.resetMouseDownPicker}></canvas>
 
             <canvas id = 'canvasSaturationPicker' width = '20' height = '200'
@@ -137,4 +161,9 @@ render(){
     }
 }
 
-export const ColorPickerCanvas = sxConnect(null, ['state.baseColor'])(ColorPickerCanvasClass);
+const pickerStyle = {
+    PickerCircle: {
+        position: 'absolute', zIndex: 4000
+}}
+
+export const ColorPickerCanvas = sxConnect(null, ['state.baseColor', 'state.pickerPositionX', 'state.pickerPositionY'])(ColorPickerCanvasClass);

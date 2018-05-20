@@ -14,9 +14,9 @@ class CircledPalettePiece extends Component {
 
     generatePoints(angle)
     {
-        let x = 300
-        let y = 150
-        let c = 300
+        let x = 75
+        let y = 20
+        let c = 75
         angle = (angle ) * (Math.PI/180); // Convert to radians
         let rotatedX = Math.cos(angle) * (x - c) - Math.sin(angle) * (y - c) + c;
         let rotatedY = Math.sin(angle) * (x - c) + Math.cos(angle) * (y - c) + c;
@@ -28,7 +28,7 @@ class CircledPalettePiece extends Component {
     getTriangle(rotationAngle, n){
         let newPointA = this.generatePoints(n*rotationAngle)
         let newPointB = this.generatePoints((n+1)*rotationAngle)
-        let coordinates = '300,300 ' + newPointA.x + ', ' + newPointA.y + ' ' + newPointB.x + ', ' + newPointB.y
+        let coordinates = '75,75 ' + newPointA.x + ', ' + newPointA.y + ' ' + newPointB.x + ', ' + newPointB.y
         return coordinates
     }
 

@@ -6,6 +6,7 @@ import Color from './Components/Color';
 import Styledux from "./Styledux/src/Styledux"
 import sxProvider from "./Styledux/src/sxProvider"
 import {CustomColorContainer} from "./Components/CustomColorContainer"
+import MainHolder from "./Components/holders/MainHolder";
 
 class App extends Component {
     constructor(props) {
@@ -17,14 +18,17 @@ class App extends Component {
         return (
             <div className="App">
 
-                <header className="App-header">
-                    <img src={logo} className="App-logo" alt="logo"/>
-                    <h1 className="App-title">Welcome to Yekaterina's Color Palette Playground</h1>
-                </header>
-                <CustomColorContainer/>
+
+
+              <MainHolder/>
             </div>
         );
     }
+    /*  <header className="App-header">
+      <img src={logo} className="App-logo" alt="logo"/>
+      <h1 className="App-title">Welcome to Yekaterina's Color Palette Playground</h1>
+  </header>
+  <CustomColorContainer/>*/
 }
 
 
