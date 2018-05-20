@@ -24,7 +24,8 @@ const paletteStyle = {
     paletteLine: {
         height: '40px',
         width: '10%',
-        margin: '10px'
+        margin: '10px',
+        transition: 'width 2s'
     }
 }
 
