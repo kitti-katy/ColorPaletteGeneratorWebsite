@@ -4,7 +4,6 @@ import 'firebase/auth';
 // Initialize Firebase
 var config = {
 
-
 };
 class Firebase {
     constructor() { app.initializeApp(config);}

@@ -1,5 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import 'antd/dist/antd.css'; 
 import "./index.css";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
@@ -7,7 +8,7 @@ import { Provider } from "react-redux";
 import { createStore, applyMiddleware, compose } from "redux";
 import rootReducer from "./redux/index";
 import { BrowserRouter } from "react-router-dom";
-import 'antd/dist/antd.css'; 
+
 
 import Firebase, { FirebaseContext } from './firebase';
 
