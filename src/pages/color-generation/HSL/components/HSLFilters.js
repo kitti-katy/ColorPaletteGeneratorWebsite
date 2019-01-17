@@ -11,8 +11,14 @@ import { Input, Button, Icon } from 'antd';
 import { Radio } from 'antd';
 
 const RadioGroup = Radio.Group;
+const padding = '8px'
 
-let mapStateToProps = (state) => { return { baseColor: state.BaseColorReducer.baseColor } }
+let mapStateToProps = (state) => {
+  return {
+    baseColor: state.BaseColorReducer.baseColor,
+    selected: state.SelectedColorReducer.selected
+  }
+}
 let mapDispatchToProps = (dispatch) => { return bindActionCreators({ selectColor: selectColor }, dispatch) }
 
 class HSLFilters extends Component {
@@ -88,13 +94,16 @@ class HSLFilters extends Component {
 
     const { hueChange, satChange, lightChange, hueStep, satStep, lightStep, selectedPreset, numberOfColors, clickedColor } = this.state
 
+    let selectedColor = this.props.selected
+    let selectedColorFont = new Color(selectedColor, 0, 0, 'Hex').hsl.light > 50 ? 'black' : 'white'
+
     return (
       <div style={{ width: '700px' }}>
         <div>
 
           {/* <h2 style={{ textAlign: 'left' }}> Filters </h2> */}
 
-          <h3 style={{ borderBottom: '1px solid #e8e8e8', paddingBottom: '12px' }}>
+          <div style={{ borderBottom: '1px solid #e8e8e8', padding: padding + ' 0' }} >
             <RadioGroup value={selectedPreset} onChange={this.selectPreset} style={{ display: 'flex' }} >
               <Radio value={'None'}>None</Radio>
               <Radio value={'Analogous'}>Analogous</Radio>
@@ -102,59 +111,72 @@ class HSLFilters extends Component {
               <Radio value={'Triad'}>Triad</Radio>
               <Radio value={'Tetrad'}>Tetrad</Radio>
             </RadioGroup>
-          </h3>
-          <br />
-          <div>
-            <span style={{ float: 'right' }}><span style={{fontWeight:'bold'}}>Steps: </span>
+          </div>
+
+          <div style={{ borderBottom: '1px solid #e8e8e8', padding: padding + ' 0' }}>
+            <div >
+              <span style={{ float: 'right' }}><div style={{}}>Steps: </div>
+                <span style={{ fontSize: '14px', marginLeft: '12px' }}>
+                  <span>
+                    <Label title="H" />
+                    < Input size="small" style={{ width: '60px' }} type="number" min="0" max='360' value={hueStep} onChange={this.handleHueStepChange} />
+                  </span>
+                  <span style={{ margin: '18px' }}>
+                    <Label title="S" style={{ marginLeft: '18px' }} />
+                    < Input size="small" style={{ width: '60px' }} type="number" min="0" max='100' value={satStep} onChange={this.handleSatStepChange} />
+                  </span>
+                  <span>
+                    <Label title="L" style={{ marginLeft: '18px' }} />
+                    < Input size="small" style={{ width: '60px' }} type="number" min="0" max='100' value={lightStep} onChange={this.handleLightStepChange} />
+                  </span>
+                </span>
+              </span>
+            </div>
+
+            <div > <div style={{}}> Changes: </div>
               <span style={{ fontSize: '14px', marginLeft: '12px' }}>
                 <span>
                   <Label title="H" />
-                  < Input size="small" style={{ width: '60px' }} type="number" min="0" max='360' value={hueStep} onChange={this.handleHueStepChange} />
+                  < Input size="small" style={{ width: '60px' }} type="number" min="0" max='100' value={hueChange} onChange={this.handleHueChange} />
                 </span>
                 <span style={{ margin: '18px' }}>
-                  <Label title="S" style={{ marginLeft: '18px' }} />
-                  < Input size="small" style={{ width: '60px' }} type="number" min="0" max='360' value={satStep} onChange={this.handleSatStepChange} />
+                  <Label title="S" style={{ margin: '18px' }} />
+                  < Input size="small" style={{ width: '60px' }} type="number" min="0" max='100' value={satChange} onChange={this.handleSatChange} />
                 </span>
                 <span>
                   <Label title="L" style={{ marginLeft: '18px' }} />
-                  < Input size="small" style={{ width: '60px' }} type="number" min="0" max='360' value={lightStep} onChange={this.handleLightStepChange} />
+                  < Input size="small" style={{ width: '60px' }} type="number" min="0" max='100' value={lightChange} onChange={this.handleLightChange} />
                 </span>
               </span>
-            </span>
+            </div>
           </div>
 
-          <div style={{ borderBottom: '1px solid #e8e8e8', paddingBottom: '12px' }}> <span style={{fontWeight:'bold'}}> Changes: </span>
-            <span style={{ fontSize: '14px', marginLeft: '12px' }}>
-              <span>
-                <Label title="H" />
-                < Input size="small" style={{ width: '60px' }} type="number" min="0" max='360' value={hueChange} onChange={this.handleHueChange} />
-              </span>
-              <span style={{ margin: '18px' }}>
-                <Label title="S" style={{ margin: '18px' }} />
-                < Input size="small" style={{ width: '60px' }} type="number" min="0" max='360' value={satChange} onChange={this.handleSatChange} />
-              </span>
-              <span>
-                <Label title="L" style={{ marginLeft: '18px' }} />
-                < Input size="small" style={{ width: '60px' }} type="number" min="0" max='360' value={lightChange} onChange={this.handleLightChange} />
-              </span>
-            </span>
+
+
+
+
+          <div style={{ padding: padding + ' 0' }}>
+            <Icon type="export" style={{ float: 'right', marginLeft: '18px', fontSize: '22px', lineHeight: '2' }} onClick={this.exportJSON} />
+            <Icon type="reload" onClick={this.reset} style={{ float: 'right', marginLeft: '18px', fontSize: '22px', lineHeight: '2' }} />
+
+            <Label title="Number of Colors" style={{ marginLeft: '18px' }} />
+            < Input size="small" style={{ width: '60px', marginLeft: '18px' }} type="number" min="0" max='360'
+              value={numberOfColors} onChange={this.handleNumberOfColorsChange} />
+
+            <div
+              style=
+              {{
+                backgroundColor: selectedColor, padding: '2px 20px', textAlign: 'center', color: selectedColorFont,
+                border: '1px solid ' + selectedColorFont, display: 'inline', fontSize: '14px', float:'right'
+              }}>
+              {selectedColor}
+            </div>
 
           </div>
-          <br />
-
-
-          <Button style={{ float: 'right', marginLeft: '18px' }} onClick={this.exportJSON}> Export JSON</Button>
-          <Button onClick={this.reset} style={{ float: 'right' }}> <Icon type="reload" size="small" /> </Button>
-
-          <h3> <Label title="Number of Colors" style={{ marginLeft: '18px' }} />
-            < Input size="small" style={{ width: '60px', marginLeft: '18px' }} type="number" min="0" max='360' value={numberOfColors} onChange={this.handleNumberOfColorsChange} />
-          </h3>
 
         </div>
 
-
-        <br />
-        <div id="generated-colors" style={{ height: '330px' }}>
+        <div id="generated-colors" style={{ height: '330px', lineHeight: '1.45' }}>
           {
             Array.apply(null, { length: numberOfColors }).map((el, index) => {
               let h = (parseInt(hue) + (Math.floor(index / hueStep) * hueChange)) % 360
@@ -163,7 +185,7 @@ class HSLFilters extends Component {
               let newColor = anyColor.HSLtoHex(h, s, l)
               return <div onClick={() => this.handleSelectColor(newColor, index)}
                 style={{
-                  backgroundColor: newColor, borderRadius: clickedColor == index ? '35px' : '0',
+                  backgroundColor: newColor, borderRadius: clickedColor == index ? '25px' : '0',
                   padding: '25px', display: 'inline-block', margin: '-2.5px 0'
                 }} ></div>
             })

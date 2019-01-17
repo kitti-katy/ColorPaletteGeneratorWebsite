@@ -109,6 +109,7 @@ class ColorPicker extends Component {
     let light = hsl.light;
     let color = new Color(hue, sat, light, "HSL");
     this.props.changeBaseColor(color);
+    document.getElementById('saturationCircle').style.marginTop = sat * 2 - 5 + 'px'
     this.setState({ selectedColor: color })
     this.generateMainCanvas(color);
   };
@@ -131,13 +132,13 @@ class ColorPicker extends Component {
   setFromBlue = e => this.handleFormInput(new Color(this.props.baseColor.rgb.r, this.props.baseColor.rgb.g, e.target.value, "RGB"))
   setFromHex = e => {
     let val = e.target.value
-    if (val.length < 7)
-    {  this.setState({ hexValue: val })
-    var re = /[0-9A-Fa-f]{6}/g;
-    if (re.test(val)) {
-      this.handleFormInput(new Color('#' + e.target.value, 0, 0, "Hex"))
+    if (val.length < 7) {
+      this.setState({ hexValue: val })
+      var re = /[0-9A-Fa-f]{6}/g;
+      if (re.test(val)) {
+        this.handleFormInput(new Color('#' + e.target.value, 0, 0, "Hex"))
+      }
     }
-  }
   }
 
   render() {
@@ -146,7 +147,7 @@ class ColorPicker extends Component {
     const { r, g, b } = baseColor.rgb
     let hexString = baseColor.HEXString;
 
-
+    console.log(sat)
     return (
       <div>
         <div>
@@ -161,51 +162,54 @@ class ColorPicker extends Component {
             />
             <Throttle time="20" handler="onMouseMove">
               <canvas height="200" width="360" id="main-canvas-color-picker"
-                style={{ display: "inline", position: "relative", float: "left" }}
+                style={{ display: "inline", position: "relative", float: "left", border: 'solid 1px #0000001c' }}
                 onMouseDown={this.handleMouseDownMainCanvas} onMouseMove={this.handleMouseMoveMainCanvas}
                 onMouseLeave={this.disableColorChange} onMouseEnter={this.enableColorChange} />
             </Throttle>
           </div>
-          <div style={{ display: "inline-block", marginLeft: "10px" }}>
-            <div id="saturationCircle"
-              style={{
-                position: "absolute", display: "inline", marginLeft: "-6px", width: "24px", height: "7px",
-                border: "1px solid", borderColor: light > 50 ? "#757575" : "#d9d9d9", borderRadius: "3px",
-                marginTop: sat * 2 - 5 + "px", backgroundColor: hexString
-              }} />
-            <Throttle time="20" handler="onMouseMove">
-              <canvas height="200" width="10" id="saturation-canvas-color-picker"
+          <Throttle time="20" handler="onMouseMove">
+            <div style={{ display: "inline-block", marginLeft: "10px" }}
+              onMouseDown={this.handleMouseDownSatCanvas} onMouseMove={this.handleMouseMoveSatCanvas}
+              onMouseLeave={this.disableColorChange} onMouseEnter={this.enableColorChange}>
+              <div id="saturationCircle"
                 style={{
-                  display: "inline", marginRight: "7px", border: "1px solid #d9d9d9"
-                }}
-                onMouseDown={this.handleMouseDownSatCanvas} onMouseMove={this.handleMouseMoveSatCanvas} onMouseLeave={this.disableColorChange} onMouseEnter={this.enableColorChange} />
-            </ Throttle>
-          </div>
-          <div style={{ width: '400px' }}>
-            <div style={{ display: 'inline-block', width: '83px', margin: '24px' }}>
-              <div> <Label title="H" />{this.getNumberPickerInput('H', 359, hue, this.setFromHue)} </div>
-              <div> <Label title="S" />{this.getNumberPickerInput('S', 100, sat, this.setFromSat)} </div>
-              <div> <Label title="L" />{this.getNumberPickerInput('L', 100, light, this.setFromLight)} </div>
-            </div>
+                  position: "absolute", display: "inline", marginLeft: "-6px", width: "24px", height: "7px",
+                  border: "1px solid", borderColor: light > 50 ? "#757575" : "#d9d9d9", borderRadius: "3px",
+                  marginTop: sat * 2 - 5 + "px", backgroundColor: hexString
+                }} />
 
-            <div style={{ display: 'inline-block', width: '83px', margin: '18px' }}>
-              <div> <Label title="R" />{this.getNumberPickerInput('R', 255, r, this.setFromRed)}</div>
-              <div> <Label title="G" />{this.getNumberPickerInput('G', 255, g, this.setFromGreen)}</div>
-              <div> <Label title="B" />{this.getNumberPickerInput('B', 255, b, this.setFromBlue)} </div>
+              <canvas height="200" width="10" id="saturation-canvas-color-picker"
+                style={{ display: "inline", marginRight: "7px", border: "1px solid #d9d9d9" }}
+              />
             </div>
-            <div style={{ display: 'inline-block', margin: '18px', width: '113px' }}>
-              <div style={{ padding: '35px 56px', backgroundColor: hexString, display: 'inline-block' }} />
-              <div style={{ display: 'inline-block' }}>
-                <Label title="Hex #" />
-                <Input size="small" style={{ width: "62px" }} type="text" id="Hex" value={this.state.hexValue} onChange={this.setFromHex} />
+          </Throttle>
+          <div style={{ display: 'grid', justifyContent: 'space-between' }}>
+            <div style={{ width: '400px' }}>
+              <div style={{ display: 'inline-block', verticalAlign: 'top', width: '87px', marginRight: '16px' }}>
+                <div> <Label title="H" />{this.getNumberPickerInput('H', 359, hue, this.setFromHue)} </div>
+                <div> <Label title="S" />{this.getNumberPickerInput('S', 100, sat, this.setFromSat)} </div>
+                <div> <Label title="L" />{this.getNumberPickerInput('L', 100, light, this.setFromLight)} </div>
               </div>
-            </div>
-            <div style={{ width: '100%', display: 'block' }}>
+
+              <div style={{ display: 'inline-block', verticalAlign: 'top', width: '87px', marginRight: '16px' }}>
+                <div> <Label title="R" />{this.getNumberPickerInput('R', 255, r, this.setFromRed)}</div>
+                <div> <Label title="G" />{this.getNumberPickerInput('G', 255, g, this.setFromGreen)}</div>
+                <div> <Label title="B" />{this.getNumberPickerInput('B', 255, b, this.setFromBlue)} </div>
+              </div>
+
+              <div style={{ display: 'inline-block', verticalAlign: 'top', margin: '0px', width: '152px' }}>
+                <div style={{ padding: '35px 56px', backgroundColor: hexString, display: 'inline-block', borderRadius: '3px', marginTop: '6px' }} />
+                <div style={{ display: 'inline-block' }}>
+                  <Label title="Hex #" />
+                  <Input size="small" style={{ width: "82px" }} type="text" id="Hex" value={this.state.hexValue} onChange={this.setFromHex} />
+                </div>
+              </div>
 
             </div>
           </div>
+
         </div>
-      </div >
+      </div>
     );
   }
 }

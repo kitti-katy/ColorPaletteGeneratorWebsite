@@ -42,7 +42,7 @@ class TryIt extends Component {
         };
     }
 
-    reset = () => this.setState(this.initialState)
+    reset = (e) => { e.stopPropagation(); this.setState(this.initialState) }
 
     setColor = (e, compName) => {
         e.stopPropagation()
@@ -62,39 +62,28 @@ class TryIt extends Component {
 
         return (
             <div style={{ width: '450px',  /*background: '#f5f5f5',*/ }}>
-                <h2>
-                   {/* Apply Color*/}
-                    <div
-                        style=
-                        {{
-                            backgroundColor: selectedColor, padding: '10px 20px', margin: '15px', textAlign: 'center', color: selectedColorFont,
-                            border: '1px solid ' + selectedColorFont, display: 'inline', fontSize: '14px'
-                        }}>
-                        {selectedColor}
-                    </div>
-                   {/* <Button style={{ float: 'right', marginLeft: '5px' }} onClick={() => exportJSON(components)}> ExportJSON  </Button>*/}
-                    <Button style={{ float: 'right' }} onClick={this.reset}> <Icon type="reload" />  </Button>
-                </h2>
 
-                <br />
-
-                <div style={{ width: '450px', display: 'inline-block' }}>
+                <div style={{ width: '450px', display: 'inline-block', cursor: 'pointer' }}>
                     <Card style={{}} id="try-background"
                         onClick={(e) => this.setColor(e, 'background')}
-                        style={{ backgroundColor: background, borderColor:'black' }}
+                        style={{ backgroundColor: background, borderColor: '#b8b8b8' }}
                         headStyle={{ backgroundColor: appBar }}
                     >
-                        <h2 id="try-title"
+                        <h2
                             style={{
                                 color: title, fontFamily: "'Lora', serif",
                                 borderBottom: '1px solid #e8e8e8', paddingBottom: '12px',
                             }}
-                            onClick={(e) => this.setColor(e, 'title')}> Title</h2>
+                        >
+                            <span id="try-title" onClick={(e) => this.setColor(e, 'title')}>Title </span>
+
+                            <Button style={{ float: 'right' }} onClick={this.reset}> <Icon type="reload" />  </Button>
+                        </h2>
                         <br />
                         <h2 style={{ color: header, fontFamily: "'Lora', serif" }} id="try-header" onClick={(e) => this.setColor(e, 'header')}> Header </h2>
-                        <p id="try-text" 
-                        style={{ color: paragraph, fontFamily: "'Nanum Gothic', sans-serif", lineHeight:'2' }} 
-                        onClick={(e) => this.setColor(e, 'paragraph')}>
+                        <p id="try-text"
+                            style={{ color: paragraph, fontFamily: "'Nanum Gothic', sans-serif", lineHeight: '2' }}
+                            onClick={(e) => this.setColor(e, 'paragraph')}>
                             Click here to apply the colors and see how it will look.
                         <br />
                             <br />
@@ -105,6 +94,7 @@ class TryIt extends Component {
                             3. Have fun!
                             </p>
                         <br />
+                        <br /><br />
                         <div style={{ margin: '15px 0' }}>
                             <Button
                                 onClick={(e) => this.setColor(e, 'primaryButton')} id="try-button-primary"
@@ -136,40 +126,6 @@ class TryIt extends Component {
                         </div>
                     </Card >
                 </div>
-
-                {/*}
-                <div style={{ display: 'inline-block', verticalAlign: 'top', width: '320px', marginLeft: '24px' }}>
-                    {/*} <h3> Selected Color: </h3>
-                    <h3
-                        style=
-                        {{
-                            backgroundColor: selectedColor, padding: '15px 0', textAlign: 'center', color: selectedColorFont,
-                            border: '1px solid ' + selectedColorFont
-                        }}>
-                        {selectedColor}
-                    </h3>
-                    
-
-                    <h3 > Backgrounds:</h3>
-                    <SetButton background={appBar} onClick={() => this.setColor('appBar')}> App Bar </SetButton>
-                    <SetButton background={background} onClick={() => this.setColor('background')}> Background </SetButton>
-                    <SetButton background={primaryButton} onClick={() => this.setColor('primaryButton')}> Primary Button</SetButton>
-                    <SetButton background={secondaryButton} onClick={() => this.setColor('secondaryButton')}> Secondary Button</SetButton>
-                    <SetButton background={successButton} onClick={() => this.setColor('successButton')}> Success Button </SetButton>
-                    <SetButton background={infoButton} onClick={() => this.setColor('infoButton')}> Info Button </SetButton>
-                    <SetButton background={dangerButton} onClick={() => this.setColor('dangerButton')}> Danger Button </SetButton>
-
-                    <h3 > Fonts:</h3>
-                    <SetButton background={title} onClick={() => this.setColor('title')}> App Bar </SetButton>
-                    <SetButton background={header} onClick={() => this.setColor('header')}> Header </SetButton>
-                    <SetButton background={paragraph} onClick={() => this.setColor('paragraph')}> Paragraph </SetButton>
-                    <SetButton background={primaryButtonFont} onClick={() => this.setColor('primaryButtonFont')}> Primary Button  </SetButton>
-                    <SetButton background={secondaryButtonFont} onClick={() => this.setColor('secondaryButtonFont')}> Secondary Button  </SetButton>
-                    <SetButton background={successButtonFont} onClick={() => this.setColor('successButtonFont')}> Success Button  </SetButton>
-                    <SetButton background={infoButtonFont} onClick={() => this.setColor('infoButtonFont')}> Info Button  </SetButton>
-                    <SetButton background={dangerButtonFont} onClick={() => this.setColor('dangerButtonFont')}> Danger Button  </SetButton>
-                </div>
-                    */}
 
             </div>
         );

@@ -15,6 +15,7 @@ class App extends Component {
         {firebase => {
           return <div className="App">
          <link href="https://fonts.googleapis.com/css?family=Lora|Nanum+Gothic" rel="stylesheet"/>
+         <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet"/>
               <Header firebase={firebase} />
               <Main />
           </div>
