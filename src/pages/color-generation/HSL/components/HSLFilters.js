@@ -2,9 +2,7 @@ import React, { Component } from "react";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import Color from "../../../../utilities/Color";
-import Select from '@material-ui/core/Select';
 import { selectColor } from '../../../../redux/SelectedColorReducer'
-import MenuItem from '@material-ui/core/MenuItem';
 import { exportJSON } from '../../../../utilities/ExportJSON'
 import { Label } from '../../../../components/Label'
 import { Input, Button, Icon } from 'antd';
@@ -150,10 +148,6 @@ class HSLFilters extends Component {
               </span>
             </div>
           </div>
-
-
-
-
 
           <div style={{ padding: padding + ' 0' }}>
             <Icon type="export" style={{ float: 'right', marginLeft: '18px', fontSize: '22px', lineHeight: '2' }} onClick={this.exportJSON} />

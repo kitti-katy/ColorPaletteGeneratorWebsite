@@ -1,8 +1,6 @@
 import React, { Component } from "react";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
-import Grid from '@material-ui/core/Grid';
-import AddIcon from '@material-ui/icons/Add';
 import Color from "../../../../utilities/Color";
 import { selectColor } from '../../../../redux/SelectedColorReducer'
 import { changeBaseColor } from '../../../../redux/BaseColorReducer'
@@ -40,28 +38,25 @@ class GeneratedColors extends Component {
     exportJSON = () => exportJSON(this.state.colors)
 
     render() {
-        console.log(this.state.colors)
         let baseColor = this.props.baseColor.HEXString;
         let selectedColorIndex = this.state.clickedColor
         return (
-            <Grid container spacing={8} style={{ width: '400px' }}>
-                <Grid item xs={12} ><button onClick={this.exportJSON}> Export JSON</button></Grid>
-                <Grid item xs={12} >
+            <div style={{ width: '400px' }}>
+                <button onClick={this.exportJSON}> Export JSON</button>
                     <div id="generated-colors" style={{ display: 'flex', flexWrap: 'wrap' }}>
                         {this.state.colors.map((color, index) =>
                             <div onClick={() => this.handleColorClick(color, index, selectedColorIndex)}
                                 style={{
                                     backgroundColor: selectedColorIndex == index ? baseColor : color,
                                     borderRadius: selectedColorIndex == index ? '30px' : '0', padding: '30px', display: 'block'
-                                }} ></div>)
+                                }} />)
                         }
                         <div onClick={() => this.addNewColor(baseColor, selectedColorIndex)} 
                         style={{ border: 'gray solid 1px', display: 'grid', verticalAlign:'center' }} >
                         <Icon type="plus" style = {{fontSize:'24px', padding:'20px'}} />
                         </div>
                     </div>
-                </Grid>
-            </Grid>
+            </div>
         );
     }
 }

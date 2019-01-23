@@ -2,11 +2,14 @@ import React, { Component } from "react";
 import ColorPicker from "../../../components/color-picker/ColorPicker";
 import GeneratedColors from "./components/GeneratedColors";
 import TryIt from "../../../components/TryIt";
+import { connect } from "react-redux";
 
+let mapStateToProps = (state) => { return { baseColor: state.BaseColorReducer.baseColor } }
 const backgroundColor= '#f0f0f0'
 
 class Custom extends Component {
   render() {
+    console.log(this.props.baseColor)
     return (
       <div style={{ display: "inline-block", margin: "auto" }}>
         <div
@@ -34,11 +37,11 @@ class Custom extends Component {
             height: "840px"
           }}
         >
-          <TryIt />
+          <TryIt selectedColor={this.props.baseColor.HEXString}/>
         </div>
       </div>
     );
   }
 }
 
-export default Custom;
+export default connect(mapStateToProps)(Custom);

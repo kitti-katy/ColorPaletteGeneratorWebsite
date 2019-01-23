@@ -47,9 +47,12 @@ class TryIt extends Component {
     setColor = (e, compName) => {
         e.stopPropagation()
         let newColors = this.state.components
-        newColors[compName] = this.props.selected
+        newColors[compName] = this.getSelectedColor()
         this.setState({ components: newColors })
     }
+    // selectedColor when passed from a compononent
+    getSelectedColor = () => this.props.selectedColor!=null ? this.props.selectedColor : this.props.selected
+
 
     render() {
         let components = this.state.components
@@ -57,7 +60,7 @@ class TryIt extends Component {
             background, primaryButton, secondaryButton, successButton,
             dangerButton, infoButton, primaryButtonFont,
             secondaryButtonFont, successButtonFont, dangerButtonFont, infoButtonFont, paragraph } = components
-        let selectedColor = this.props.selected
+        let selectedColor = this.getSelectedColor()
         let selectedColorFont = new Color(selectedColor, 0, 0, 'Hex').hsl.light > 50 ? 'black' : 'white'
 
         return (
