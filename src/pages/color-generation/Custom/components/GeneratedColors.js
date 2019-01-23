@@ -7,6 +7,7 @@ import Color from "../../../../utilities/Color";
 import { selectColor } from '../../../../redux/SelectedColorReducer'
 import { changeBaseColor } from '../../../../redux/BaseColorReducer'
 import { exportJSON } from '../../../../utilities/ExportJSON'
+import {Icon} from 'antd'
 
 
 let mapStateToProps = (state) => { return { baseColor: state.BaseColorReducer.baseColor } }
@@ -54,8 +55,9 @@ class GeneratedColors extends Component {
                                     borderRadius: selectedColorIndex == index ? '30px' : '0', padding: '30px', display: 'block'
                                 }} ></div>)
                         }
-                        <div onClick={() => this.addNewColor(baseColor, selectedColorIndex)} style={{ border: 'gray solid 1px', display: 'block', width: '60px', height: '60px' }} >
-                            <AddIcon style={{ margin: 'auto', marginTop: '15px' }} />
+                        <div onClick={() => this.addNewColor(baseColor, selectedColorIndex)} 
+                        style={{ border: 'gray solid 1px', display: 'grid', verticalAlign:'center' }} >
+                        <Icon type="plus" style = {{fontSize:'24px', padding:'20px'}} />
                         </div>
                     </div>
                 </Grid>
