@@ -8,6 +8,8 @@ import { Label } from '../../../../components/Label'
 import { Input, Button, Icon } from 'antd';
 import { Radio } from 'antd';
 
+
+
 const RadioGroup = Radio.Group;
 const padding = '8px'
 
@@ -77,7 +79,7 @@ class HSLFilters extends Component {
     let colorElements = document.getElementById("generated-colors").getElementsByTagName("div")
     let colors = {}
     for (var i = 0; i < colorElements.length; i++) {
-      colors["color" + i] = colorElements[i].attributes.backgroundColor
+      colors["color" + i] = colorElements[i].style.backgroundColor
     }
     exportJSON(colors)
   }
@@ -180,7 +182,7 @@ class HSLFilters extends Component {
               return <div onClick={() => this.handleSelectColor(newColor, index)}
                 style={{
                   backgroundColor: newColor, borderRadius: clickedColor == index ? '25px' : '0',
-                  padding: '25px', display: 'inline-block', margin: '-2.5px 0'
+                  padding: '0.5cm', display: 'inline-block', margin: '-2.5px 0'
                 }} ></div>
             })
           }

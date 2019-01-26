@@ -11,7 +11,7 @@ class HSL extends Component {
       <div style={{ display: 'inline-block', margin: 'auto' }}>
         <div style={{
           display: 'inline-block', verticalAlign: 'top', background: backgroundColor,
-          borderBottomLeftRadius: '15px', borderTopLeftRadius: '15px', padding: '48px', height: '840px'
+          borderBottomLeftRadius: '5px', borderTopLeftRadius: '5px', padding: '48px', height: '840px'
         }}>
           <ColorPicker /> </div>
         <div style={{
@@ -22,7 +22,7 @@ class HSL extends Component {
         <div
           style={{
             display: 'inline-block', verticalAlign: 'top',
-            background: backgroundColor, borderBottomRightRadius: '15px', borderTopRightRadius: '15px', padding: '48px', height: '840px'
+            background: backgroundColor, borderBottomRightRadius: '5px', borderTopRightRadius: '5px', padding: '48px', height: '840px'
           }}>
           <TryIt /></div>
       </div>
