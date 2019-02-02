@@ -98,7 +98,7 @@ class HSLFilters extends Component {
     let selectedColorFont = new Color(selectedColor, 0, 0, 'Hex').hsl.light > 50 ? 'black' : 'white'
 
     return (
-      <div style={{ width: '700px' }}>
+      <div style={{ width: '700px', background: '#ffffffab', padding: '16px', borderRadius: '5px'}}>
         <div>
 
           {/* <h2 style={{ textAlign: 'left' }}> Filters </h2> */}

@@ -147,9 +147,8 @@ class ColorPicker extends Component {
     const { r, g, b } = baseColor.rgb
     let hexString = baseColor.HEXString;
 
-    console.log(sat)
     return (
-      <div>
+      <div style={{ background: '#ffffffab', padding: '16px', borderRadius: '5px'}}>
         <div>
           {/*<h2 style={{ textAlign: 'left' }} >Pick Color</h2>*/}
           <div style={{ display: "inline-block" }}>
