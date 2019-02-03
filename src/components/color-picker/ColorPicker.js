@@ -84,6 +84,7 @@ class ColorPicker extends Component {
     this.setState({ selectedColor: color })
     this.props.changeBaseColor(color);
     this.generateSatCanvas(color);
+    this.setHexInput(color.HEXString.substring(1))
   };
 
   handleMouseDownSatCanvas = evt => {
@@ -109,17 +110,19 @@ class ColorPicker extends Component {
     let light = hsl.light;
     let color = new Color(hue, sat, light, "HSL");
     this.props.changeBaseColor(color);
-    document.getElementById('saturationCircle').style.marginTop = sat * 2 - 5 + 'px'
     this.setState({ selectedColor: color })
     this.generateMainCanvas(color);
+    this.setHexInput(color.HEXString.substring(1))
   };
 
   handleFormInput = color => {
     this.props.changeBaseColor(color);
     this.generateMainCanvas(color);
     this.generateSatCanvas(color);
-    this.setState({ hexValue: color.HEXString.substring(1) })
+    this.setHexInput(color.HEXString.substring(1))
   };
+  setHexInput = (val) => { this.setState({ hexValue: val }); this.setAppBackground('#' + val) }
+  setAppBackground = (hexValue) => document.getElementsByTagName('body')[0].style.backgroundColor = hexValue
   getNumberPickerInput = (id, max, val, onChange) =>
     <Input size="small" style={{ width: '60px' }} type="number" id={id} min="0" max={max} value={val} onChange={onChange} />
 
@@ -145,10 +148,11 @@ class ColorPicker extends Component {
     let baseColor = this.props.baseColor;
     const { hue, sat, light } = baseColor.hsl
     const { r, g, b } = baseColor.rgb
-    let hexString = baseColor.HEXString;
+    let hexString = '#' + this.state.hexValue;
 
     return (
-      <div style={{ background: '#ffffffab', padding: '16px', borderRadius: '5px'}}>
+      <div className="element-holder">
+
         <div>
           {/*<h2 style={{ textAlign: 'left' }} >Pick Color</h2>*/}
           <div style={{ display: "inline-block" }}>
@@ -166,22 +170,22 @@ class ColorPicker extends Component {
                 onMouseLeave={this.disableColorChange} onMouseEnter={this.enableColorChange} />
             </Throttle>
           </div>
-          <Throttle time="20" handler="onMouseMove">
+      
             <div style={{ display: "inline-block", marginLeft: "10px" }}
               onMouseDown={this.handleMouseDownSatCanvas} onMouseMove={this.handleMouseMoveSatCanvas}
               onMouseLeave={this.disableColorChange} onMouseEnter={this.enableColorChange}>
               <div id="saturationCircle"
                 style={{
-                  position: "absolute", display: "inline", marginLeft: "-6px", width: "24px", height: "7px",
+                  backgroundColor: hexString,
+                  position: "absolute", display: "inline", marginLeft: "-5.5px", width: "24px", height: "7px",
                   border: "1px solid", borderColor: light > 50 ? "#757575" : "#d9d9d9", borderRadius: "3px",
-                  marginTop: sat * 2 - 5 + "px", backgroundColor: hexString
+                  marginTop: sat * 2 - 5 + "px"
                 }} />
-
               <canvas height="200" width="10" id="saturation-canvas-color-picker"
                 style={{ display: "inline", marginRight: "7px", border: "1px solid #d9d9d9" }}
               />
             </div>
-          </Throttle>
+         
           <div style={{ display: 'grid', justifyContent: 'space-between' }}>
             <div style={{ width: '400px' }}>
               <div style={{ display: 'inline-block', verticalAlign: 'top', width: '87px', marginRight: '16px' }}>

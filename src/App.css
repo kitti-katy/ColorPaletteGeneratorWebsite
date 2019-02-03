@@ -1,5 +1,5 @@
 .App {
-  background-color: 'black' !important
+  background-color: "black" !important;
 }
 
 .App-logo {
@@ -20,6 +20,26 @@
 
 .App-link {
   color: #61dafb;
+}
+
+.header-button {
+  padding: 8px 16px;
+  background-color: rgb(240, 240, 240);
+  color: black;
+  font-size: 18px;
+  font-weight: 600;
+  margin: 0 12px;
+  border-radius: 5px;
+  box-shadow: #00000059 1px 1px 10px 1px
+}
+.header-button:hover {
+  transform: rotate(-1deg);
+}
+.element-holder{
+  box-shadow: #0000007a 0px 0px 1px 0px;
+  background: #ffffffab;
+  padding: 16px;
+  border-radius: 5px;
 }
 
 @keyframes App-logo-spin {

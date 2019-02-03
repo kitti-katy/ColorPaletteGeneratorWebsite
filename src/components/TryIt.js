@@ -49,18 +49,19 @@ class TryIt extends Component {
          }
           )
     }
+    getOutlineStyle = () => '3px dotted ' + this.getSelectedColor()
     getAllTryElements = () => tryIds.map(id => document.getElementById(id))
     // add outline
-    addMouseEnterListener = (el, allTryElements) => el.addEventListener("mouseenter", (e) => { allTryElements.forEach(elem => elem.style.outline = 'none'); el.style.outline = hoverStyle } ) 
+    addMouseEnterListener = (el, allTryElements) => el.addEventListener("mouseenter", (e) => { allTryElements.forEach(elem => elem.style.outline = 'none'); el.style.outline = this.getOutlineStyle(); } ) 
     // remove outline when mouse leave
     addMouseLeaveListener = (el) => el.addEventListener("mouseleave", (e) => e.target.style.outline = 'none' )
     // add outline to parent element when mouseleave from inner element
-    addMouseOverListener = (el) => el.addEventListener("mouseover", function( e ) { 
+    addMouseOverListener = (el) => el.addEventListener("mouseover", (e) => { 
                                                                         e.stopPropagation()
                                                                         let innerElements = el.querySelectorAll('*')
                                                                         let allNoneHovered = true
-                                                                        innerElements.forEach(elem => { if(allNoneHovered) allNoneHovered = elem.style.outline != hoverStyle } )
-                                                                        el.style.outline = allNoneHovered ? hoverStyle : 'none' } 
+                                                                        innerElements.forEach(elem => { if(allNoneHovered) allNoneHovered = !elem.style.outline.includes('3px dotted ')} )
+                                                                        el.style.outline = allNoneHovered ? this.getOutlineStyle() : 'none' } 
                                                                         )
     
     reset = (e) => { e.stopPropagation(); this.setState(this.initialState) }

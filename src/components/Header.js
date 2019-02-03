@@ -7,7 +7,7 @@ import Register from "./account/Register"
 import { Link } from 'react-router-dom'
 import { Icon, Button } from 'antd';
 
-const buttonStyle = { fontSize: '18px', color: 'white', fontWeight: '600', margin: '0 24px' }
+
 
 class Header extends Component {
   state = {
@@ -23,10 +23,10 @@ class Header extends Component {
   render() {
 
     return (
-      <div style={{ padding: '24px', display: 'flex', justifyContent: 'center' }}>
-        <Link style={buttonStyle} to='/generate/hsl'> From HSL {/*<Icon type="build" />*/} </Link>
-        <Link style={buttonStyle} to='/generate/custom'> Custom </Link>
-        <Link style={buttonStyle} to='/generate/picture'> From Picture {/*<Icon type="picture" /> */} </Link>
+      <div style={{ padding: '24px', display: 'flex', justifyContent: 'left' }}>
+        <Link to='/generate/hsl' className="header-button"> <Icon type="setting" theme="filled" /> Generate Palette Style {/*<Icon type="build" />*/} </Link>
+        <Link to='/generate/custom' className="header-button"> <Icon type="edit" theme="filled" /> Custom </Link>
+        <Link to='/generate/picture' className="header-button"> <Icon type="picture" theme="filled" /> From Picture {/*<Icon type="picture" /> */} </Link>
         {/*<Button component={Link} to='/community'>Community</Button>
             }
         <AppBar position="static" color="default">

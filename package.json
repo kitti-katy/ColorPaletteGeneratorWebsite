@@ -11,6 +11,7 @@
     "mongoose": "^5.3.6",
     "npm": "^6.4.1",
     "react": "^16.5.2",
+    "react-copy-to-clipboard": "^5.0.1",
     "react-dom": "^16.5.2",
     "react-images-upload": "^1.2.3",
     "react-redux": "^5.0.7",
