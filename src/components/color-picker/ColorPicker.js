@@ -122,7 +122,8 @@ class ColorPicker extends Component {
     this.setHexInput(color.HEXString.substring(1))
   };
   setHexInput = (val) => { this.setState({ hexValue: val }); this.setAppBackground('#' + val) }
-  setAppBackground = (hexValue) => document.getElementsByTagName('body')[0].style.backgroundColor = hexValue
+  setAppBackground = (hexValue) => { //document.getElementsByTagName('body')[0].style.backgroundColor = hexValue
+}
   getNumberPickerInput = (id, max, val, onChange) =>
     <Input size="small" style={{ width: '60px' }} type="number" id={id} min="0" max={max} value={val} onChange={onChange} />
 
@@ -153,7 +154,7 @@ class ColorPicker extends Component {
     return (
       <div className="element-holder">
 
-        <div>
+        <div style={{boxShadow: 'rgba(0, 0, 0, 0.15) 0px 0px 2px', background: 'rgba(61, 61, 61, 0.04)', padding:'1vw'}}>
           {/*<h2 style={{ textAlign: 'left' }} >Pick Color</h2>*/}
           <div style={{ display: "inline-block" }}>
             <div id="pickerCircle"

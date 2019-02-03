@@ -7,6 +7,8 @@ import { exportJSON } from '../utilities/ExportJSON'
 let mapStateToProps = (state) => { return { selected: state.SelectedColorReducer.selected } }
 let mapDispatchToProps = (dispatch) => { /*return bindActionCreators({ changeBaseColor: changeBaseColor }, dispatch)*/ }
 
+const exportJSONButtonStyle = {float: 'right', marginLeft: '18px', fontSize: '22px', lineHeight: '2' }
+
 const tryIds = ["try-background", "try-title", "try-header", "try-text", "try-button-primary",
             "try-button-primary-font", "try-button-secondary", "try-button-secondary-font", "try-button-success",
             "try-button-success-font", "try-button-info", "try-button-info-font", "try-button-danger", "try-button-danger-font"]
@@ -17,10 +19,6 @@ class TryIt extends Component {
     get initialState() {
         return {
             components: {
-                appBar: '#ffffff',
-                title: '#353535',
-                header: '#353535',
-                header2: '#353535',
                 background: '#ffffff',
                 primaryButton: '#ffffff',
                 secondaryButton: '#ffffff',
@@ -28,6 +26,8 @@ class TryIt extends Component {
                 dangerButton: '#ffffff',
                 infoButton: '#ffffff',
 
+                title: '#353535',
+                header: '#353535',
                 primaryButtonFont: '#353535',
                 secondaryButtonFont: '#353535',
                 successButtonFont: '#353535',
@@ -85,10 +85,12 @@ class TryIt extends Component {
         let selectedColor = this.getSelectedColor()
         let selectedColorFont = new Color(selectedColor, 0, 0, 'Hex').hsl.light > 50 ? 'black' : 'white'
 
-        return (
-            <div style={{ width: '450px',  /*background: '#f5f5f5',*/ }}>
+        let  componentsKeys = Object.keys(components)
 
-                <div style={{ width: '450px', display: 'inline-block', cursor: 'pointer' }}>
+        return (
+            <div style={{ width: '25vw', display: 'inline-block' /*background: '#f5f5f5',*/ }}>
+
+                <div style={{ width: '450px',  cursor: 'pointer' }}>
                     <Card style={{}} id="try-background"
                         onClick={(e) => this.setColor(e, 'background')}
                         style={{ backgroundColor: background, borderColor: '#b8b8b8' }}
@@ -115,7 +117,6 @@ class TryIt extends Component {
                             3. Have fun!
                             </p>
                         <br />
-                        <br /><br /> 
                         <div style={{ margin: '15px 0' }}>
                             <Button
                                 onClick={(e) => this.setColor(e, 'primaryButton')} id="try-button-primary"
@@ -146,6 +147,14 @@ class TryIt extends Component {
                             </Button>
                         </div>
                     </Card >
+                
+                <Icon type="export" style={exportJSONButtonStyle} onClick={() => exportJSON(components)} /> 
+                <h3> Applied Colors: </h3>
+                
+                <div style={{display:'flex', justifyContent:'start', flexWrap: 'wrap', overflow: 'auto'}}> 
+                {componentsKeys.map(key => 
+                    <div style={{padding:'0.4vw', backgroundColor: components[key], fontSize: '9pt', color: new Color(components[key], 0, 0, 'Hex').hsl.light > 50 ? 'black' : 'white' }}> { components[key] }</div>)}
+                </div>
                 </div>
 
             </div>

@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import Color from "../../../../utilities/Color";
+import HSLPaletteGenerator from "../../../../utilities/HSLPaletteGenerator";
+import {getChunks} from "../../../../utilities/ArrayMethods";
 import { selectColor } from '../../../../redux/SelectedColorReducer'
 import { exportJSON } from '../../../../utilities/ExportJSON'
 import { Label } from '../../../../components/Label'
@@ -15,7 +17,7 @@ const RadioGroup = Radio.Group;
 const padding = '8px'
 const selectedColorStyle = {padding: '2px 20px', textAlign: 'center', display: 'inline', fontSize: '14px', float:'right'}
 const selectedTileStyle = {}
-const tileStyle = {  padding: '0.5cm', display: 'inline-block', margin: '-2.5px 0'}
+const tileStyle = {  padding: '0.5cm'}
 const exportJSONButtonStyle = {float: 'right', marginLeft: '18px', fontSize: '22px', lineHeight: '2' }
 const reloadButtonStyle = {float: 'right', marginLeft: '18px', fontSize: '22px', lineHeight: '2'}
 
@@ -73,11 +75,8 @@ class HSLFilters extends Component {
   handleHueStepChange = value => this.setState({ hueStep: value, selectedPreset: 'None' })
   handleSatStepChange = value => this.setState({ satStep: value, selectedPreset: 'None' })
   handleLightStepChange = value => this.setState({ lightStep: value, selectedPreset: 'None' })
-  handleNumberOfColorsChange = e => {
-    let n = e.target.value
-    if ((n > 0 && n < 181) || (n == ''))
-      this.setState({ numberOfColors: n, selectedPreset: 'None' })
-  }
+  handleNumberOfColorsChange = n => this.setState({ numberOfColors: n, selectedPreset: 'None' })
+  
   getSliderInput = (value, onChange, min, max, label) => 
   <div> <Label title={label} /> 
     <Slider min={min} max={max} onChange={onChange} value={value} style={{ width: '120px', display:'inline-block', verticalAlign:'bottom' }}/> 
@@ -103,27 +102,22 @@ class HSLFilters extends Component {
     this.setState({ clickedColor: index })
     this.props.selectColor(hex)
   }
-  getTilesRow = (hue, sat, light, rowNumber, numberOfColors) => {
-    const { hueChange, satChange, lightChange, hueStep, satStep, lightStep,  clickedColor } = this.state
-    let anyColor = new Color(0, 0, 0, 'RGB')
-    return Array.apply(null, { length: numberOfColors }).map((el, index) => {
-      index = index + numberOfColors*rowNumber
-      let h = (parseInt(hue) + (Math.floor(index/ hueStep) * hueChange) ) % 360
-      let s = (parseInt(sat) + (Math.floor(index / satStep) * satChange)) % 101
-      let l = (parseInt(light) + (Math.floor(index / lightStep) * lightChange)) % 101
-      let newColor = anyColor.HSLtoHex(h, s, l)
-      return (<div key={index} onClick={() => this.handleSelectColor(newColor, index  )} style={{ ...tileStyle, backgroundColor: newColor, borderRadius: clickedColor == index  ? '25px' : '0'}}/> ) } ) 
-  }
+  getTilesRow = (colors, rowNumber) => colors.map((color, index) => {
+      index = index + colors.length*rowNumber
+      return <div key={index + color} onClick={() => this.handleSelectColor(color, index  )} style={{ ...tileStyle, backgroundColor: color, borderRadius: this.state.clickedColor == index  ? '25px' : '0'}}/>  } ) 
+  
   getTiles = () => {
-    let {hue, sat, light}= this.props.baseColor.hsl;
-    let {numberOfColors, hueStep} = this.state
-    let isSplit = this.state.selectedPreset != 'None'
-      if(isSplit)
-      {
-        let numberOfRows = parseInt(numberOfColors)/parseInt(hueStep)
-        return Array.apply(null, { length: numberOfRows }).map((el, rowNumber) =>( <div style={{marginBottom:'8px'}} key={'presetgenerated' + rowNumber}>{this.getTilesRow(hue, sat, light, rowNumber, hueStep)} </div> ) )
-      }
-      else return this.getTilesRow(hue, sat, light, 0, numberOfColors)
+    const { hueChange, satChange, lightChange, hueStep, satStep, lightStep, selectedPreset, numberOfColors} = this.state
+    let palette = new HSLPaletteGenerator(this.props.baseColor, hueChange, satChange, lightChange, hueStep, satStep, lightStep, numberOfColors).palette
+    let splitter = selectedPreset != 'None' ? hueStep : numberOfColors
+    let rows = getChunks(palette, splitter)
+    let rowNumber = rows.length
+      if(rowNumber == 0)
+        return this.getTilesRow(rows[0], 0)
+      else 
+        return Array.apply(null, { length: rowNumber }).map(
+          (el, rowNumber) =>( <div style={{ padding:'8px 0', display: 'flex', justifyContent: 'center',flexWrap: 'wrap', justifyItems: 'flex-start'}} 
+          key={'presetgenerated' + rowNumber}>{this.getTilesRow(rows[rowNumber], rowNumber)} </div> ) )
     }
 
   render() {
@@ -133,7 +127,7 @@ class HSLFilters extends Component {
     let selectedColorFont = new Color(selectedColor, 0, 0, 'Hex').hsl.light > 50 ? 'black' : 'white'
 
     return (
-      <div style={{ width: '700px'}} className="element-holder">
+      <div style={{  width: '40vw', height:'100%'}} className="element-holder">
         <div>
           {/* PRESETS */}
           <div style={{ borderBottom: '1px solid #e8e8e8', padding: padding + ' 0' }} >
@@ -149,16 +143,15 @@ class HSLFilters extends Component {
                   {presets[selectedPreset].variations.map( (v, i)=> <Option key={'varOption' + selectedPreset + i} value={i}>Style {i}</Option> )}
                 </Select>
             </span>
-            
             }
           </div>
           {/* CHANGE FILTERS */}
-          <div style={{ borderBottom: '1px solid #e8e8e8', padding: padding + ' 0' }}>
+          <div style={{ borderBottom: '0px solid #e8e8e8', padding: padding + ' 0' }}>
             <div >
               <span style={{ float: 'right' }}>
-                {this.getSliderInput(hueStep, this.handleHueStepChange, 0, 100, 'Hue Step')}
-                {this.getSliderInput(satStep, this.handleSatStepChange, 0, 100, 'Saturation Step')}
-                {this.getSliderInput(lightStep, this.handleLightStepChange, 0, 100, 'Light Step')}
+                {this.getSliderInput(hueStep, this.handleHueStepChange, 1, 100, 'Hue Step')}
+                {this.getSliderInput(satStep, this.handleSatStepChange, 1, 100, 'Saturation Step')}
+                {this.getSliderInput(lightStep, this.handleLightStepChange, 1, 100, 'Light Step')}
               </span>
             </div>
             <div >
@@ -167,19 +160,20 @@ class HSLFilters extends Component {
                 {this.getSliderInput(lightChange, this.handleLightChange, 0, 100, 'Light Change')}
             </div>
           </div>
+          {/* GENERATED TILES */}
+          <div id="generated-colors" style={{ height: 'max-content', lineHeight: '1.45', height:"40vh", boxShadow: '0px 0px 2px #00000026', background: '#3d3d3d0a' }}> {this.getTiles()} </div>
+          <br/>
           {/* NUMBER OF COLORS, SELECTED COLOR VALUE, EXPORT JSON, RESET BUTTON */}
           <div style={{ padding: padding + ' 0' }}>
             <Icon type="export" style={exportJSONButtonStyle} onClick={this.exportJSON} /> <Icon type="reload" onClick={this.reset} style={reloadButtonStyle} />
-            <Label title="Number of Colors" style={{ marginLeft: '18px' }} />
-            <Input size="small" style={{ width: '60px', marginLeft: '18px' }} type="number" min="0" max='360' value={numberOfColors} onChange={this.handleNumberOfColorsChange} />
+            <div style={{display:'inline-block'}}> {this.getSliderInput(numberOfColors, this.handleNumberOfColorsChange, 6, 181, 'Number of Colors')} </div>
             {/* Selected Color Square */}
             <div style = {{...selectedColorStyle,backgroundColor: selectedColor,  color: selectedColorFont, border: '1px solid ' + selectedColorFont }}>
               {selectedColor} <ClipboardCopier value={selectedColor} />
             </div>
           </div>
         </div>
-        {/* GENERATED TILES */}
-        <div id="generated-colors" style={{ height: 'max-content', lineHeight: '1.45' }}> {this.getTiles()} </div>
+        
       </div >
     );
   }

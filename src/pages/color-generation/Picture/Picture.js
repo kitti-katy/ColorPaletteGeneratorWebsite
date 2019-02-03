@@ -12,8 +12,8 @@ class Picture extends Component {
             display: "inline-block",
             verticalAlign: "top",
             background: backgroundColor,
-            borderBottomLeftRadius: "15px",
-            borderTopLeftRadius: "15px",
+            borderBottomLeftRadius: "5px",
+            borderTopLeftRadius: "5px",
             padding: "48px",
             height: "840px"
           }}
@@ -25,8 +25,8 @@ class Picture extends Component {
             display: "inline-block",
             verticalAlign: "top",
             background: backgroundColor,
-            borderBottomRightRadius: "15px",
-            borderTopRightRadius: "15px",
+            borderBottomRightRadius: "5px",
+            borderTopRightRadius: "5px",
             padding: "48px",
             height: "840px"
           }}
