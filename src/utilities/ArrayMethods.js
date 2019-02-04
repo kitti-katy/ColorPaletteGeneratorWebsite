@@ -1,0 +1,2 @@
+// returns an array with subarrays of splitNumber size
+export let getChunks = (arr, splitNumber) => Array.apply(null, { length: arr.length/splitNumber }).map( (el, i) => arr.slice(i*splitNumber,i*splitNumber+splitNumber) )

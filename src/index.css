@@ -19,53 +19,6 @@ code {
     monospace;
 }
 
-#try-text:hover {
-  outline: 3px dotted red;
-}
-#try-header:hover {
-  outline: 3px dotted red;
-}
-#try-title:hover {
-  outline: 3px dotted red;
-}
-#try-title-background:hover {
-  outline: 3px dotted red;
-}
-#try-background:hover {
-  outline: 3px dotted red;
-}
-#try-button-primary:hover {
-  outline: 3px dotted red;
-}
-#try-button-primary-font:hover {
-  outline: 3px dotted red;
-}
-#try-button-secondary:hover {
-  outline: 3px dotted red;
-}
-#try-button-secondary-font:hover {
-  outline: 3px dotted red;
-}
-#try-button-success:hover {
-  outline: 3px dotted red;
-}
-#try-button-success-font:hover {
-  outline: 3px dotted red;
-}
-#try-button-info:hover {
-  outline: 3px dotted red;
-}
-#try-button-info-font:hover {
-  outline: 3px dotted red;
-}
-#try-button-danger:hover {
-  outline: 3px dotted red;
-}
-#try-button-danger-font:hover {
-  outline: 3px dotted red;
-}
-
-
 /* Color Picker */
 .numberPickerInput {
   width: 46px;
@@ -76,3 +29,4 @@ code {
     font-family: 'Source Code Pro', monospace;
     color:#3d3d3d;
 }
+
