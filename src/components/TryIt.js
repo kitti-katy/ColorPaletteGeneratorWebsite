@@ -88,7 +88,7 @@ class TryIt extends Component {
         let  componentsKeys = Object.keys(components)
 
         return (
-            <div style={{ width: '25vw', display: 'inline-block' /*background: '#f5f5f5',*/ }}>
+            <div style={{ width: '25vw', display: 'inline-block' /*background: '#f5f5f5',*/ }} className='element-holder'>
 
                 <div style={{ width: '450px',  cursor: 'pointer' }}>
                     <Card style={{}} id="try-background"
