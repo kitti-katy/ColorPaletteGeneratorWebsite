@@ -1,20 +1,17 @@
 import React, { Component } from "react";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
-import Grid from "@material-ui/core/Grid";
 import Color, { RGBtoHSL } from "../../../../utilities/Color";
 import { selectColor } from "../../../../redux/SelectedColorReducer";
 import { changeBaseColor } from "../../../../redux/BaseColorReducer";
 import { exportJSON } from "../../../../utilities/ExportJSON";
+import "./PictureUpload.css"
 
 let mapStateToProps = state => {
   return { baseColor: state.BaseColorReducer.baseColor };
 };
 let mapDispatchToProps = dispatch => {
-  return bindActionCreators(
-    { selectColor: selectColor, changeBaseColor: changeBaseColor },
-    dispatch
-  );
+  return bindActionCreators({ selectColor: selectColor, changeBaseColor: changeBaseColor }, dispatch);
 };
 
 class PictureUpload extends Component {
@@ -45,11 +42,7 @@ class PictureUpload extends Component {
     let pixelArray = ctx.getImageData(0, 0, img.width, img.height).data;
 
     // By Hue Version
-    let pushVersion1Function = (arr, n) => {
-      for (var i = 0; i < n; i++) {
-        arr.push({ totalHue: 0, totalSat: 0, totalLight: 0, number: 0 });
-      }
-    };
+    let pushVersion1Function = (arr, n) => { for (var i = 0; i < n; i++) { arr.push({ totalHue: 0, totalSat: 0, totalLight: 0, number: 0 }); } };
     let arr12Colors = [];
     let arr24Colors1 = [];
     let arr48Colors1 = [];
@@ -85,8 +78,7 @@ class PictureUpload extends Component {
     pushVersion2Function(arr72Colors2, 72);
     let version2Function = (hsl, arr, divider) => {
       let bucketNumber = hsl.hue != 0 ? Math.floor(hsl.hue / divider) : 0;
-      let bucket =
-        hsl.light > 50 ? arr[bucketNumber].light : arr[bucketNumber].dark;
+      let bucket = hsl.light > 50 ? arr[bucketNumber].light : arr[bucketNumber].dark;
       bucket.totalHue += hsl.hue;
       bucket.totalSat += hsl.sat;
       bucket.totalLight += hsl.light;
@@ -112,41 +104,20 @@ class PictureUpload extends Component {
     }
 
     // By Hue Version
-    let extractColorsFunction = obj =>
-      "hsl(" +
-      obj.totalHue / obj.number +
-      ", " +
-      obj.totalSat / obj.number +
-      "%, " +
-      obj.totalLight / obj.number +
-      "% )";
-    let generatedPalette1 = arr12Colors.map(extractColorsFunction);
-    let generatedPalette2 = arr24Colors1.map(extractColorsFunction);
-    let generatedPalette3 = arr48Colors1.map(extractColorsFunction);
-    let generatedPalette4 = arr72Colors1.map(extractColorsFunction);
+    let extractColorsFunction = obj => "hsl(" + obj.totalHue / obj.number + ", " + obj.totalSat / obj.number + "%, " + obj.totalLight / obj.number + "% )";
+    let palette1 = arr12Colors.map(extractColorsFunction);
+    let palette2 = arr24Colors1.map(extractColorsFunction);
+    let palette3 = arr48Colors1.map(extractColorsFunction);
+    let palette4 = arr72Colors1.map(extractColorsFunction);
 
     // By Hue and Light Version
     let extractColorsFunction2 = arr => {
       //looks better when dark goes first
       let darkLightArr = arr.map(obj => {
         let light = obj.light;
-        let lightStr =
-          "hsl(" +
-          light.totalHue / light.number +
-          ", " +
-          light.totalSat / light.number +
-          "%, " +
-          light.totalLight / light.number +
-          "% )";
+        let lightStr = "hsl(" + light.totalHue / light.number + ", " + light.totalSat / light.number + "%, " + light.totalLight / light.number + "% )";
         let dark = obj.dark;
-        let darkStr =
-          "hsl(" +
-          dark.totalHue / dark.number +
-          ", " +
-          dark.totalSat / dark.number +
-          "%, " +
-          dark.totalLight / dark.number +
-          "% )";
+        let darkStr = "hsl(" + dark.totalHue / dark.number + ", " + dark.totalSat / dark.number + "%, " + dark.totalLight / dark.number + "% )";
         return { dark: darkStr, light: lightStr };
       });
       let darks = darkLightArr.map(obj => obj.dark);
@@ -156,113 +127,58 @@ class PictureUpload extends Component {
       palette = palette.concat(lights);
       return palette;
     };
-    let generatedPalette5 = extractColorsFunction2(arr12Colors2);
-    let generatedPalette6 = extractColorsFunction2(arr24Colors2);
-    let generatedPalette7 = extractColorsFunction2(arr48Colors2);
-    let generatedPalette8 = extractColorsFunction2(arr72Colors2);
+    let palette5 = extractColorsFunction2(arr12Colors2);
+    let palette6 = extractColorsFunction2(arr24Colors2);
+    let palette7 = extractColorsFunction2(arr48Colors2);
+    let palette8 = extractColorsFunction2(arr72Colors2);
 
-    this.setState({
-      palette1: generatedPalette1,
-      palette2: generatedPalette2,
-      palette3: generatedPalette3,
-      palette4: generatedPalette4,
-      palette5: generatedPalette5,
-      palette6: generatedPalette6,
-      palette7: generatedPalette7,
-      palette8: generatedPalette8,
-      generated: true
-    });
+    this.setState({ palette1, palette2, palette3, palette4, palette5, palette6, palette7, palette8, generated: true });
   };
 
   handleImageChange = e => {
     e.preventDefault();
     let reader = new FileReader();
     let file = e.target.files[0];
-    reader.onloadend = () =>
-      this.setState({ image: file, imagePreviewUrl: reader.result });
+    reader.onloadend = () => this.setState({ image: file, imagePreviewUrl: reader.result });
     reader.readAsDataURL(file);
   };
 
   getTiles = palette => {
     let palettePieces = "";
-    if (palette.length != 0) {
-      palettePieces = palette.map(c => (
-        <div
-          style={{
-            padding: "15pt",
-            backgroundColor: c,
-            display: "inline-block"
-          }}
-        />
-      ));
-    }
+    if (palette.length != 0) { palettePieces = palette.map(c => <div className="picture-single-tile" style={{ backgroundColor: c }} />) }
     return palettePieces;
   };
 
   render() {
-    let { imagePreviewUrl } = this.state;
-    let $imagePreview = null;
-    if (imagePreviewUrl) {
-      $imagePreview = (
-        <img
-          id="uploaded-image"
-          src={imagePreviewUrl}
-          style={{ width: "400px" }}
-        />
-      );
-    } else {
-      $imagePreview = <span />;
-    }
+    const { palette1, palette2, palette3, palette4, palette5, palette6, palette7, palette8 } = this.state
 
-    let palettePieces1 = this.getTiles(this.state.palette1);
-    let palettePieces2 = this.getTiles(this.state.palette2);
-    let palettePieces3 = this.getTiles(this.state.palette3);
-    let palettePieces4 = this.getTiles(this.state.palette4);
-    let palettePieces5 = this.getTiles(this.state.palette5);
-    let palettePieces6 = this.getTiles(this.state.palette6);
-    let palettePieces7 = this.getTiles(this.state.palette7);
-    let palettePieces8 = this.getTiles(this.state.palette8);
+    const { imagePreviewUrl } = this.state;
+    let $imagePreview = null;
+    if (imagePreviewUrl) { $imagePreview = (<img id="uploaded-image" src={imagePreviewUrl} style={{ width: "400px" }} />); }
+    else { $imagePreview = <span />; }
 
     return (
-      <div className="previewComponent" style={{height:'100%' }}>
-        <div style={{ display: "inline-block", verticalAlign:'top' }}>
+      <div className="previewComponent" style={{ height: '100%' }}>
+        <div style={{ display: "inline-block", verticalAlign: 'top' }}>
           <h2>Please select an Image for Preview</h2>
           <form onSubmit={e => this.handleSubmit(e)}>
-            <input
-              className="fileInput"
-              type="file"
-              onChange={e => this.handleImageChange(e)}
-            />
-            <button
-              className="submitButton"
-              type="submit"
-              onClick={e => this.handleSubmit(e)}
-            >
-              Generate Palette
-            </button>
+            <input className="fileInput" type="file" onChange={e => this.handleImageChange(e)} />
+            <button className="submitButton" type="submit" onClick={e => this.handleSubmit(e)}> Generate Palette </button>
           </form>
           <br />
           <div className="imgPreview"> {$imagePreview} </div>
           <canvas id="canv" />
         </div>
         {this.state.generated && (
-          <div style={{ width: "400px", display: "inline-block", verticalAlign:'top', height:'100%', overflowY:'auto' }}>
-            <h3> Version 1 (12, by Hue) </h3>
-            <div> {palettePieces1} </div>
-            <h3> Version 2 (24, by Hue) </h3>
-            <div> {palettePieces2} </div>
-            <h3> Version 3 (48, by Hue) </h3>
-            <div> {palettePieces3} </div>
-            <h3> Version 4 (72, by Hue) </h3>
-            <div> {palettePieces4} </div>
-            <h3> Version 5 (12, by Hue and Light) </h3>
-            <div> {palettePieces5} </div>
-            <h3> Version 6 (24, by Hue and Light) </h3>
-            <div> {palettePieces6} </div>
-            <h3> Version 7 (48, by Hue and Light) </h3>
-            <div> {palettePieces7} </div>
-            <h3> Version 8 (72, by Hue and Light) </h3>
-            <div> {palettePieces8} </div>
+          <div id="generated-palettes-holder">
+            <h3> Version 1 (12, by Hue) </h3> <div> {this.getTiles(palette1)} </div>
+            <h3> Version 2 (24, by Hue) </h3> <div> {this.getTiles(palette2)} </div>
+            <h3> Version 3 (48, by Hue) </h3> <div> {this.getTiles(palette3)} </div>
+            <h3> Version 4 (72, by Hue) </h3> <div> {this.getTiles(palette4)} </div>
+            <h3> Version 5 (12, by Hue and Light) </h3> <div> {this.getTiles(palette5)} </div>
+            <h3> Version 6 (24, by Hue and Light) </h3> <div> {this.getTiles(palette6)} </div>
+            <h3> Version 7 (48, by Hue and Light) </h3> <div> {this.getTiles(palette7)} </div>
+            <h3> Version 8 (72, by Hue and Light) </h3> <div> {this.getTiles(palette8)} </div>
           </div>
         )}
       </div>
@@ -270,7 +186,4 @@ class PictureUpload extends Component {
   }
 }
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(PictureUpload);
+export default connect(mapStateToProps, mapDispatchToProps)(PictureUpload);
