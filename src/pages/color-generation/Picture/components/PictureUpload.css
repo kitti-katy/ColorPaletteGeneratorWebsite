@@ -1,0 +1,11 @@
+#generated-palettes-holder {
+    width: 400px; 
+    display: inline-block; 
+    vertical-align: top; 
+    height: 100%; 
+    overflow-y: auto
+}
+.picture-single-tile { 
+    padding: 15pt; 
+    display: inline-block;
+}
