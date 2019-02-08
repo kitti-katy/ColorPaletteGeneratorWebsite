@@ -1,0 +1,32 @@
+/* COMMON */
+.vertical-padding {
+    padding: 8px 0;
+}
+.bottom-bordered {
+    border-bottom: 1px solid #e8e8e8; padding: 6px 0;
+}
+
+/* SINGLE COMPONENTS */
+#hsl-filters-holder {
+    width: 40vw;
+    height: 100%;
+}
+.export-json-btn {
+    float: right; 
+    margin-left: 18px; 
+    font-size: 22px; 
+    line-height: 2;
+}
+#selected-color-panel {
+    padding: 2px 20px; 
+    text-align: center;
+    /* display: inline; */
+    font-size: 14px;
+    float: right;
+}
+#reset-btn {
+    float: right; 
+    margin-left: 18px; 
+    font-size: 22px; 
+    line-height: 2;
+}
