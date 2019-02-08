@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import Color from "../../../../utilities/Color";
-import HSLPaletteGenerator from "../../../../utilities/HSLPaletteGenerator";
+import HSLPaletteGenerator, {getAdvancedPalette} from "../../../../utilities/HSLPaletteGenerator";
 import {getChunks} from "../../../../utilities/ArrayMethods";
 import { selectColor } from '../../../../redux/SelectedColorReducer'
 import { exportJSON } from '../../../../utilities/ExportJSON'
@@ -14,7 +14,7 @@ import { Radio } from 'antd';
 const Option = Select.Option;
 
 const RadioGroup = Radio.Group;
-const padding = '8px'
+const padding = '6px'
 const selectedColorStyle = {padding: '2px 20px', textAlign: 'center', display: 'inline', fontSize: '14px', float:'right'}
 const selectedTileStyle = {}
 const tileStyle = {  padding: '0.5cm'}
@@ -39,9 +39,9 @@ let mapDispatchToProps = (dispatch) => { return bindActionCreators({ selectColor
 
 class HSLFilters extends Component {
   state = {
-    hueChange: 10, satChange: 0, lightChange: 8,
-    hueStep: 10, satStep: 1, lightStep: 1,
-    numberOfColors: 126,
+    hueChange: 27, satChange: 0, lightChange: 50,
+    hueStep: 1, satStep: 1, lightStep: 2,
+    numberOfColors: 72,
     clickedColor: 0,
     selectedPreset: 'None',
     selectedVariation: 0
@@ -78,15 +78,15 @@ class HSLFilters extends Component {
   handleNumberOfColorsChange = n => this.setState({ numberOfColors: n, selectedPreset: 'None' })
   
   getSliderInput = (value, onChange, min, max, label) => 
-  <div> <Label title={label} /> 
+  <div> <Label title={label} labelStyle={{fontWeight:'bold'}}/> 
     <Slider min={min} max={max} onChange={onChange} value={value} style={{ width: '120px', display:'inline-block', verticalAlign:'bottom' }}/> 
-    <input type='number' style={{ width: '40px', border:'none', backgroundColor:'transparent', marginLeft:'6px' }} min={min} max={max} onChange={(e) => onChange(e.target.value)} value={value}/>
+    <input type='number' style={{ width: '40px', border:'none', backgroundColor:'transparent', marginLeft:'6px', fontWeight:'bold' }} min={min} max={max} onChange={(e) => onChange(e.target.value)} value={value}/>
   </div>
 
   // EXPORT JSON, RESET BUTTONS HANDLERS
   reset = () => {
     this.setState({ selectedPreset: 'None' })
-    this.setFilters(10, 0, 8, 1, 1, 1, 126)
+    this.setFilters(27, 0, 50, 2, 1, 1, 72)
   }
   exportJSON = () => {
     let colorElements = document.getElementById("generated-colors").getElementsByTagName("div")
@@ -122,7 +122,7 @@ class HSLFilters extends Component {
 
   render() {
     const { hueChange, satChange, lightChange, hueStep, satStep, lightStep, selectedPreset, numberOfColors, clickedColor, selectedVariation } = this.state
-
+    console.log(getAdvancedPalette (this.props.baseColor, 12, 5, 5, 0,0) )
     let selectedColor = this.props.selected
     let selectedColorFont = new Color(selectedColor, 0, 0, 'Hex').hsl.light > 50 ? 'black' : 'white'
 
@@ -146,7 +146,7 @@ class HSLFilters extends Component {
             }
           </div>
           {/* CHANGE FILTERS */}
-          <div style={{ borderBottom: '0px solid #e8e8e8', padding: padding + ' 0' }}>
+          <div style={{ borderBottom: '1px solid #e8e8e8', padding: padding + ' 0' }}>
             <div >
               <span style={{ float: 'right' }}>
                 {this.getSliderInput(hueStep, this.handleHueStepChange, 1, 100, 'Hue Step')}
@@ -160,9 +160,6 @@ class HSLFilters extends Component {
                 {this.getSliderInput(lightChange, this.handleLightChange, 0, 100, 'Light Change')}
             </div>
           </div>
-          {/* GENERATED TILES */}
-          <div id="generated-colors" style={{ height: 'max-content', lineHeight: '1.45', height:"40vh", boxShadow: '0px 0px 2px #00000026', background: '#3d3d3d0a' }}> {this.getTiles()} </div>
-          <br/>
           {/* NUMBER OF COLORS, SELECTED COLOR VALUE, EXPORT JSON, RESET BUTTON */}
           <div style={{ padding: padding + ' 0' }}>
             <Icon type="export" style={exportJSONButtonStyle} onClick={this.exportJSON} /> <Icon type="reload" onClick={this.reset} style={reloadButtonStyle} />
@@ -172,6 +169,8 @@ class HSLFilters extends Component {
               {selectedColor} <ClipboardCopier value={selectedColor} />
             </div>
           </div>
+          {/* GENERATED TILES */}
+          <div id="generated-colors" style={{ height: 'max-content', lineHeight: '1.45', height:"40vh", boxShadow: '0px 0px 2px #00000026', background: '#3d3d3d0a' }}> {this.getTiles()} </div>
         </div>
         
       </div >

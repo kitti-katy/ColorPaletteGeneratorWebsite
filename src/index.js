@@ -8,6 +8,10 @@ import { Provider } from "react-redux";
 import { createStore, applyMiddleware, compose } from "redux";
 import rootReducer from "./redux/index";
 import { BrowserRouter } from "react-router-dom";
+import 'primereact/resources/themes/nova-light/theme.css';
+import 'primereact/resources/primereact.min.css';
+import 'primeicons/primeicons.css';
+
 
 
 import Firebase, { FirebaseContext } from './firebase';

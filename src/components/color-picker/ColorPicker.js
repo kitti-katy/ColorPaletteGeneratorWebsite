@@ -21,8 +21,8 @@ class ColorPicker extends Component {
     pickerCirclePositionY: 0,
     saturationRectPositionY: 0,
 
-    selectedColor: new Color(200, 20, 50, 'HSL'),
-    hexValue: new Color(200, 20, 50, 'HSL').HEXString.substring(1)
+    selectedColor: new Color('#edb407', 0, 0, 'Hex'),
+    hexValue: 'edb407'
   };
   componentDidMount = () => {
     this.generateMainCanvas(this.props.baseColor);

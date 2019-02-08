@@ -1,8 +1,10 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { Card, Button, Icon } from 'antd';
+import { Card, Icon } from 'antd';
 import Color from '../utilities/Color'
-import { exportJSON } from '../utilities/ExportJSON'
+import { exportJSON } from '../utilities/ExportJSON';
+import {Button} from 'primereact/button';
+
 
 let mapStateToProps = (state) => { return { selected: state.SelectedColorReducer.selected } }
 let mapDispatchToProps = (dispatch) => { /*return bindActionCreators({ changeBaseColor: changeBaseColor }, dispatch)*/ }
@@ -11,6 +13,7 @@ const exportJSONButtonStyle = {float: 'right', marginLeft: '18px', fontSize: '22
 
 const tryIds = ["try-background", "try-title", "try-header", "try-text", "try-button-primary",
             "try-button-primary-font", "try-button-secondary", "try-button-secondary-font", "try-button-success",
+            "try-button-warning-font", "try-button-warning",
             "try-button-success-font", "try-button-info", "try-button-info-font", "try-button-danger", "try-button-danger-font"]
 const hoverStyle = '3px dotted red'
 
@@ -23,6 +26,7 @@ class TryIt extends Component {
                 primaryButton: '#ffffff',
                 secondaryButton: '#ffffff',
                 successButton: '#ffffff',
+                warningButton: '#ffffff',
                 dangerButton: '#ffffff',
                 infoButton: '#ffffff',
 
@@ -32,6 +36,7 @@ class TryIt extends Component {
                 secondaryButtonFont: '#353535',
                 successButtonFont: '#353535',
                 dangerButtonFont: '#353535',
+                warningButtonFont: '#353535',
                 infoButtonFont: '#353535',
                 paragraph: '#353535',
             }
@@ -75,12 +80,15 @@ class TryIt extends Component {
     // selectedColor when passed from a compononent
     getSelectedColor = () => this.props.selectedColor!=null ? this.props.selectedColor : this.props.selected
 
+    getTryButton = (component, id, background, font, text) =>  <Button
+        onClick={(e) => this.setColor(e, component)} id={id} style={{ backgroundColor: background, color: font, marginRight:'16px', borderColor:'transparent' }}
+        label={<div onClick={(e) => this.setColor(e, component +'Font')} id={id + "-font"}>{text} </div>}/>
 
     render() {
         let components = this.state.components
         const { appBar, title, header, header2,
             background, primaryButton, secondaryButton, successButton,
-            dangerButton, infoButton, primaryButtonFont,
+            dangerButton, infoButton, primaryButtonFont, warningButton, warningButtonFont,
             secondaryButtonFont, successButtonFont, dangerButtonFont, infoButtonFont, paragraph } = components
         let selectedColor = this.getSelectedColor()
         let selectedColorFont = new Color(selectedColor, 0, 0, 'Hex').hsl.light > 50 ? 'black' : 'white'
@@ -88,7 +96,7 @@ class TryIt extends Component {
         let  componentsKeys = Object.keys(components)
 
         return (
-            <div style={{ width: '25vw', display: 'inline-block' /*background: '#f5f5f5',*/ }} className='element-holder'>
+            <div style={{ width: '25vw', display: 'inline-block',position:'fixed' /*background: '#f5f5f5',*/ }} className='element-holder'>
 
                 <div style={{ width: '450px',  cursor: 'pointer' }}>
                     <Card style={{}} id="try-background"
@@ -98,53 +106,28 @@ class TryIt extends Component {
                         >
 
                         <h2 style={{ color: title, fontFamily: "'Lora', serif", borderBottom: '1px solid #e8e8e8', paddingBottom: '12px'}}>
-                            <span id="try-title" onClick={(e) => this.setColor(e, 'title')}   >Title </span>
-                            <Button style={{ float: 'right' }} onClick={this.reset}> <Icon type="reload" />  </Button>
+                            <span id="try-title" onClick={(e) => this.setColor(e, 'title')}>Title </span>
+                            <Button style={{ float: 'right' }} onClick={this.reset} label={<Icon type="reload" />}/> 
                         </h2>
                         <br />
-                        <h2    style={{ color: header, fontFamily: "'Lora', serif" }} id="try-header" onClick={(e) => this.setColor(e, 'header')}> Header </h2>
-                        <p   
-                        id="try-text"
-                            style={{ color: paragraph, fontFamily: "'Nanum Gothic', sans-serif", lineHeight: '2' }}
-                            onClick={(e) => this.setColor(e, 'paragraph')}>
-                            Click here to apply the colors and see how it will look.
-                        <br />
-                            <br />
-                            1. Pick a base color; <br />
-                            2. Apply HSL Filters: For every consecutive color choose Hue, Saturation and Light changes.
-                            Change step values to specify how frequently the change will be applied (e.g. hue value will change every 2nd square);
-                           <br />
-                            3. Have fun!
-                            </p>
+                        <h2 style={{ color: header, fontFamily: "'Lora', serif" }} id="try-header" onClick={(e) => this.setColor(e, 'header')}> Header </h2>
+                        <p id="try-text" onClick={(e) => this.setColor(e, 'paragraph')} style={{ color: paragraph, fontFamily: "'Nanum Gothic', sans-serif", lineHeight: '2' }}>
+                           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
+                            Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
+                            <br /><br />
+                            Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. 
+                            Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                           </p>
                         <br />
                         <div style={{ margin: '15px 0' }}>
-                            <Button
-                                onClick={(e) => this.setColor(e, 'primaryButton')} id="try-button-primary"
-                                style={{ backgroundColor: primaryButton, color: primaryButtonFont }}>
-                                <div    onClick={(e) => this.setColor(e, 'primaryButtonFont')} onMouseOver={(e) => e.stopPropagation()} id="try-button-primary-font">Primary </div>
-                            </Button>
-                            <Button
-                                id="try-button-secondary" onClick={(e) => this.setColor(e, 'secondaryButton')}
-                                style={{ backgroundColor: secondaryButton, color: secondaryButtonFont, marginLeft: '15px' }}>
-                                <div   onClick={(e) => this.setColor(e, 'secondaryButtonFont')} id="try-button-secondary-font"> Secondary</div>
-                            </Button>
+                            {this.getTryButton('primaryButton', "try-button-primary", primaryButton, primaryButtonFont, 'Primary')}
+                            {this.getTryButton('secondaryButton', "try-button-secondary", secondaryButton, secondaryButtonFont, 'Secondary')}
                         </div>
                         <div style={{ margin: '15px 0' }}>
-                            <Button
-                                onClick={(e) => this.setColor(e, 'successButton')} id="try-button-success"
-                                style={{ backgroundColor: successButton, color: successButtonFont }}>
-                                <div   onClick={(e) => this.setColor(e, 'successButtonFont')} id="try-button-success-font"><Icon type="check-circle" /> Success</div>
-                            </Button>
-                            <Button
-                                onClick={(e) => this.setColor(e, 'infoButton')}
-                                id="try-button-info" style={{ backgroundColor: infoButton, color: infoButtonFont, marginLeft: '15px' }}>
-                                <div   onClick={(e) => this.setColor(e, 'infoButtonFont')} id="try-button-info-font"><Icon type="info-circle" /> Info</div>
-                            </Button>
-                            <Button
-                                onClick={(e) => this.setColor(e, 'dangerButton')}
-                                id="try-button-danger" style={{ backgroundColor: dangerButton, color: dangerButtonFont, marginLeft: '15px' }}>
-                                <div   onClick={(e) => this.setColor(e, 'dangerButtonFont')} id="try-button-danger-font"><Icon type="warning" /> Danger</div>
-                            </Button>
+                            {this.getTryButton('successButton', "try-button-success", successButton, successButtonFont, 'Success')}
+                            {this.getTryButton('infoButton', "try-button-info", infoButton, infoButtonFont, 'Info')}
+                            {this.getTryButton('warningButton', "try-button-warning", warningButton, warningButtonFont, 'Warning')}
+                            {this.getTryButton('dangerButton', "try-button-danger", dangerButton, dangerButtonFont, 'Danger')}
                         </div>
                     </Card >
                 
