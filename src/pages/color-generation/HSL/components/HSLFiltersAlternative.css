@@ -1,0 +1,17 @@
+.slider-label { 
+    font-weight: bold
+}
+
+.single-tile {
+    padding: 10pt; 
+    display: inline-block;
+}
+.selected-tile {
+    border-radius:50%
+}
+
+.level-1-holder{ 
+    /*border: '3px solid ' + satArr[0][0].HEXString,*/ 
+    padding: 4px; 
+    display: inline-block;
+}

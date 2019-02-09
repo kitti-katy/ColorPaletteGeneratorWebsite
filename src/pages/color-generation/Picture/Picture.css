@@ -1,0 +1,23 @@
+#picture-page { 
+    display: inline-block; 
+    margin: auto; 
+}
+#picture-upload-section{
+    display: inline-block;
+    vertical-align: top;
+    background: #f0f0f0;
+    border-bottom-left-radius: 5px;
+    border-top-left-radius: 5px;
+    padding: 48px;
+    height: 840px;
+  }
+
+#picture-try-it{
+    display: inline-block;
+    vertical-align: top;
+    background: #f0f0f0;
+    border-bottom-left-radius: 5px;
+    border-top-left-radius: 5px;
+    padding: 48px;
+    height: 840px;
+  }

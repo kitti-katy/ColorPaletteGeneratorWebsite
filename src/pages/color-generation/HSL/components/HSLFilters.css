@@ -1,0 +1,57 @@
+
+
+/* FILTERS */
+#number-of-colors-input{
+    display:inline-block;
+}
+
+
+/* PRESETS */
+#presets-group {
+    display: inline-flex;
+}
+#select-preset-style {
+    float: right;
+    width: 120;
+}
+
+/* TILES */
+#generated-tiles{
+    height: max-content; 
+    line-height: 1.45; 
+    height: 40vh;
+    box-shadow: 0px 0px 2px #00000026;
+    background: #3d3d3d0a;
+}
+.tiles-row {
+    padding: 8px 0;
+    display: flex; 
+    justify-content: center;
+    flex-wrap: wrap; 
+    justify-items: flex-start;
+} 
+.single-tile {
+    padding: 0.5cm
+}
+.selected-tile {
+    border-radius:50%
+}
+
+
+
+/* SLIDER */
+.slider-input { 
+    width: 120px; 
+    display: inline-block; 
+    vertical-align: bottom;
+}
+.slider-input-txt { 
+    width: 40px; 
+    border: none; 
+    background-color: transparent;
+    margin-left: 6px;
+    font-weight: bold;
+}
+.slider-label { 
+    font-weight: bold
+}
