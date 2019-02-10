@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import ColorPicker from "../../../components/color-picker/ColorPicker";
 import GeneratedColors from "./components/GeneratedColors";
-import TryIt from "../../../components/TryIt";
+import TryIt from "../../../components/TryIt/TryIt";
 import { connect } from "react-redux";
 
 let mapStateToProps = (state) => { return { baseColor: state.BaseColorReducer.baseColor } }

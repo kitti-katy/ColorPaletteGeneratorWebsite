@@ -1,0 +1,9 @@
+.main-holder {
+    display: inline-block; 
+    vertical-align: top; 
+    background: #f0f0f0; 
+    padding: 1.2vw;
+    box-shadow: #00000059 1px 1px 10px 1px; 
+    width: 100%;
+    height: max-content;
+  }

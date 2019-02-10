@@ -7,7 +7,7 @@ import { selectColor } from '../../../../redux/SelectedColorReducer'
 import { exportJSON } from '../../../../utilities/ExportJSON'
 import { Label } from '../../../../components/Label'
 import { ClipboardCopier } from '../../../../components/ClipboardCopier'
-import { Icon, Slider } from 'antd';
+import { Icon, Slider, Tooltip } from 'antd';
 import './HSLFiltersAlternative.css'
 import './HSLFiltersCommon.css'
 
@@ -78,17 +78,20 @@ class HSLFiltersAlternative extends Component {
           <Label title={'Number Of Lights'} className="slider-label" />
           <Slider marks={this.state.satLightDivisors} step={null} defaultValue={5} max={20} min={2} onChange={this.handleLightSliderChange} />
 
-          <div className="vertical-padding bottom-bordered"></div>
+
 
           {/* SELECTED COLOR VALUE, EXPORT JSON */}
           <div className="vertical-padding">
             {/* ExportJSON */}
-            <Icon type="export" className="export-json-btn" onClick={this.handleExportJSON_ButtonClick} />
+            <Tooltip placement="top" title={"Export JSON"}>
+              <Icon type="export" className="export-json-btn" onClick={this.handleExportJSON_ButtonClick} />
+            </Tooltip>
             {/* Selected Color Panel */}
             <div id="selected-color-panel" style={{ backgroundColor: selectedColor, color: selectedColorFont, border: '1px solid ' + selectedColorFont }}>
               {selectedColor} <ClipboardCopier value={selectedColor} />
             </div>
           </div>
+          <div className="vertical-padding bottom-bordered"></div>
           {/* GENERATED TILES */}
           <div>
             {palette.map(satArr =>
@@ -98,7 +101,9 @@ class HSLFiltersAlternative extends Component {
                     {lightArr.map(lightColor => {
                       let color = lightColor.HEXString
                       let isSelected = this.state.selectedColorId == color
-                      return <div id={color} className={"single-tile" + isSelected ? 'selected-tile' : ''} style={{ background: color }} onClick={() => this.handleSelectColor(color, color)} />
+                      return <div key={color} id={color}
+                        className={"single-tile-basic " + (isSelected ? 'selected-tile' : '')} style={{ background: color }}
+                        onClick={() => this.handleSelectColor(color, color)} />
                     }
                     )}
                   </div>
