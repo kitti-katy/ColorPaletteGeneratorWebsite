@@ -87,9 +87,9 @@ class HSLFilters extends Component {
 
   // SLIDER INPUT
   getSliderInput = (value, onChange, min, max, label) =>
-    <div> <Label class="slider-label" title={label} />
-      <Slider class="slider-input" min={min} max={max} onChange={onChange} value={value} />
-      <input class="slider-input-txt" type='number' min={min} max={max} onChange={(e) => onChange(e.target.value)} value={value} />
+    <div> <Label className="slider-label" title={label} />
+      <Slider className="slider-input" min={min} max={max} onChange={onChange} value={value} />
+      <input className="slider-input-txt" type='number' min={min} max={max} onChange={(e) => onChange(e.target.value)} value={value} />
     </div>
 
   // TILES PART
@@ -99,7 +99,7 @@ class HSLFilters extends Component {
   }
   getTilesRow = (colors, rowNumber) => colors.map((color, index) => {
     index = index + colors.length * rowNumber
-    return <div className={"single-tile" + this.state.clickedColor == index ? 'selected-tile' : ''} onClick={() => this.handleSelectColor(color, index)} style={{ backgroundColor: color }} key={index + color} />
+    return <div className={"single-tile " + (this.state.clickedColor == index ? 'selected-tile' : '')} onClick={() => this.handleSelectColor(color, index)} style={{ backgroundColor: color }} key={index + color} />
   })
   getTiles = () => {
     const { hueChange, satChange, lightChange, hueStep, satStep, lightStep, selectedPreset, numberOfColors } = this.state
@@ -110,7 +110,7 @@ class HSLFilters extends Component {
     if (rowNumber == 0)
       return this.getTilesRow(rows[0], 0)
     else
-      return Array.apply(null, { length: rowNumber }).map((el, rowNumber) => (<div class="tiles-row" key={'presetgenerated' + rowNumber}>{this.getTilesRow(rows[rowNumber], rowNumber)} </div>))
+      return Array.apply(null, { length: rowNumber }).map((el, rowNumber) => (<div className="tiles-row" key={'presetgenerated' + rowNumber}>{this.getTilesRow(rows[rowNumber], rowNumber)} </div>))
   }
 
   render() {
@@ -156,7 +156,7 @@ class HSLFilters extends Component {
           </div>
 
           {/* NUMBER OF COLORS, SELECTED COLOR VALUE, EXPORT JSON, RESET BUTTON */}
-          <div className="vertical-padding">
+          <div className="vertical-padding bottom-bordered">
             {/* ExportJSON */}
             <Icon type="export" className="export-json-btn" onClick={this.handleExportJSON_ButtonClick} />
             {/* Reset */}

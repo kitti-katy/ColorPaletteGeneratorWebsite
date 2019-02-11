@@ -1,15 +1,6 @@
-#HSL-page-container {
-    display: inline-block; 
-    margin: auto; 
-    vertical-align: top; 
-    background: #f0f0f0; 
-    padding: 1.2vw;
-    border-bottom-left-radius: 5px; 
-    border-top-left-radius: 5px;
-    box-shadow: #00000059 1px 1px 10px 1px; 
-    width: 100vw;
+.HSL-page-container{
+    display: flex
 }
-
 #HSL-mode-select { 
     width: 120;
     float: right
@@ -32,4 +23,5 @@
     display: inline-block; 
     vertical-align: top;
     padding: 0 48px; 
+    width: 25vw;
 }

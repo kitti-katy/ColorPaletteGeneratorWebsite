@@ -4,9 +4,9 @@ import Custom from '../pages/color-generation/Custom/Custom'
 import Picture from '../pages/color-generation/Picture/Picture'
 import Community from '../pages/community/Community'
 import React from "react";
-
+import "../Common.css"
 export const Main = () => (
-  <main style={{display:'grid'}}>
+  <main style={{display:'grid'}} className="main-holder">
     <Switch>
       <Route exact path='/generate/hsl' component={HSL}/>
       <Route path='/generate/custom' component={Custom}/>

@@ -5,8 +5,8 @@ class HSLPaletteGenerator {
       let {hue, sat, light} = baseColor.hsl;
       this._palette = Array.apply(null, { length: numberOfColors }).map((el, index) => {
         let h = (parseInt(hue) + (Math.floor(index/ hueStep) * hueChange) ) % 360
-        let s = (parseInt(sat) + (Math.floor(index / satStep) * satChange)) % 101
-        let l = (parseInt(light) + (Math.floor(index / lightStep) * lightChange)) % 101
+        let s = (parseInt(sat) + (Math.floor(index / satStep) * satChange)) % 100
+        let l = (parseInt(light) + (Math.floor(index / lightStep) * lightChange)) % 100
         return new Color(h, s, l, 'HSL').HEXString
     } )
   }

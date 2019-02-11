@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import TryIt from "../../../components/TryIt";
+import TryIt from "../../../components/TryIt/TryIt";
 import PictureUpload from "./components/PictureUpload";
 import "./Picture.css"
 
