@@ -98,8 +98,8 @@ class TryIt extends Component {
 
         return (
             <div className="element-holder">
-                <div style={{ position: 'fixed' }}>
-                <h3 style={{fontWeight:'bold'}}>Apply Selected Color <Icon type="arrow-down" /></h3>
+                <div id="try-colors-container" style={{ position: 'fixed' }}>
+                    <h3 style={{ fontWeight: 'bold' }}>Apply Selected Color <Icon type="arrow-down" /></h3>
                     <div style={{ width: '450px', cursor: 'pointer' }}>
                         <Card style={{}} id="try-background"
                             onClick={(e) => this.setColor(e, 'background')}
@@ -136,9 +136,12 @@ class TryIt extends Component {
                         <Icon type="export" style={exportJSONButtonStyle} onClick={() => exportJSON(components)} />
                         <h3> Applied Colors: </h3>
 
-                        <div style={{ display: 'flex', justifyContent: 'start', flexWrap: 'wrap', overflow: 'auto' }}>
+                        <div className="applied-colors-container">
                             {componentsKeys.map(key =>
-                                <div style={{ padding: '0.4vw', backgroundColor: components[key], fontSize: '9pt', color: new Color(components[key], 0, 0, 'Hex').hsl.light > 50 ? 'black' : 'white' }}> {components[key]}</div>)}
+                                <div className="applied-color"
+                                    style={{ backgroundColor: components[key], color: new Color(components[key], 0, 0, 'Hex').hsl.light > 50 ? 'black' : 'white' }}>
+                                    {components[key]}
+                                </div>)}
                         </div>
                     </div>
                 </div>

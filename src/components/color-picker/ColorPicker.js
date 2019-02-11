@@ -172,31 +172,28 @@ class ColorPicker extends Component {
             <canvas id="saturation-canvas-color-picker" height="200" width="10" />
           </div>
 
-          <div style={{ display: 'grid', justifyContent: 'space-between' }}>
-            <div style={{ width: '400px' }}>
-              <div className="input-boxes">
-                <div> <Label title="H" />{this.getNumberPickerInput('H', 359, hue, this.setFromHue)} </div>
-                <div> <Label title="S" />{this.getNumberPickerInput('S', 100, sat, this.setFromSat)} </div>
-                <div> <Label title="L" />{this.getNumberPickerInput('L', 100, light, this.setFromLight)} </div>
-              </div>
-
-              <div className="input-boxes">
-                <div> <Label title="R" />{this.getNumberPickerInput('R', 255, r, this.setFromRed)}</div>
-                <div> <Label title="G" />{this.getNumberPickerInput('G', 255, g, this.setFromGreen)}</div>
-                <div> <Label title="B" />{this.getNumberPickerInput('B', 255, b, this.setFromBlue)} </div>
-              </div>
-
-              <div style={{ display: 'inline-block', verticalAlign: 'top', margin: '0px', width: '152px' }}>
-                <div id='picked-color' style={{ backgroundColor: hexString }} />
-                <div id='hex-intput'>
-                  <Label title="Hex #" />
-                  <Input id='hex-intput-txt-box' size="small"  style={{ width: "82px" }} type="text" id="Hex" value={this.state.hexValue} onChange={this.setFromHex} />
-                </div>
-              </div>
-
+          <div id="color-inputs-container">
+            <div className="input-boxes">
+              <div> <Label title="H" />{this.getNumberPickerInput('H', 359, hue, this.setFromHue)} </div>
+              <div> <Label title="S" />{this.getNumberPickerInput('S', 100, sat, this.setFromSat)} </div>
+              <div> <Label title="L" />{this.getNumberPickerInput('L', 100, light, this.setFromLight)} </div>
             </div>
-          </div>
 
+            <div className="input-boxes">
+              <div> <Label title="R" />{this.getNumberPickerInput('R', 255, r, this.setFromRed)}</div>
+              <div> <Label title="G" />{this.getNumberPickerInput('G', 255, g, this.setFromGreen)}</div>
+              <div> <Label title="B" />{this.getNumberPickerInput('B', 255, b, this.setFromBlue)} </div>
+            </div>
+
+            <div style={{ display: 'inline-block', verticalAlign: 'top', margin: '0px', width: '152px' }}>
+              <div id='picked-color' style={{ backgroundColor: hexString }} />
+              <div id='hex-intput'>
+                <Label title="Hex #" />
+                <Input id='hex-intput-txt-box' size="small" style={{ width: "82px" }} type="text" id="Hex" value={this.state.hexValue} onChange={this.setFromHex} />
+              </div>
+            </div>
+
+          </div>
         </div>
       </div>
     );

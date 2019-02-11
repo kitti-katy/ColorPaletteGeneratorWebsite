@@ -56,3 +56,9 @@
 #hex-intput-txt-box{ 
     width: 82px; 
 }
+
+#color-inputs-container{
+    width: 400px;
+  /*  display: grid; */
+   /* justify-content: space-between;*/
+}
