@@ -76,12 +76,12 @@ class HSLFiltersAlternative extends Component {
           <Slider marks={this.state.satLightDivisors} step={null} defaultValue={5} max={20} min={2} onChange={this.handleSatSliderChange} />
           {/* Light */}
           <Label title={'Number Of Lights'} className="slider-label" />
-          <Slider marks={this.state.satLightDivisors} step={null} defaultValue={5} max={20} min={2} onChange={this.handleLightSliderChange} />
+          <Slider marks={this.state.satLightDivisors} step={null} defaultValue={5} max={20} min={2} onChange={this.handleLightSliderChange}/>
 
-
+          <div className="vertical-padding bottom-bordered"></div>
 
           {/* SELECTED COLOR VALUE, EXPORT JSON */}
-          <div className="vertical-padding">
+          <div className="vertical-padding ">
             {/* ExportJSON */}
             <Tooltip placement="top" title={"Export JSON"}>
               <Icon type="export" className="export-json-btn" onClick={this.handleExportJSON_ButtonClick} />

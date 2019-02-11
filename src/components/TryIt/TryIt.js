@@ -97,9 +97,9 @@ class TryIt extends Component {
         let componentsKeys = Object.keys(components)
 
         return (
-            <div style={{ width: '25vw' }} className='element-holder'>
+            <div className="element-holder">
                 <div style={{ position: 'fixed' }}>
-                <h3 style={{fontWeight:'bold'}}>Apply Selected Color</h3>
+                <h3 style={{fontWeight:'bold'}}>Apply Selected Color <Icon type="arrow-down" /></h3>
                     <div style={{ width: '450px', cursor: 'pointer' }}>
                         <Card style={{}} id="try-background"
                             onClick={(e) => this.setColor(e, 'background')}

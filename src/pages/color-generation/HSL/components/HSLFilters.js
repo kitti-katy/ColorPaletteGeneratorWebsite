@@ -156,7 +156,7 @@ class HSLFilters extends Component {
           </div>
 
           {/* NUMBER OF COLORS, SELECTED COLOR VALUE, EXPORT JSON, RESET BUTTON */}
-          <div className="vertical-padding">
+          <div className="vertical-padding bottom-bordered">
             {/* ExportJSON */}
             <Icon type="export" className="export-json-btn" onClick={this.handleExportJSON_ButtonClick} />
             {/* Reset */}

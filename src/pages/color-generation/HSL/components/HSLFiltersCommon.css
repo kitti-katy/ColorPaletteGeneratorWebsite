@@ -21,9 +21,9 @@
 #selected-color-panel {
     padding: 2px 20px; 
     text-align: center;
-    /* display: inline; */
+    display: inline;
     font-size: 14px;
-    float: right;
+    /* float: right; */
 }
 #reset-btn {
     float: right; 

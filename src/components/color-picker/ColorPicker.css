@@ -1,0 +1,58 @@
+#color-picker{ 
+    box-shadow: rgba(0, 0, 0, 0.15) 0px 0px 2px;
+    background: rgba(61, 61, 61, 0.04); 
+    padding: 1vw;
+}
+
+#saturationCircle{
+    position: absolute;
+    display: inline; 
+    margin-left: -5.5px; 
+    width: 24px; 
+    height: 7px;
+    border: 1px solid; 
+    border-radius: 3px;
+}
+
+#pickerCircle{
+    width: 16px;
+    height: 16px; 
+    border: 1px solid; 
+    border-radius: 15px;
+    position: absolute; 
+    z-index: 100;
+}
+
+#main-canvas-color-picker{
+    display: inline; 
+    position: relative; 
+    float: left;
+    border: solid 1px #0000001c;
+}
+
+#saturation-canvas-color-picker{ 
+    display: inline; 
+    margin-right: 7px; 
+    border: 1px solid #d9d9d9;
+}
+
+.input-boxes{ 
+    display: inline-block; 
+    vertical-align: top; 
+    width: 87px; 
+    margin-right: 32px; 
+}
+
+#picked-color{ 
+    padding: 31px 56px; 
+    display: inline-block; 
+    border-radius: 3px; 
+    margin-top: 6px; 
+}
+
+#hex-intput{ 
+    display: inline-block; 
+}
+#hex-intput-txt-box{ 
+    width: 82px; 
+}
