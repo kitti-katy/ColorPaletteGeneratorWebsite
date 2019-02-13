@@ -38,13 +38,12 @@
 .element-holder {
   box-shadow: #0000007a 0px 0px 1px 0px;
   background: #ffffff;
-  padding: 16px;
+  padding: 40px;
   /*border-radius: 5px;*/
   border: 1px black;
   width: fit-content;
   display: inline-block;
   vertical-align: top;
-  /*height: 100%;*/
 }
 
 .container {

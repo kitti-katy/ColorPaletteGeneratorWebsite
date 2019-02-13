@@ -1,6 +1,6 @@
 #color-picker{ 
-    box-shadow: rgba(0, 0, 0, 0.15) 0px 0px 2px;
-    background: rgba(61, 61, 61, 0.04); 
+    /* box-shadow: rgba(0, 0, 0, 0.15) 0px 0px 2px; */
+    background: rgba(61, 61, 61, 0.03); 
     padding: 1vw;
 }
 
