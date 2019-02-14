@@ -1,7 +1,11 @@
 #color-picker{ 
-    /* box-shadow: rgba(0, 0, 0, 0.15) 0px 0px 2px; */
-    background: rgba(61, 61, 61, 0.03); 
-    padding: 1vw;
+    box-shadow: rgba(0, 0, 0, 0.15) 0px 0px 2px; 
+    background: rgba(61, 61, 61, 0.04); 
+    padding: 24px;
+}
+
+#canvases-container{
+    display: flex;
 }
 
 #saturationCircle{
@@ -40,25 +44,27 @@
     display: inline-block; 
     vertical-align: top; 
     width: 87px; 
-    margin-right: 32px; 
+    margin-right: 26px; 
+    margin-top: 16px;
 }
 
 #picked-color{ 
-    padding: 31px 56px; 
+    padding: 27px 72px; 
     display: inline-block; 
     border-radius: 3px; 
-    margin-top: 6px; 
+    margin-top: 23px; 
+    margin-bottom: 16px; 
 }
 
 #hex-intput{ 
     display: inline-block; 
 }
 #hex-intput-txt-box{ 
-    width: 82px; 
+   /* width: 90px; */
 }
 
 #color-inputs-container{
-    width: 400px;
+  /*  width: 400px;
   /*  display: grid; */
    /* justify-content: space-between;*/
 }

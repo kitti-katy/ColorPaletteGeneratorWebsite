@@ -9,7 +9,7 @@ message.config({
 
 export const ClipboardCopier = (props) => (
   <CopyToClipboard text={props.value} onCopy={() => message.success(props.value + ' copied to clipboard', 1)}>
-   <Icon id="copy-to-clipboard-icon" type="copy" style={{cursor:'pointer'}} />
+   <Icon id="copy-to-clipboard-icon" type="copy" style={{cursor:'pointer', verticalAlign: 'bottom'}} />
   </CopyToClipboard>
  
 )
