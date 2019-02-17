@@ -9,3 +9,26 @@
     flex-wrap: wrap; 
     overflow: auto 
 }
+.try-colors-container{ 
+    position: fixed; 
+    width: 532px; 
+    margin: auto;
+}
+.try-card-holder{
+    width: 450px; 
+    cursor: pointer; 
+}
+.try-title-holder{  
+    font-family: 'Lora', serif; 
+    border-bottom: 1px solid #e8e8e8; 
+    padding-bottom: 12px 
+}
+.reset-try-card-btn{
+    float: right
+}
+
+.applied-colors-header{
+    font-weight: bold;
+    margin-bottom: 16px;
+    margin-top: 16px; 
+}

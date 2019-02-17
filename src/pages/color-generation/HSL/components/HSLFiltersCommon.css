@@ -53,3 +53,7 @@ div.hr {
   div.hr hr {
     display: none;
   }
+
+  .tiles-holder{
+    padding-bottom: 5px;
+  }

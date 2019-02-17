@@ -2,8 +2,10 @@
 import { combineReducers } from "redux";
 import { BaseColorReducer } from "./BaseColorReducer";
 import { SelectedColorReducer } from "./SelectedColorReducer";
+import { HSLModeReducer } from "./HSLModeReducer";
 const rootReducer = combineReducers({
   BaseColorReducer,
-  SelectedColorReducer
+  SelectedColorReducer,
+  HSLModeReducer
 });
 export default rootReducer;

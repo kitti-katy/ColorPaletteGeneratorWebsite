@@ -12,8 +12,10 @@ import { Icon, Slider, Select } from 'antd';
 import { Radio } from 'antd';
 import './HSLFilters.css'
 import './HSLFiltersCommon.css'
+import SelectMode from "./SelectMode"
 const Option = Select.Option;
 const RadioGroup = Radio.Group;
+
 
 // variations: hueChange: 30, satChange: 20, lightChange:20, h step, s step, l step, number of colors
 const presets = {
@@ -122,20 +124,22 @@ class HSLFilters extends Component {
       <div id="hsl-filters-holder" className="element-holder">
         <div>
 
-          {/* PRESETS */}
+          {/* Mode Select */}
+          <SelectMode />
+
+          {/* PRESETS 
           <div className='bottom-bordered' >
-            {/* Presets Radio Group */}
+            {/* Presets Radio Group 
             <RadioGroup id='presets-group' value={selectedPreset} onChange={this.handleSelectPreset}>
               <Radio value={'None'}>None</Radio>
               {Object.keys(presets).map(key => <Radio key={key} value={key}>{presets[key].name}</Radio>)}
             </RadioGroup>
-            {/* Preset Style */}
+             Preset Style 
             {selectedPreset != 'None' &&
               <Select id="select-preset-style" value={selectedVariation} onChange={this.handleSelectVariation} size="small">
                 {presets[selectedPreset].variations.map((v, i) => <Option key={'varOption' + selectedPreset + i} value={i}>Style {i}</Option>)}
-              </Select>
-            }
-          </div>
+              </Select>} 
+          </div>*/}
 
           {/* HSL FILTERS */}
           <div className='bottom-bordered'>
@@ -170,7 +174,7 @@ class HSLFilters extends Component {
           </div>
 
           {/* GENERATED TILES */}
-          <div id="generated-tiles"> {this.getTiles()} </div>
+          <div class="generated-tiles"> {this.getTiles()} </div>
         </div>
       </div >
     );

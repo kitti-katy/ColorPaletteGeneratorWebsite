@@ -16,7 +16,7 @@
 }
 
 /* TILES */
-#generated-tiles{
+.generated-tiles{
     height: max-content; 
     line-height: 1.45; 
     min-height: 300px;

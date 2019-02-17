@@ -7,3 +7,7 @@
     width: 100%;
     height: max-content;
   }
+  .ant-card-bordered {
+    box-shadow: rgba(0, 0, 0, 0.51) 0px 0px 2px;
+    border: none;  
+  }

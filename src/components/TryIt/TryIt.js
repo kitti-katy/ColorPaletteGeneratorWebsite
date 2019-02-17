@@ -97,22 +97,20 @@ class TryIt extends Component {
         let componentsKeys = Object.keys(components)
 
         return (
-            <div className="element-holder" style={{ width: '532px', minHeight:'750px'}}>
-                <div id="try-colors-container" style={{ position: 'fixed', width: '532px', margin: 'auto' }}>
-                    <h3 style={{ fontWeight: 'bold' }}>Apply Selected Color <Icon type="arrow-down" /></h3>
-                    <div style={{ width: '450px', cursor: 'pointer' }}>
-                        <Card style={{}} id="try-background"
-                            onClick={(e) => this.setColor(e, 'background')}
-                            style={{ backgroundColor: background, borderColor: '#b8b8b8' }}
-                            headStyle={{ backgroundColor: appBar }}
-                        >
+            <div className="element-holder" style={{ width: '532px', minHeight: '750px' }}>
+                <div id="try-colors-container">
+                    <h4 style={{ fontWeight: 'bold', marginBottom: '16px' }}>Apply Selected Color Here: </h4>
+                    <div className="try-card-holder">
 
-                            <h2 style={{ color: title, fontFamily: "'Lora', serif", borderBottom: '1px solid #e8e8e8', paddingBottom: '12px' }}>
+                        <Card id="try-background" onClick={(e) => this.setColor(e, 'background')}
+                            style={{ backgroundColor: background }} headStyle={{ backgroundColor: appBar }} >
+
+                            <h2 className="try-title-holder" style={{ color: title }}>
                                 <span id="try-title" onClick={(e) => this.setColor(e, 'title')}>Title </span>
-                                <Button style={{ float: 'right' }} onClick={this.reset} label={<Icon type="reload" />} />
+                                <Button className="reset-try-card-btn" onClick={this.reset} label={<Icon type="reload" />} />
                             </h2>
                             <br />
-                            <h2 style={{ color: header, fontFamily: "'Lora', serif" }} id="try-header" onClick={(e) => this.setColor(e, 'header')}> Header </h2>
+                            <h3 style={{ color: header, fontFamily: "'Lora', serif" }} id="try-header" onClick={(e) => this.setColor(e, 'header')}> Header </h3>
                             <p id="try-text" onClick={(e) => this.setColor(e, 'paragraph')} style={{ color: paragraph, fontFamily: "'Nanum Gothic', sans-serif", lineHeight: '2' }}>
                                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
                                  Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
@@ -121,21 +119,23 @@ class TryIt extends Component {
                                 Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
                            </p>
                             <br />
-                            <div style={{ margin: '15px 0' }}>
+                            <div>
                                 {this.getTryButton('primaryButton', "try-button-primary", primaryButton, primaryButtonFont, 'Primary')}
                                 {this.getTryButton('secondaryButton', "try-button-secondary", secondaryButton, secondaryButtonFont, 'Secondary')}
                             </div>
-                            <div style={{ margin: '15px 0' }}>
+                            <br />
+                            <div >
                                 {this.getTryButton('successButton', "try-button-success", successButton, successButtonFont, 'Success')}
                                 {this.getTryButton('infoButton', "try-button-info", infoButton, infoButtonFont, 'Info')}
                                 {this.getTryButton('warningButton', "try-button-warning", warningButton, warningButtonFont, 'Warning')}
                                 {this.getTryButton('dangerButton', "try-button-danger", dangerButton, dangerButtonFont, 'Danger')}
                             </div>
+                            <br />
                         </Card >
 
                         <Icon type="export" style={exportJSONButtonStyle} onClick={() => exportJSON(components)} />
-                        <h3> Applied Colors: </h3>
 
+                        <h4 className="applied-colors-header"> Applied Colors: </h4>
                         <div className="applied-colors-container">
                             {componentsKeys.map(key =>
                                 <div className="applied-color"
