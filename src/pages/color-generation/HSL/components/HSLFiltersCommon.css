@@ -14,30 +14,27 @@
     width: 41vw;
 }
 .export-json-btn {
-   /* float: right; */
-    margin-left: 18px; 
+    margin-right: 18px; 
     font-size: 22px; 
     cursor: pointer;
 }
-#selected-color-panel {
+.selected-color-panel {
     height: fit-content;
     padding: 8px 24px; 
     text-align: center;
     display: inline-grid;
     font-size: 14px;
     border-radius:2px;
-    /* float: right; */
 }
-#reset-btn {
-    float: right; 
-    margin-left: 18px; 
+.reset-btn {
+    margin-right: 18px; 
     font-size: 22px; 
-    line-height: 2;
+    cursor: pointer;
 }
 
 .hsl-container-2{
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end;
     align-items: center;
     margin-bottom: 8px;
     padding: 12px 0;

@@ -5,14 +5,17 @@ import Color from "../../../../utilities/Color";
 import { selectColor } from '../../../../redux/SelectedColorReducer'
 import { changeBaseColor } from '../../../../redux/BaseColorReducer'
 import { exportJSON } from '../../../../utilities/ExportJSON'
-import {Icon} from 'antd'
+import { Icon, Tooltip } from 'antd'
+import { ExportJSONButton } from '../../../../components/ExportJSONButton'
+import { ResetColorsButton } from '../../../../components/ResetColorsButton'
+import { SelectedColorPanel } from '../../../../components/SelectedColorPanel'
 
 
 let mapStateToProps = (state) => { return { baseColor: state.BaseColorReducer.baseColor } }
 let mapDispatchToProps = (dispatch) => { return bindActionCreators({ selectColor: selectColor, changeBaseColor: changeBaseColor }, dispatch) }
 
 class GeneratedColors extends Component {
-    state = { colors: [], clickedColor: 0};
+    state = { colors: [], clickedColor: 0 };
     componentDidMount = () => this.setState({ colors: [this.props.baseColor.HEXString] })
 
     handleColorClick = (selectedHex, index, previousIndex) => {
@@ -35,27 +38,39 @@ class GeneratedColors extends Component {
         newColors.push(hex)
         this.selectColor(hex, newColors, newColors.length - 1)
     }
-    exportJSON = () => exportJSON(this.state.colors)
+    handleExportJSON_ButtonClick = () => exportJSON(this.state.colors)
+    handleResetButtonClick = () => { this.setState({ colors: [this.props.baseColor.HEXString], clickedColor: 0 }) }
 
     render() {
         let baseColor = this.props.baseColor.HEXString;
         let selectedColorIndex = this.state.clickedColor
+        let selectedColorFont = new Color(baseColor, 0, 0, 'Hex').hsl.light > 50 ? 'black' : 'white'
         return (
-            <div style={{ width: '400px' }}>
-                <button onClick={this.exportJSON}> Export JSON</button>
-                    <div id="generated-colors" style={{ display: 'flex', flexWrap: 'wrap' }}>
-                        {this.state.colors.map((color, index) =>
-                            <div onClick={() => this.handleColorClick(color, index, selectedColorIndex)}
-                                style={{
-                                    backgroundColor: selectedColorIndex == index ? baseColor : color,
-                                    borderRadius: selectedColorIndex == index ? '30px' : '0', padding: '30px', display: 'block'
-                                }} />)
-                        }
-                        <div onClick={() => this.addNewColor(baseColor, selectedColorIndex)} 
-                        style={{ border: 'gray solid 1px', display: 'grid', verticalAlign:'center' }} >
-                        <Icon type="plus" style = {{fontSize:'24px', padding:'20px'}} />
-                        </div>
+            <div style={{ width: '400px', width: '41vw' }} className="element-holder">
+
+                <div className=" hsl-container-2 bottom-bordered top-bordered" style={{}}>
+                    {/* ExportJSON */}
+                    < ExportJSONButton onClick={this.exportJSON} />
+                    {/* Reset */}
+                    <ResetColorsButton onClick={this.handleResetButtonClick} />
+                    {/* Selected Color Panel */}
+                    <SelectedColorPanel selectedColor={baseColor} />
+                </div>
+
+                <div id="generated-colors" style={{ display: 'flex', flexWrap: 'wrap' }}>
+                    {this.state.colors.map((color, index) =>
+                        <div onClick={() => this.handleColorClick(color, index, selectedColorIndex)}
+                            className="single-tile"
+                            style={{
+                                backgroundColor: selectedColorIndex == index ? baseColor : color,
+                                borderRadius: selectedColorIndex == index ? '30px' : '0', padding: '30px', display: 'block'
+                            }} />)
+                    }
+                    <div onClick={() => this.addNewColor(baseColor, selectedColorIndex)}
+                        style={{ border: 'gray solid 1px', display: 'grid', verticalAlign: 'center', borderRadius: '50%' }} >
+                        <Icon type="plus" style={{ fontSize: '24px', padding: '20px' }} />
                     </div>
+                </div>
             </div>
         );
     }

@@ -158,7 +158,7 @@ class PictureUpload extends Component {
     else { $imagePreview = <span />; }
 
     return (
-      <div className="previewComponent" style={{ height: '100%' }}>
+      <div className="previewComponent element-holder">
         <div style={{ display: "inline-block", verticalAlign: 'top' }}>
           <h2>Please select an Image for Preview</h2>
           <form onSubmit={e => this.handleSubmit(e)}>

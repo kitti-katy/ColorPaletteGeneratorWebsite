@@ -2,7 +2,12 @@
 
 /* FILTERS */
 #number-of-colors-input{
-    display:inline-block;
+  /*  display:inline-block; */
+}
+.hsl-advanced-filters{
+    padding-bottom: 24px;
+    justify-content: space-between;
+    display: flex;
 }
 
 

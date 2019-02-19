@@ -6,7 +6,8 @@ import { getAdvancedPalette } from "../../../../utilities/HSLPaletteGenerator";
 import { selectColor } from '../../../../redux/SelectedColorReducer'
 import { exportJSON } from '../../../../utilities/ExportJSON'
 import { Label } from '../../../../components/Label'
-import { ClipboardCopier } from '../../../../components/ClipboardCopier'
+import { ExportJSONButton } from '../../../../components/ExportJSONButton'
+import { SelectedColorPanel } from '../../../../components/SelectedColorPanel'
 import { Icon, Slider, Tooltip } from 'antd';
 import './HSLFiltersAlternative.css'
 import './HSLFiltersCommon.css'
@@ -44,7 +45,6 @@ class HSLFiltersAlternative extends Component {
   // EXPORT JSON HANDLER
   handleExportJSON_ButtonClick = () => {
     let colorElements = document.getElementsByClassName("single-tile-basic")
-    console.log(colorElements)
     let colors = {}
     for (var i = 0; i < colorElements.length; i++) {
       colors["color" + i] = colorElements[i].style.backgroundColor
@@ -63,7 +63,7 @@ class HSLFiltersAlternative extends Component {
     let palette = getAdvancedPalette(this.props.baseColor, hueSplitter, satSplitter, lightSplitter, 0, 0)
 
     let selectedColor = this.props.selected
-    let selectedColorFont = new Color(selectedColor, 0, 0, 'Hex').hsl.light > 50 ? 'black' : 'white'
+    //let selectedColorFont = new Color(selectedColor, 0, 0, 'Hex').hsl.light > 50 ? 'black' : 'white'
 
     return (
       <div id="hsl-filters-holder" className="element-holder">
@@ -98,13 +98,9 @@ class HSLFiltersAlternative extends Component {
           {/* SELECTED COLOR VALUE, EXPORT JSON */}
           <div className=" hsl-container-2 bottom-bordered top-bordered">
             {/* ExportJSON */}
-            <Tooltip placement="top" title={"Export JSON"}>
-              <Icon type="export" className="export-json-btn" onClick={this.handleExportJSON_ButtonClick} />
-            </Tooltip>
+            <ExportJSONButton onClick={this.handleExportJSON_ButtonClick} />
             {/* Selected Color Panel */}
-            <div id="selected-color-panel" style={{ backgroundColor: selectedColor, color: selectedColorFont, border: '1px solid ' + selectedColorFont }}>
-              <label>{selectedColor} <ClipboardCopier value={selectedColor} /> </label>
-            </div>
+            <SelectedColorPanel selectedColor={selectedColor} />
           </div>
 
 

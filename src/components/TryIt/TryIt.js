@@ -4,12 +4,12 @@ import { Card, Icon } from 'antd';
 import Color from '../../utilities/Color'
 import { exportJSON } from '../../utilities/ExportJSON';
 import { Button } from 'primereact/button';
+import { ExportJSONButton } from '../ExportJSONButton'
 import "./TryIt.css"
 
 let mapStateToProps = (state) => { return { selected: state.SelectedColorReducer.selected } }
 let mapDispatchToProps = (dispatch) => { /*return bindActionCreators({ changeBaseColor: changeBaseColor }, dispatch)*/ }
 
-const exportJSONButtonStyle = { float: 'right', marginLeft: '18px', fontSize: '22px', lineHeight: '2' }
 
 const tryIds = ["try-background", "try-title", "try-header", "try-text", "try-button-primary",
     "try-button-primary-font", "try-button-secondary", "try-button-secondary-font", "try-button-success",
@@ -133,9 +133,11 @@ class TryIt extends Component {
                             <br />
                         </Card >
 
-                        <Icon type="export" style={exportJSONButtonStyle} onClick={() => exportJSON(components)} />
+                        <div className="applied-colors-header">
+                            <label >Applied Colors:</label>
+                            <ExportJSONButton onClick={() => exportJSON(components)} />
+                        </div>
 
-                        <h4 className="applied-colors-header"> Applied Colors: </h4>
                         <div className="applied-colors-container">
                             {componentsKeys.map(key =>
                                 <div className="applied-color"

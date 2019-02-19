@@ -7,8 +7,10 @@ import { getChunks } from "../../../../utilities/ArrayMethods";
 import { selectColor } from '../../../../redux/SelectedColorReducer'
 import { exportJSON } from '../../../../utilities/ExportJSON'
 import { Label } from '../../../../components/Label'
-import { ClipboardCopier } from '../../../../components/ClipboardCopier'
-import { Icon, Slider, Select } from 'antd';
+import { ExportJSONButton } from '../../../../components/ExportJSONButton'
+import { ResetColorsButton } from '../../../../components/ResetColorsButton'
+import { SelectedColorPanel } from '../../../../components/SelectedColorPanel'
+import { Icon, Slider, Select, Tooltip } from 'antd';
 import { Radio } from 'antd';
 import './HSLFilters.css'
 import './HSLFiltersCommon.css'
@@ -18,12 +20,46 @@ const RadioGroup = Radio.Group;
 
 
 // variations: hueChange: 30, satChange: 20, lightChange:20, h step, s step, l step, number of colors
+/*
 const presets = {
   analogous: { name: 'Analogous', variations: [[30, 0, 10, 10, 1, 1, 30], [30, 20, 20, 25, 5, 1, 75], [30, 0, 20, 5, 1, 1, 15]] },
   square: { name: 'Square', variations: [[60, 0, 10, 10, 1, 1, 40], [60, 20, 20, 25, 5, 1, 100], [60, 0, 20, 5, 1, 1, 20]] },
   triad: { name: 'Triad', variations: [[120, 0, 10, 10, 1, 1, 30], [120, 20, 20, 25, 5, 1, 75], [120, 0, 20, 5, 1, 1, 15]] },
   _12Colors: { name: '12 Colors', variations: [[30, 0, 10, 10, 5, 1, 120], [30, 0, 20, 5, 1, 1, 60]] }
+}*/
+
+// PRESETS HANDLERS
+/*
+handleSelectPreset = e => {
+  let selectedPreset = e.target.value
+  this.setState({ selectedPreset: selectedPreset, selectedVariation: 0 }, () => {
+    if (selectedPreset == 'None') return
+    this.resetFilters(0)
+  })
 }
+ 
+resetFilters = (selectedVariation) => {
+  let selectedOptions = presets[this.state.selectedPreset].variations[selectedVariation]
+  let hueChange = selectedOptions[0], satChange = selectedOptions[1]
+  let lightChange = selectedOptions[2], hueStep = selectedOptions[3]
+  let satStep = selectedOptions[4], lightStep = selectedOptions[5]
+  let numberOfColors = selectedOptions[6]
+  this.setFilters(hueChange, satChange, lightChange, hueStep, satStep, lightStep, numberOfColors)
+}
+*/
+/* PRESETS 
+         <div className='bottom-bordered' >
+           {/* Presets Radio Group 
+           <RadioGroup id='presets-group' value={selectedPreset} onChange={this.handleSelectPreset}>
+             <Radio value={'None'}>None</Radio>
+             {Object.keys(presets).map(key => <Radio key={key} value={key}>{presets[key].name}</Radio>)}
+           </RadioGroup>
+            Preset Style 
+           {selectedPreset != 'None' &&
+             <Select id="select-preset-style" value={selectedVariation} onChange={this.handleSelectVariation} size="small">
+               {presets[selectedPreset].variations.map((v, i) => <Option key={'varOption' + selectedPreset + i} value={i}>Style {i}</Option>)}
+             </Select>} 
+         </div>*/
 
 let mapStateToProps = (state) => {
   return {
@@ -45,22 +81,7 @@ class HSLFilters extends Component {
 
   componentDidUpdate = () => { }
 
-  // PRESETS HANDLERS
-  handleSelectPreset = e => {
-    let selectedPreset = e.target.value
-    this.setState({ selectedPreset: selectedPreset, selectedVariation: 0 }, () => {
-      if (selectedPreset == 'None') return
-      this.resetFilters(0)
-    })
-  }
-  resetFilters = (selectedVariation) => {
-    let selectedOptions = presets[this.state.selectedPreset].variations[selectedVariation]
-    let hueChange = selectedOptions[0], satChange = selectedOptions[1]
-    let lightChange = selectedOptions[2], hueStep = selectedOptions[3]
-    let satStep = selectedOptions[4], lightStep = selectedOptions[5]
-    let numberOfColors = selectedOptions[6]
-    this.setFilters(hueChange, satChange, lightChange, hueStep, satStep, lightStep, numberOfColors)
-  }
+
   setFilters = (hueChange, satChange, lightChange, hueStep, satStep, lightStep, numberOfColors) => this.setState({ hueChange, satChange, lightChange, hueStep, satStep, lightStep, numberOfColors })
   handleSelectVariation = (val) => { console.log(val); this.setState({ selectedVariation: val }, this.resetFilters(val)) }
 
@@ -89,7 +110,7 @@ class HSLFilters extends Component {
 
   // SLIDER INPUT
   getSliderInput = (value, onChange, min, max, label) =>
-    <div> <Label className="slider-label" title={label} />
+    <div> <Label labelClass="slider-label" title={label} />
       <Slider className="slider-input" min={min} max={max} onChange={onChange} value={value} />
       <input className="slider-input-txt" type='number' min={min} max={max} onChange={(e) => onChange(e.target.value)} value={value} />
     </div>
@@ -118,7 +139,7 @@ class HSLFilters extends Component {
   render() {
     const { hueChange, satChange, lightChange, hueStep, satStep, lightStep, selectedPreset, numberOfColors, selectedVariation } = this.state
     let selectedColor = this.props.selected
-    let selectedColorFont = new Color(selectedColor, 0, 0, 'Hex').hsl.light > 50 ? 'black' : 'white'
+    //let selectedColorFont = new Color(selectedColor, 0, 0, 'Hex').hsl.light > 50 ? 'black' : 'white'
 
     return (
       <div id="hsl-filters-holder" className="element-holder">
@@ -127,49 +148,34 @@ class HSLFilters extends Component {
           {/* Mode Select */}
           <SelectMode />
 
-          {/* PRESETS 
-          <div className='bottom-bordered' >
-            {/* Presets Radio Group 
-            <RadioGroup id='presets-group' value={selectedPreset} onChange={this.handleSelectPreset}>
-              <Radio value={'None'}>None</Radio>
-              {Object.keys(presets).map(key => <Radio key={key} value={key}>{presets[key].name}</Radio>)}
-            </RadioGroup>
-             Preset Style 
-            {selectedPreset != 'None' &&
-              <Select id="select-preset-style" value={selectedVariation} onChange={this.handleSelectVariation} size="small">
-                {presets[selectedPreset].variations.map((v, i) => <Option key={'varOption' + selectedPreset + i} value={i}>Style {i}</Option>)}
-              </Select>} 
-          </div>*/}
-
           {/* HSL FILTERS */}
-          <div className='bottom-bordered'>
-            <div >
-              {/* Steps */}
-              <span style={{ float: 'right' }}>
-                {this.getSliderInput(hueStep, this.handleHueStepChange, 1, 100, 'Hue Step')}
-                {this.getSliderInput(satStep, this.handleSatStepChange, 1, 100, 'Saturation Step')}
-                {this.getSliderInput(lightStep, this.handleLightStepChange, 1, 100, 'Light Step')}
-              </span>
-            </div>
+          <div className='bottom-bordered hsl-advanced-filters'>
             {/* Changes */}
             <div >
               {this.getSliderInput(hueChange, this.handleHueChange, 0, 120, 'Hue Change')}
               {this.getSliderInput(satChange, this.handleSatChange, 0, 100, 'Saturation Change')}
               {this.getSliderInput(lightChange, this.handleLightChange, 0, 100, 'Light Change')}
             </div>
+            {/* Steps */}
+            <div >
+              {this.getSliderInput(hueStep, this.handleHueStepChange, 1, 100, 'Hue Step')}
+              {this.getSliderInput(satStep, this.handleSatStepChange, 1, 100, 'Saturation Step')}
+              {this.getSliderInput(lightStep, this.handleLightStepChange, 1, 100, 'Light Step')}
+            </div>
           </div>
 
           {/* NUMBER OF COLORS, SELECTED COLOR VALUE, EXPORT JSON, RESET BUTTON */}
-          <div className="vertical-padding bottom-bordered">
-            {/* ExportJSON */}
-            <Icon type="export" className="export-json-btn" onClick={this.handleExportJSON_ButtonClick} />
-            {/* Reset */}
-            <Icon type="reload" onClick={this.handleResetButtonClick} id="reset-btn" />
+          <div className="vertical-padding bottom-bordered" style={{ display: 'flex', justifyContent: 'space-between', marginBottom: "12px" }}>
             {/* Number Of Colors */}
             <div id='number-of-colors-input'> {this.getSliderInput(numberOfColors, this.handleNumberOfColorsChange, 6, 181, 'Number of Colors')} </div>
-            {/* Selected Color Panel */}
-            <div id="selected-color-panel" style={{ backgroundColor: selectedColor, color: selectedColorFont, border: '1px solid ' + selectedColorFont }}>
-              {selectedColor} <ClipboardCopier value={selectedColor} />
+
+            <div className=" hsl-container-2" style={{ marginBottom: "0", padding: "0" }}>
+              {/* ExportJSON */}
+              < ExportJSONButton onClick={this.handleExportJSON_ButtonClick} />
+              {/* Reset */}
+              <ResetColorsButton onClick={this.handleResetButtonClick} />
+              {/* Selected Color Panel */}
+              <SelectedColorPanel selectedColor={selectedColor} />
             </div>
           </div>
 

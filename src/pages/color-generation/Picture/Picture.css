@@ -1,6 +1,5 @@
 #picture-page { 
-    display: inline-block; 
-    margin: auto; 
+    display: flex; 
 }
 #picture-upload-section{
     display: inline-block;

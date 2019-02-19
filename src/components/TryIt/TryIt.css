@@ -16,6 +16,8 @@
 }
 .try-card-holder{
     width: 450px; 
+}
+#try-background{
     cursor: pointer; 
 }
 .try-title-holder{  
@@ -29,6 +31,9 @@
 
 .applied-colors-header{
     font-weight: bold;
-    margin-bottom: 16px;
-    margin-top: 16px; 
+    margin-bottom: 8px;
+    margin-top: 16px;
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
 }
