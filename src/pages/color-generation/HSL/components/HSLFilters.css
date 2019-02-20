@@ -37,7 +37,11 @@
     justify-items: flex-start;
 } 
 .single-tile {
-    padding: 0.5cm
+    padding: 0.5cm;
+    cursor: pointer;
+}
+.single-tile:hover{
+    border-radius: 25%
 }
 .selected-tile {
     border-radius:50%

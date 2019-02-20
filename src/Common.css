@@ -11,3 +11,11 @@
     box-shadow: rgba(0, 0, 0, 0.51) 0px 0px 2px;
     border: none;  
   }
+
+.single-tile {
+    padding: 0.5cm;
+    cursor: pointer;
+}
+.single-tile:hover{
+    border-radius: 25%
+}

@@ -10,6 +10,8 @@ import { ExportJSONButton } from '../../../../components/ExportJSONButton'
 import { ResetColorsButton } from '../../../../components/ResetColorsButton'
 import { SelectedColorPanel } from '../../../../components/SelectedColorPanel'
 
+import '../../../../Common.css'
+
 
 let mapStateToProps = (state) => { return { baseColor: state.BaseColorReducer.baseColor } }
 let mapDispatchToProps = (dispatch) => { return bindActionCreators({ selectColor: selectColor, changeBaseColor: changeBaseColor }, dispatch) }
@@ -60,10 +62,10 @@ class GeneratedColors extends Component {
                 <div id="generated-colors" style={{ display: 'flex', flexWrap: 'wrap' }}>
                     {this.state.colors.map((color, index) =>
                         <div onClick={() => this.handleColorClick(color, index, selectedColorIndex)}
-                            className="single-tile"
+                        className={"single-tile " + (selectedColorIndex == index ? 'selected-tile' : '')}
                             style={{
                                 backgroundColor: selectedColorIndex == index ? baseColor : color,
-                                borderRadius: selectedColorIndex == index ? '30px' : '0', padding: '30px', display: 'block'
+                                padding: '30px', display: 'block'
                             }} />)
                     }
                     <div onClick={() => this.addNewColor(baseColor, selectedColorIndex)}
