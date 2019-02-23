@@ -13,7 +13,7 @@ class App extends Component {
     return (
       <FirebaseContext.Consumer>
         {firebase => {
-          return <div className="App" id="App">
+          return <div className="App bp3-dark" id="App">
          <link href="https://fonts.googleapis.com/css?family=Lora|Nanum+Gothic" rel="stylesheet"/>
          <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet"/>
               <Header firebase={firebase} />

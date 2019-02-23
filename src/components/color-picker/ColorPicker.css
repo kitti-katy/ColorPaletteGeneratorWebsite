@@ -1,7 +1,9 @@
 #color-picker{ 
     box-shadow: rgba(0, 0, 0, 0.51) 0px 0px 2px; 
     background: rgba(61, 61, 61, 0.04); 
+    background: #293742;
     padding: 24px;
+    width: min-content;
 }
 
 #canvases-container{
@@ -43,13 +45,20 @@
 .input-boxes{ 
     display: inline-block; 
     vertical-align: top; 
-    width: 87px; 
     margin-right: 26px; 
     margin-top: 16px;
 }
 
+.input-boxes div{ 
+    display: flex;  
+    margin-bottom: 8px;
+    align-items: center;
+    vertical-align: middle;
+}
+
 #picked-color{ 
-    padding: 27px 72px; 
+    padding: 27px 0; 
+    width: 100%;
     display: inline-block; 
     border-radius: 3px; 
     margin-top: 23px; 
@@ -64,6 +73,8 @@
 }
 
 #color-inputs-container{
+    display: flex;
+    justify-content: space-between;
   /*  width: 400px;
   /*  display: grid; */
    /* justify-content: space-between;*/

@@ -6,7 +6,7 @@ import HSLPaletteGenerator from "../../../../utilities/HSLPaletteGenerator";
 import { getChunks } from "../../../../utilities/ArrayMethods";
 import { selectColor } from '../../../../redux/SelectedColorReducer'
 import { exportJSON } from '../../../../utilities/ExportJSON'
-import { Label } from '../../../../components/Label'
+//import { Label } from '../../../../components/Label'
 import { ExportJSONButton } from '../../../../components/ExportJSONButton'
 import { ResetColorsButton } from '../../../../components/ResetColorsButton'
 import { SelectedColorPanel } from '../../../../components/SelectedColorPanel'
@@ -15,51 +15,8 @@ import { Radio } from 'antd';
 import './HSLFilters.css'
 import './HSLFiltersCommon.css'
 import SelectMode from "./SelectMode"
-const Option = Select.Option;
-const RadioGroup = Radio.Group;
+import { Card, Label } from "@blueprintjs/core";
 
-
-// variations: hueChange: 30, satChange: 20, lightChange:20, h step, s step, l step, number of colors
-/*
-const presets = {
-  analogous: { name: 'Analogous', variations: [[30, 0, 10, 10, 1, 1, 30], [30, 20, 20, 25, 5, 1, 75], [30, 0, 20, 5, 1, 1, 15]] },
-  square: { name: 'Square', variations: [[60, 0, 10, 10, 1, 1, 40], [60, 20, 20, 25, 5, 1, 100], [60, 0, 20, 5, 1, 1, 20]] },
-  triad: { name: 'Triad', variations: [[120, 0, 10, 10, 1, 1, 30], [120, 20, 20, 25, 5, 1, 75], [120, 0, 20, 5, 1, 1, 15]] },
-  _12Colors: { name: '12 Colors', variations: [[30, 0, 10, 10, 5, 1, 120], [30, 0, 20, 5, 1, 1, 60]] }
-}*/
-
-// PRESETS HANDLERS
-/*
-handleSelectPreset = e => {
-  let selectedPreset = e.target.value
-  this.setState({ selectedPreset: selectedPreset, selectedVariation: 0 }, () => {
-    if (selectedPreset == 'None') return
-    this.resetFilters(0)
-  })
-}
- 
-resetFilters = (selectedVariation) => {
-  let selectedOptions = presets[this.state.selectedPreset].variations[selectedVariation]
-  let hueChange = selectedOptions[0], satChange = selectedOptions[1]
-  let lightChange = selectedOptions[2], hueStep = selectedOptions[3]
-  let satStep = selectedOptions[4], lightStep = selectedOptions[5]
-  let numberOfColors = selectedOptions[6]
-  this.setFilters(hueChange, satChange, lightChange, hueStep, satStep, lightStep, numberOfColors)
-}
-*/
-/* PRESETS 
-         <div className='bottom-bordered' >
-           {/* Presets Radio Group 
-           <RadioGroup id='presets-group' value={selectedPreset} onChange={this.handleSelectPreset}>
-             <Radio value={'None'}>None</Radio>
-             {Object.keys(presets).map(key => <Radio key={key} value={key}>{presets[key].name}</Radio>)}
-           </RadioGroup>
-            Preset Style 
-           {selectedPreset != 'None' &&
-             <Select id="select-preset-style" value={selectedVariation} onChange={this.handleSelectVariation} size="small">
-               {presets[selectedPreset].variations.map((v, i) => <Option key={'varOption' + selectedPreset + i} value={i}>Style {i}</Option>)}
-             </Select>} 
-         </div>*/
 
 let mapStateToProps = (state) => {
   return {
@@ -71,34 +28,28 @@ let mapDispatchToProps = (dispatch) => { return bindActionCreators({ selectColor
 
 class HSLFilters extends Component {
   state = {
-    hueChange: 27, satChange: 0, lightChange: 50,
-    hueStep: 1, satStep: 1, lightStep: 2,
+    hueChange: 27, satChange: 0, lightChange: 20,
+    hueStep: 1, satStep: 1, lightStep: 1,
     numberOfColors: 72,
-    clickedColor: 0,
-    selectedPreset: 'None',
-    selectedVariation: 0
+    clickedColor: 0
   };
 
   componentDidUpdate = () => { }
 
-
   setFilters = (hueChange, satChange, lightChange, hueStep, satStep, lightStep, numberOfColors) => this.setState({ hueChange, satChange, lightChange, hueStep, satStep, lightStep, numberOfColors })
-  handleSelectVariation = (val) => { console.log(val); this.setState({ selectedVariation: val }, this.resetFilters(val)) }
 
   // FILTER HANDLERS
-  handleHueChange = value => this.setState({ hueChange: value, selectedPreset: 'None' })
-  handleSatChange = value => this.setState({ satChange: value, selectedPreset: 'None' })
-  handleLightChange = value => this.setState({ lightChange: value, selectedPreset: 'None' })
-  handleHueStepChange = value => this.setState({ hueStep: value, selectedPreset: 'None' })
-  handleSatStepChange = value => this.setState({ satStep: value, selectedPreset: 'None' })
-  handleLightStepChange = value => this.setState({ lightStep: value, selectedPreset: 'None' })
-  handleNumberOfColorsChange = n => this.setState({ numberOfColors: n, selectedPreset: 'None' })
+  handleHueChange = value => this.setState({ hueChange: value })
+  handleSatChange = value => this.setState({ satChange: value })
+  handleLightChange = value => this.setState({ lightChange: value })
+  handleHueStepChange = value => this.setState({ hueStep: value })
+  handleSatStepChange = value => this.setState({ satStep: value })
+  handleLightStepChange = value => this.setState({ lightStep: value })
+  handleNumberOfColorsChange = n => this.setState({ numberOfColors: n })
 
   // EXPORT JSON, RESET BUTTONS HANDLERS
-  handleResetButtonClick = () => {
-    this.setState({ selectedPreset: 'None' })
-    this.setFilters(27, 0, 50, 2, 1, 1, 72)
-  }
+  handleResetButtonClick = () => this.setFilters(27, 0, 20, 1, 1, 1, 72)
+
   handleExportJSON_ButtonClick = () => {
     let colorElements = document.getElementById("generated-tiles").getElementsByTagName("div")
     let colors = {}
@@ -110,9 +61,16 @@ class HSLFilters extends Component {
 
   // SLIDER INPUT
   getSliderInput = (value, onChange, min, max, label) =>
-    <div> <Label labelClass="slider-label" title={label} />
+    <div className="hsl-slider">
+      <Label className="slider-label" >{label} </Label>
       <Slider className="slider-input" min={min} max={max} onChange={onChange} value={value} />
       <input className="slider-input-txt" type='number' min={min} max={max} onChange={(e) => onChange(e.target.value)} value={value} />
+    </div>
+  getSliderInputRight = (value, onChange, min, max, label) =>
+    <div className="hsl-slider">
+      <Label className="slider-label" style={{textAlign:'right'}}>{label} </Label>
+      <input className="slider-input-txt" type='number' min={min} max={max} onChange={(e) => onChange(e.target.value)} value={value} />
+      <Slider className="slider-input" min={min} max={max} onChange={onChange} value={value} />
     </div>
 
   // TILES PART
@@ -125,24 +83,18 @@ class HSLFilters extends Component {
     return <div className={"single-tile " + (this.state.clickedColor == index ? 'selected-tile' : '')} onClick={() => this.handleSelectColor(color, index)} style={{ backgroundColor: color }} key={index + color} />
   })
   getTiles = () => {
-    const { hueChange, satChange, lightChange, hueStep, satStep, lightStep, selectedPreset, numberOfColors } = this.state
+    const { hueChange, satChange, lightChange, hueStep, satStep, lightStep, numberOfColors } = this.state
     let palette = new HSLPaletteGenerator(this.props.baseColor, hueChange, satChange, lightChange, hueStep, satStep, lightStep, numberOfColors).palette
-    let splitter = selectedPreset != 'None' ? hueStep : numberOfColors
-    let rows = getChunks(palette, splitter)
-    let rowNumber = rows.length
-    if (rowNumber == 0)
-      return this.getTilesRow(rows[0], 0)
-    else
-      return Array.apply(null, { length: rowNumber }).map((el, rowNumber) => (<div className="tiles-row" key={'presetgenerated' + rowNumber}>{this.getTilesRow(rows[rowNumber], rowNumber)} </div>))
+    return this.getTilesRow(palette, 0)
   }
 
   render() {
-    const { hueChange, satChange, lightChange, hueStep, satStep, lightStep, selectedPreset, numberOfColors, selectedVariation } = this.state
+    const { hueChange, satChange, lightChange, hueStep, satStep, lightStep, numberOfColors } = this.state
     let selectedColor = this.props.selected
     //let selectedColorFont = new Color(selectedColor, 0, 0, 'Hex').hsl.light > 50 ? 'black' : 'white'
 
     return (
-      <div id="hsl-filters-holder" className="element-holder">
+      <Card id="hsl-filters-holder" className="element-holder" >
         <div>
 
           {/* Mode Select */}
@@ -157,7 +109,7 @@ class HSLFilters extends Component {
               {this.getSliderInput(lightChange, this.handleLightChange, 0, 100, 'Light Change')}
             </div>
             {/* Steps */}
-            <div >
+            <div>
               {this.getSliderInput(hueStep, this.handleHueStepChange, 1, 100, 'Hue Step')}
               {this.getSliderInput(satStep, this.handleSatStepChange, 1, 100, 'Saturation Step')}
               {this.getSliderInput(lightStep, this.handleLightStepChange, 1, 100, 'Light Step')}
@@ -182,7 +134,7 @@ class HSLFilters extends Component {
           {/* GENERATED TILES */}
           <div class="generated-tiles"> {this.getTiles()} </div>
         </div>
-      </div >
+      </Card >
     );
   }
 }

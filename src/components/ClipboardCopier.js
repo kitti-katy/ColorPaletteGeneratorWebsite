@@ -1,6 +1,7 @@
 import React from "react";
 import {CopyToClipboard} from 'react-copy-to-clipboard';
-import {message, Icon   } from 'antd';
+import {message,   } from 'antd';
+import { Icon } from "@blueprintjs/core";
 
 message.config({
   top: 10,
@@ -9,7 +10,7 @@ message.config({
 
 export const ClipboardCopier = (props) => (
   <CopyToClipboard text={props.value} onCopy={() => message.success(props.value + ' copied to clipboard', 1)}>
-   <Icon id="copy-to-clipboard-icon" type="copy" style={{cursor:'pointer', verticalAlign: 'bottom'}} />
+   <Icon id="copy-to-clipboard-icon" icon="duplicate" style={{cursor:'pointer', verticalAlign: 'bottom'}} />
   </CopyToClipboard>
  
 )

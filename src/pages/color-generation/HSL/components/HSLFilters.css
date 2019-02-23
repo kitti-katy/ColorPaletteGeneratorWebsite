@@ -22,12 +22,18 @@
 
 /* TILES */
 .generated-tiles{
-    height: max-content; 
     line-height: 1.45; 
     min-height: 300px;
     height: max-content;
     box-shadow: 0px 0px 2px #00000026;
-    background: #3d3d3d0a;
+    background: #293742;
+    align-items: baseline;
+    padding: 8px 0;
+    display: flex; 
+    justify-content: center;
+    flex-wrap: wrap; 
+    justify-items: flex-start;
+    align-content: baseline;
 }
 .tiles-row {
     padding: 8px 0;
@@ -47,11 +53,16 @@
     border-radius:50%
 }
 
-
+.steps .bp3-label.slider-label{
+    text-align: right;
+}
 
 /* SLIDER */
+.hsl-slider{
+    margin-bottom: 16px;
+}
 .slider-input { 
-    width: 120px; 
+    width: 140px; 
     display: inline-block; 
     vertical-align: bottom;
 }
@@ -62,6 +73,7 @@
     margin-left: 6px;
     font-weight: bold;
 }
-.slider-label { 
-    font-weight: bold
+label.bp3-label.slider-label { 
+    margin: 0;
+    margin-bottom: 8px;
 }

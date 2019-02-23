@@ -36,14 +36,8 @@
   transform: rotate(-1deg);
 }
 .element-holder {
-  box-shadow: #0000003b 0px 0px 1px 0px;
-  background: #ffffff;
+  background: #30404D !important;
   padding: 40px;
-  /*border-radius: 5px;*/
-  border: 1px black;
-  width: fit-content;
-  display: inline-block;
-  vertical-align: top;
 }
 
 .container {

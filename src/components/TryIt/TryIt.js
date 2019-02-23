@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { Card, Icon } from 'antd';
 import Color from '../../utilities/Color'
 import { exportJSON } from '../../utilities/ExportJSON';
 import { Button } from 'primereact/button';
 import { ExportJSONButton } from '../ExportJSONButton'
+import { Card, Label, Icon } from "@blueprintjs/core";
 import "./TryIt.css"
 
 let mapStateToProps = (state) => { return { selected: state.SelectedColorReducer.selected } }
@@ -82,7 +82,7 @@ class TryIt extends Component {
     getSelectedColor = () => this.props.selectedColor != null ? this.props.selectedColor : this.props.selected
 
     getTryButton = (component, id, background, font, text) => <Button
-        onClick={(e) => this.setColor(e, component)} id={id} style={{ backgroundColor: background, color: font, marginRight: '16px', borderColor: 'transparent' }}
+        onClick={(e) => this.setColor(e, component)} id={id} style={{ backgroundColor: background, color: font, marginRight: '16px', borderColor: 'transparent', fontSize:'9.5pt' }}
         label={<div onClick={(e) => this.setColor(e, component + 'Font')} id={id + "-font"}>{text} </div>} />
 
     render() {
@@ -97,9 +97,9 @@ class TryIt extends Component {
         let componentsKeys = Object.keys(components)
 
         return (
-            <div className="element-holder" style={{ width: '532px', minHeight: '750px' }}>
+            <Card style={{  minWidth: '500px', maxWidth:'600px', minHeight: '750px' }} className="element-holder">
                 <div id="try-colors-container">
-                    <h4 style={{ fontWeight: 'bold', marginBottom: '16px' }}>Apply Selected Color Here: </h4>
+                    <Label>Apply Selected Color Here:</Label>
                     <div className="try-card-holder">
 
                         <Card id="try-background" onClick={(e) => this.setColor(e, 'background')}
@@ -107,16 +107,13 @@ class TryIt extends Component {
 
                             <h2 className="try-title-holder" style={{ color: title }}>
                                 <span id="try-title" onClick={(e) => this.setColor(e, 'title')}>Title </span>
-                                <Button className="reset-try-card-btn" onClick={this.reset} label={<Icon type="reload" />} />
+                                <Button className="reset-try-card-btn" onClick={this.reset} label={<Icon icon="repeat" />} />
                             </h2>
                             <br />
                             <h3 style={{ color: header, fontFamily: "'Lora', serif" }} id="try-header" onClick={(e) => this.setColor(e, 'header')}> Header </h3>
                             <p id="try-text" onClick={(e) => this.setColor(e, 'paragraph')} style={{ color: paragraph, fontFamily: "'Nanum Gothic', sans-serif", lineHeight: '2' }}>
                                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
                                  Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                            <br /><br />
-                                Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-                                Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
                            </p>
                             <br />
                             <div>
@@ -134,7 +131,7 @@ class TryIt extends Component {
                         </Card >
 
                         <div className="applied-colors-header">
-                            <label >Applied Colors:</label>
+                            <Label>Applied Colors:</Label>
                             <ExportJSONButton onClick={() => exportJSON(components)} />
                         </div>
 
@@ -148,7 +145,7 @@ class TryIt extends Component {
                     </div>
                 </div>
 
-            </div>
+            </Card>
         );
     }
 }

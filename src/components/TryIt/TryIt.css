@@ -7,15 +7,16 @@
     display: flex; 
     justify-content: start; 
     flex-wrap: wrap; 
-    overflow: auto 
+    overflow: auto;
 }
 .try-colors-container{ 
     position: fixed; 
-    width: 532px; 
+
     margin: auto;
 }
 .try-card-holder{
-    width: 450px; 
+    min-width: 300px;
+    font-size: 9.5pt;
 }
 #try-background{
     cursor: pointer; 
@@ -30,8 +31,7 @@
 }
 
 .applied-colors-header{
-    font-weight: bold;
-    margin-bottom: 8px;
+    
     margin-top: 16px;
     display: flex; 
     justify-content: space-between; 

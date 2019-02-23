@@ -1,3 +1,7 @@
+@import "~normalize.css";
+@import "~@blueprintjs/core/lib/css/blueprint.css";
+@import "~@blueprintjs/icons/lib/css/blueprint-icons.css";
+
 body {
   height: 100%;
   margin: 0;
@@ -10,7 +14,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
   color:#3d3d3d;
   line-height: 1;
-  background-color: #3d3d3d /*#0c0137 !important*/
+  background-color: #202B33 /*#0c0137 !important*/
 
 }
 
