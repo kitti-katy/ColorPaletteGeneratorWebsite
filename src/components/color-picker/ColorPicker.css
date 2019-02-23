@@ -8,6 +8,7 @@
 
 #canvases-container{
     display: flex;
+    margin-bottom: 16px;
 }
 
 #saturationCircle{
@@ -39,29 +40,29 @@
 #saturation-canvas-color-picker{ 
     display: inline; 
     margin-right: 7px; 
-    border: 1px solid #d9d9d9;
+    border: 1px solid #394B59;
 }
 
 .input-boxes{ 
     display: inline-block; 
     vertical-align: top; 
     margin-right: 26px; 
-    margin-top: 16px;
+    
 }
-
-.input-boxes div{ 
+.input-boxes div label{ 
+    margin-bottom: 0
+}
+.input-boxes > div{ 
     display: flex;  
-    margin-bottom: 8px;
+    margin-bottom: 0.5em;
     align-items: center;
     vertical-align: middle;
 }
 
 #picked-color{ 
-    padding: 27px 0; 
-    width: 100%;
+    padding: 1.8em 4.8em; 
     display: inline-block; 
-    border-radius: 3px; 
-    margin-top: 23px; 
+    border-radius: 1%; 
     margin-bottom: 16px; 
 }
 
@@ -69,7 +70,9 @@
     display: inline-block; 
 }
 #hex-intput-txt-box{ 
-   /* width: 90px; */
+   width: 82px;
+   margin-left: 2px; 
+   height: 1.4em;
 }
 
 #color-inputs-container{
@@ -78,4 +81,9 @@
   /*  width: 400px;
   /*  display: grid; */
    /* justify-content: space-between;*/
+}
+
+.color-picker-numeric-input{
+    
+     
 }

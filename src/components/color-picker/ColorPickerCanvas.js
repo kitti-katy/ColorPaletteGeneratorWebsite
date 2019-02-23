@@ -2,7 +2,7 @@
 import React, { Component } from "react";
 import Color from "../../utilities/Color";
 import { Throttle } from "react-throttle";
-import {drawHueCanvas, drawSaturationCanvas, getColorSaturationCanvas, getColorHueCanvas, getScaledHueWidth} from './CanvasFunctions'
+import { drawHueCanvas, drawSaturationCanvas, getColorSaturationCanvas, getColorHueCanvas, getScaledHueWidth } from './CanvasFunctions'
 
 class ColorPickerCanvas extends Component {
     state = {
@@ -23,7 +23,13 @@ class ColorPickerCanvas extends Component {
         drawSaturationCanvas(this.props.baseColor);
         document.addEventListener("mouseup", this.setMouseDownToFalse, false);
         document.addEventListener("mouseup", this.setSatMouseDownToFalse, false);
-    };
+        window.addEventListener("resize", () => drawSaturationCanvas(this.state.selectedColor));
+        window.addEventListener("resize", () => drawHueCanvas(this.state.selectedColor));
+    }
+    componentWillUnmount() {
+        window.removeEventListener("resize", drawSaturationCanvas);
+        window.removeEventListener("resize", drawHueCanvas);
+    }
 
     enableColorChange = () => this.setState({ allowClrChange: true });
     disableColorChange = () => this.setState({ allowClrChange: false });
@@ -76,7 +82,7 @@ class ColorPickerCanvas extends Component {
         return (
             <div id="canvases-container">
                 <div>
-                    <div id="pickerCircle" style={{ borderColor: light > 50 ? "#757575" : "white", marginLeft: hue - 8 + "px", marginTop: light * 2 - 8 + "px", backgroundColor: hexString }} />
+                    <div id="pickerCircle" style={{ borderColor: light > 50 ? "#757575" : "white", backgroundColor: hexString }} />
                     <Throttle time="20" handler="onMouseMove">
                         <canvas height="200" width={getScaledHueWidth()} id="main-canvas-color-picker"
                             onMouseDown={this.handleMouseDownMainCanvas} onMouseMove={this.handleMouseMoveMainCanvas}
@@ -87,7 +93,7 @@ class ColorPickerCanvas extends Component {
                 <div style={{ marginLeft: "10px" }}
                     onMouseDown={this.handleMouseDownSatCanvas} onMouseMove={this.handleMouseMoveSatCanvas}
                     onMouseLeave={this.disableColorChange} onMouseEnter={this.enableColorChange}>
-                    <div id="saturationCircle" style={{ backgroundColor: hexString, borderColor: light > 50 ? "#757575" : "#d9d9d9", marginTop: sat * 2 - 5 + "px" }} />
+                    <div id="saturationCircle" style={{ backgroundColor: hexString, borderColor: "#394B59", marginTop: sat * 2 - 5 + "px" }} />
                     <canvas id="saturation-canvas-color-picker" height="200" width="10" />
                 </div>
 

@@ -29,7 +29,7 @@ class ColorPicker extends Component {
   };
   setHexInput = (val) => { this.setState({ hexValue: val }); }
   getNumberPickerInput = (id, max, val, onChange) =>
-    <NumericInput buttonPosition="none" size={true} style={{ width: '50px', display: 'inline', marginLeft: '2px' }} id={id} min="0" max={max} value={val} onValueChange={onChange} />
+    <NumericInput style={{height: '1.4em', width: '50px', marginLeft: '2px' }} buttonPosition="none" size={true} id={id} min="0" max={max} value={val} onValueChange={onChange} />
 
   // Input Setters
   setFromHue = value => this.handleFormInput(new Color(value, this.props.baseColor.hsl.sat, this.props.baseColor.hsl.light, "HSL"))
@@ -60,8 +60,6 @@ class ColorPicker extends Component {
 
         <div id="color-picker">
           <ColorPickerCanvas onChange={this.props.changeBaseColor} baseColor={baseColor} setHexInput={this.setHexInput} />
-          <div id="canvases-container">
-          </div>
 
           <div id="color-inputs-container">
             <div className="input-boxes">
@@ -77,13 +75,13 @@ class ColorPicker extends Component {
             </div>
 
             <div style={{ display: 'inline-block', verticalAlign: 'top', margin: '0px', width: '100%' }}>
-              <div id='picked-color' style={{ backgroundColor: hexString }} />
-              <div className="input-boxes">
+              <div className="input-boxes" >
                 <div>
-                  <Label style={{ marginBottom:'0', whiteSpace:'nowrap' }}>Hex: #</Label> 
-                  <input id='hex-intput-txt-box' style={{ width: "82px", marginLeft: '2px' }} class="bp3-input" value={this.state.hexValue} onChange={this.setFromHex} />
+                  <Label style={{ marginBottom: '0', whiteSpace: 'nowrap' }}>Hex: #</Label>
+                  <input id='hex-intput-txt-box' class="bp3-input" value={this.state.hexValue} onChange={this.setFromHex} />
                 </div>
               </div>
+              <div id='picked-color' style={{ backgroundColor: hexString }} />
             </div>
 
           </div>

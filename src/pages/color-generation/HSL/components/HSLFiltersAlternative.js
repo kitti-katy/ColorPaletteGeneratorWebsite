@@ -28,7 +28,7 @@ const satLightDivisors = { 1: '1', 2: '2', 4: '4', 5: '5', 10: '10', 20: '20' }
 
 class HSLFiltersAlternative extends Component {
   state = {
-    hueSplitter: 8, satSplitter: 1, lightSplitter: 10,
+    hueSplitter: 8, satSplitter: 1, lightSplitter: 5,
     selectedDisplayOption: 0,
     selectedColorId: ''
   };
