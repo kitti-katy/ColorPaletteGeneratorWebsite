@@ -22,6 +22,10 @@ class Header extends Component {
             <Button className="bp3-minimal" icon="media" text="From Image" onClick={() => this.navigateTo('/generate/picture')}  />
             <Button className="bp3-minimal" icon="drag-handle-horizontal" text="Custom" onClick={() => this.navigateTo('/generate/custom')}  />
         </Navbar.Group>
+        <Navbar.Group align={Alignment.RIGHT}>
+
+            <Button className="bp3-minimal" icon="flash" text="Light Theme" onClick={() => this.navigateTo('/generate/custom')}  />
+        </Navbar.Group>
       </Navbar>
     );
   }
