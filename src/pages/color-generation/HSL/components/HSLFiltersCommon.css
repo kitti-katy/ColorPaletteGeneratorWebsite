@@ -38,7 +38,7 @@
     justify-content: flex-end;
     align-items: center;
     margin-bottom: 8px;
-    padding: 12px 0;
+    padding: 12px 28px;
    /* margin-top: 24px; */
 }
 
@@ -55,13 +55,17 @@ div.hr {
   .tiles-holder{
     padding-bottom: 5px;
   }
-
+  .ant-slider-rail {
+      background-color: #BFCCD6;
+  }
   
   .ant-slider-track  {
     background: transparent; 
   }
  .ant-slider-step {
     background: rgb(28, 38, 46);
+    border: 1px solid #394b59;
+    border-radius: 50%;
   }
 
   .ant-slider-handle:hover {

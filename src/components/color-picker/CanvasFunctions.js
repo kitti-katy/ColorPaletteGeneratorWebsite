@@ -1,5 +1,5 @@
 import Color from "../../utilities/Color";
-export const getScaler = () => window.innerWidth >= 1920 ? 1 : window.innerWidth / 1920
+export const getScaler = () => window.innerWidth >= 2400 ? 1 : window.innerWidth / 2400
 export const getScaledHueWidth = () => 360 * getScaler()
 export const getScaledHeight = () => 200 * getScaler()
 

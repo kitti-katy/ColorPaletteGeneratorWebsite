@@ -34,3 +34,22 @@ code {
     color:#3d3d3d;
 }
 
+/* width */
+::-webkit-scrollbar {
+  width: 1rem;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #293742;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #8A9BA8;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #5C7080; 
+}

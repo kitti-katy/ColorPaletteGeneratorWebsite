@@ -29,7 +29,7 @@ class ColorPicker extends Component {
   };
   setHexInput = (val) => { this.setState({ hexValue: val }); }
   getNumberPickerInput = (id, max, val, onChange) =>
-    <NumericInput style={{height: '1.4em', width: '50px', marginLeft: '2px' }} buttonPosition="none" size={true} id={id} min="0" max={max} value={val} onValueChange={onChange} />
+    <NumericInput style={{ height: '1.4em', width: '50px', marginLeft: '2px' }} buttonPosition="none" size={true} id={id} min="0" max={max} value={val} onValueChange={onChange} />
 
   // Input Setters
   setFromHue = value => this.handleFormInput(new Color(value, this.props.baseColor.hsl.sat, this.props.baseColor.hsl.light, "HSL"))
@@ -56,38 +56,35 @@ class ColorPicker extends Component {
     let hexString = '#' + this.state.hexValue;
 
     return (
-      <Card className="element-holder">
+      <div id="color-picker">
+        <ColorPickerCanvas onChange={this.props.changeBaseColor} baseColor={baseColor} setHexInput={this.setHexInput} />
 
-        <div id="color-picker">
-          <ColorPickerCanvas onChange={this.props.changeBaseColor} baseColor={baseColor} setHexInput={this.setHexInput} />
+        <div id="color-inputs-container">
+          <div className="input-boxes">
+            <div> <Label>H: </Label> {this.getNumberPickerInput('H', 359, hue, this.setFromHue)} </div>
+            <div> <Label>S: </Label> {this.getNumberPickerInput('S', 100, sat, this.setFromSat)} </div>
+            <div> <Label>L: </Label> {this.getNumberPickerInput('L', 100, light, this.setFromLight)} </div>
+          </div>
 
-          <div id="color-inputs-container">
-            <div className="input-boxes">
-              <div> <Label>H: </Label> {this.getNumberPickerInput('H', 359, hue, this.setFromHue)} </div>
-              <div> <Label>S: </Label> {this.getNumberPickerInput('S', 100, sat, this.setFromSat)} </div>
-              <div> <Label>L: </Label> {this.getNumberPickerInput('L', 100, light, this.setFromLight)} </div>
-            </div>
+          <div className="input-boxes">
+            <div> <Label>R: </Label> {this.getNumberPickerInput('R', 255, r, this.setFromRed)}</div>
+            <div> <Label>G: </Label> {this.getNumberPickerInput('G', 255, g, this.setFromGreen)}</div>
+            <div> <Label>B: </Label> {this.getNumberPickerInput('B', 255, b, this.setFromBlue)} </div>
+          </div>
 
-            <div className="input-boxes">
-              <div> <Label>R: </Label> {this.getNumberPickerInput('R', 255, r, this.setFromRed)}</div>
-              <div> <Label>G: </Label> {this.getNumberPickerInput('G', 255, g, this.setFromGreen)}</div>
-              <div> <Label>B: </Label> {this.getNumberPickerInput('B', 255, b, this.setFromBlue)} </div>
-            </div>
-
-            <div style={{ display: 'inline-block', verticalAlign: 'top', margin: '0px', width: '100%' }}>
-              <div className="input-boxes" >
-                <div>
-                  <Label style={{ marginBottom: '0', whiteSpace: 'nowrap' }}>Hex: #</Label>
-                  <input id='hex-intput-txt-box' class="bp3-input" value={this.state.hexValue} onChange={this.setFromHex} />
-                </div>
+          <div style={{ display: 'inline-block', verticalAlign: 'top', margin: '0px', width: '100%' }}>
+            <div className="input-boxes" >
+              <div>
+                <Label style={{ marginBottom: '0', whiteSpace: 'nowrap' }}>Hex: #</Label>
+                <input id='hex-intput-txt-box' class="bp3-input" value={this.state.hexValue} onChange={this.setFromHex} />
               </div>
-              <div id='picked-color' style={{ backgroundColor: hexString }} />
             </div>
-
+            <div id='picked-color' style={{ backgroundColor: hexString }} />
           </div>
 
         </div>
-      </Card>
+
+      </div>
     );
   }
 }

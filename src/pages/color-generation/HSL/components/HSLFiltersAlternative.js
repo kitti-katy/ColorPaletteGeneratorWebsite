@@ -23,8 +23,9 @@ let mapStateToProps = (state) => {
 let mapDispatchToProps = (dispatch) => { return bindActionCreators({ selectColor: selectColor }, dispatch) }
 
 const displayOptions = [['h', 's', 'l'], ['h', 'l', 's'], ['s', 'h', 'l'], ['l', 'h', 's'], ['s', 'l', 'h'], ['l', 's', 'h']]
-const hueDivisors = { 1: '1', 2: '2', 3: '3', 4: '4', 5: '5', 6: '6', 8: '8', 9: '9', 10: '10', 12: '12', 15: '15', 18: '18', 20: '20', 24: '24', 30: '30' }
+const hueDivisors = { 1: '1', 2: '2', 3: '3', 4: '4', 5: '5', 6: '6', 8: '8', 9: '9', 10: '10', 12: '12', 15: '15'} //, 18: '18', 20: '20', 24: '24', 30: '30' }
 const satLightDivisors = { 1: '1', 2: '2', 4: '4', 5: '5', 10: '10', 20: '20' }
+const hueMax = 15
 
 class HSLFiltersAlternative extends Component {
   state = {
@@ -78,6 +79,8 @@ class HSLFiltersAlternative extends Component {
     let selectedColor = this.props.selected
     //let selectedColorFont = new Color(selectedColor, 0, 0, 'Hex').hsl.light > 50 ? 'black' : 'white'
 
+    
+
     return (
       <Card id="hsl-filters-holder" className="element-holder">
         <div>
@@ -89,7 +92,7 @@ class HSLFiltersAlternative extends Component {
           {/* Hue */}
           <div id='hsl-container-1'>
             <Label className="slider-label">Number Of Hues</Label>
-            <Slider marks={hueDivisors} step={null} defaultValue={12} max={30} min={1} onChange={this.handleHueSliderChange} />
+            <Slider marks={hueDivisors} step={null} defaultValue={12} max={hueMax} min={1} onChange={this.handleHueSliderChange} />
 
             <div style={{ marginTop: '44px' }}>
               {/* Light */}

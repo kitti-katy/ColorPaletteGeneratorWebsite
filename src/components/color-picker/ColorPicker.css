@@ -1,8 +1,8 @@
 #color-picker{ 
-    box-shadow: rgba(0, 0, 0, 0.51) 0px 0px 2px; 
+    /* 
     background: rgba(61, 61, 61, 0.04); 
     background: #293742;
-    padding: 24px;
+    padding: 24px; */
     width: min-content;
 }
 
@@ -35,12 +35,14 @@
     position: relative; 
     float: left;
     border: solid 1px #0000001c;
+    border-radius: 2%;
 }
 
 #saturation-canvas-color-picker{ 
     display: inline; 
     margin-right: 7px; 
     border: 1px solid #394B59;
+    border-radius: 2%;
 }
 
 .input-boxes{ 

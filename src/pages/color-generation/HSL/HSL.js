@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import ColorPicker from "../../../components/color-picker/ColorPicker";
 import HSLFilters from "./components/HSLFilters";
+import HSLBasicContainer from "./components/HSLBasic/HSLBasicContainer";
 import SelectMode from "./components/SelectMode"
 import HSLFiltersAlternative from "./components/HSLFiltersAlternative";
 import TryIt from "../../../components/TryIt/TryIt";
@@ -20,22 +21,7 @@ class HSL extends Component {
   }
   handleSelectMode = (bool) => { this.setState({ isAdvanced: bool }) }
   render() {
-    return (
-      <div className="HSL-page-container">
-
-        {/* Color Picker */}
-        <ColorPicker id="HSL-color-picker-section" />
-
-        {/* HSL Filters */}
-        {!this.props.isAdvanced && <HSLFiltersAlternative id="HSL-filters-section-basic" />}
-        {this.props.isAdvanced && <HSLFilters id="HSL-filters-section-advanced" />}
-
-        <div style={{ display: 'inline-block', verticalAlign: 'top', }}> {/*} <TabMenu model={[{label: 'Basic'},{label: 'Advanced'}]} /> */}</div>
-        {/* Try It */}
-        <TryIt id="HSL-try-it-section" />
-
-      </div>
-    );
+    return (<HSLBasicContainer />);
   }
 }
 

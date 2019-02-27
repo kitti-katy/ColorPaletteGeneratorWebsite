@@ -2,7 +2,7 @@
 }
 
 .single-tile-basic {
-    padding: 0.5cm; 
+    padding: 1.2em; 
     display: inline-block;
     cursor: pointer;
 }
@@ -15,7 +15,7 @@
 
 .level-1-holder { 
     /*border: '3px solid ' + satArr[0][0].HEXString,*/ 
-    padding: 4px; 
+    padding: 1px; 
     display: inline-block;
 }
 .tiles-holder{
