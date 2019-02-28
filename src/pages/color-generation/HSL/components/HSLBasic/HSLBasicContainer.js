@@ -29,8 +29,8 @@ class HSLBasicContainer extends Component {
     render() {
         return (
             <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                <div style={{ width: '100%', display: 'inline-block', marginRight: '48px' }}>
-                    <div className=" hsl-container-2 bottom-bordered top-bordered" style={{ background: '#10161A', borderColor: '#30404D', borderTopLeftRadius: '10px', borderTopRightRadius: '10px' }}>
+                <div style={{ width: '100%', display: 'inline-block' }}>
+                    <div className=" hsl-container-2 bottom-bordered top-bordered" style={{ background: '#10161A', borderColor: '#30404D' }}>
                         <DisplayOrderButtons />
                         <ExportJSONButton onClick={this.handleExportJSON_ButtonClick} />
                         <SelectedColorPanel selectedColor={this.props.selected} />
@@ -38,14 +38,11 @@ class HSLBasicContainer extends Component {
                     <Tiles />
                 </div>
 
-                <div style={{ display: 'inline-block', minWidth: '28%' }}>
-                   
-                    <Card>
+                <Card style={{ display: 'inline-block',  height: '92vh' }}>
                     <SelectMode />
-                        <Filters />
-                        <ColorPicker />
-                    </Card>
-                </div>
+                    <Filters />
+                    <ColorPicker />
+                </Card>
 
                 {/*  <TryIt /> */}
             </div>

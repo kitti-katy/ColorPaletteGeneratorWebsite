@@ -1,8 +1,8 @@
 .main-holder {
     display: inline-block; 
     vertical-align: top; 
-    padding: 40px;
-   /* box-shadow: #00000059 1px 1px 10px 1px; */
+  /*  padding: 40px;
+    box-shadow: #00000059 1px 1px 10px 1px; */
     width: 100%;
     height: max-content;
   }

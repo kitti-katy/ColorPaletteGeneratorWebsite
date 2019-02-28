@@ -32,16 +32,16 @@ class Filters extends Component {
         const {hueSplit, satSplit, lightSplit} = this.props
         return (
                 <div id='hsl-container-1' style={{ paddingBottom: '48px', marginBottom: '24px' }} className="bottom-bordered">
-                    <Label className="slider-label">Number Of Hues</Label>
+                    <Label className="slider-label">Hues</Label>
                     <Slider marks={hueDivisors} step={null} defaultValue={hueSplit} max={hueMax} min={1} onChange={this.handleHueSliderChange} />
                     {/* Light */}
                     <div style={{ marginTop: '44px' }}>
-                        <Label className="slider-label">Number Of Lights</Label>
+                        <Label className="slider-label">Lights</Label>
                         <Slider marks={lightDivisors} step={null} defaultValue={satSplit} max={lightMax} min={1} onChange={this.handleLightSliderChange} />
                     </div>
                     {/* Saturation */}
                     <div style={{ marginTop: '44px' }}>
-                        <Label className="slider-label" >Number Of Saturations</Label>
+                        <Label className="slider-label" >Saturations</Label>
                         <Slider marks={satDivisors} step={null} defaultValue={lightSplit} max={satMax} min={1} onChange={this.handleSatSliderChange} />
                     </div>
                 </div>
