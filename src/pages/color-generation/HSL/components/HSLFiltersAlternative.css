@@ -5,6 +5,7 @@
     padding: 1.2em; 
     display: inline-block;
     cursor: pointer;
+    transition: border-radius 0.2s ease-in;
 }
 .single-tile-basic:hover{
     border-radius: 25%
@@ -16,7 +17,7 @@
 .level-1-holder { 
     /*border: '3px solid ' + satArr[0][0].HEXString,*/ 
     padding: 1px; 
-    display: inline-block;
+  /*  display: inline-block;*/
 }
 .tiles-holder{
     line-height: 0;

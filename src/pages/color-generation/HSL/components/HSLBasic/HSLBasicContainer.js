@@ -12,7 +12,7 @@ import '../HSLFiltersCommon.css'
 import SelectMode from "../SelectMode"
 import ColorPicker from "../../../../../components/color-picker/ColorPicker";
 import TryIt from "../../../../../components/TryIt/TryIt";
-import { Card } from "@blueprintjs/core";
+import { Card, Button } from "@blueprintjs/core";
 
 let mapStateToProps = (state) => { return { selected: state.SelectedColorReducer.selected } }
 
@@ -29,19 +29,22 @@ class HSLBasicContainer extends Component {
     render() {
         return (
             <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                <div style={{ width: '100%', display: 'inline-block' }}>
-                    <div className=" hsl-container-2 bottom-bordered top-bordered" style={{ background: '#10161A', borderColor: '#30404D' }}>
+
+                <div style={{ width: '100%', display: 'flex', flexDirection:'column', background: '#10161A' }}  id='palette-container'>
+                    <div className=" hsl-container-2 bottom-bordered top-bordered" style={{ borderColor: '#30404D' }}>
                         <DisplayOrderButtons />
                         <ExportJSONButton onClick={this.handleExportJSON_ButtonClick} />
                         <SelectedColorPanel selectedColor={this.props.selected} />
                     </div>
                     <Tiles />
+                    <TryIt/>
                 </div>
 
                 <Card style={{ display: 'inline-block',  height: '92vh' }}>
                     <SelectMode />
                     <Filters />
                     <ColorPicker />
+                    <Button>Try Colors</Button>
                 </Card>
 
                 {/*  <TryIt /> */}

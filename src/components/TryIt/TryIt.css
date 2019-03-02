@@ -11,12 +11,11 @@
 }
 .try-colors-container{ 
     position: fixed; 
-
     margin: auto;
 }
 .try-card-holder{
-    min-width: 300px;
-    font-size: 9.5pt;
+    width: 50%;
+    font-size: 1em;
 }
 #try-background{
     cursor: pointer; 

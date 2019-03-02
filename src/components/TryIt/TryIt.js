@@ -97,16 +97,15 @@ class TryIt extends Component {
         let componentsKeys = Object.keys(components)
 
         return (
-            <Card style={{  minWidth: '500px', maxWidth:'600px', minHeight: '750px' }} className="element-holder">
+            <Card style={{  width:'100%', /* minHeight: '750px' */}} >
                 <div id="try-colors-container">
-                    <Label>Apply Selected Color Here:</Label>
                     <div className="try-card-holder">
 
                         <Card id="try-background" onClick={(e) => this.setColor(e, 'background')}
                             style={{ backgroundColor: background }} headStyle={{ backgroundColor: appBar }} >
 
                             <h2 className="try-title-holder" style={{ color: title }}>
-                                <span id="try-title" onClick={(e) => this.setColor(e, 'title')}>Title </span>
+                                <span id="try-title" onClick={(e) => this.setColor(e, 'title')}>Apply Selected Color Here </span>
                                 <Button className="reset-try-card-btn" onClick={this.reset} label={<Icon icon="repeat" />} />
                             </h2>
                             <br />
@@ -119,9 +118,6 @@ class TryIt extends Component {
                             <div>
                                 {this.getTryButton('primaryButton', "try-button-primary", primaryButton, primaryButtonFont, 'Primary')}
                                 {this.getTryButton('secondaryButton', "try-button-secondary", secondaryButton, secondaryButtonFont, 'Secondary')}
-                            </div>
-                            <br />
-                            <div >
                                 {this.getTryButton('successButton', "try-button-success", successButton, successButtonFont, 'Success')}
                                 {this.getTryButton('infoButton', "try-button-info", infoButton, infoButtonFont, 'Info')}
                                 {this.getTryButton('warningButton', "try-button-warning", warningButton, warningButtonFont, 'Warning')}
@@ -131,7 +127,7 @@ class TryIt extends Component {
                         </Card >
 
                         <div className="applied-colors-header">
-                            <Label>Applied Colors:</Label>
+                           {/* <Label>Applied Colors:</Label> */}
                             <ExportJSONButton onClick={() => exportJSON(components)} />
                         </div>
 
