@@ -17,6 +17,9 @@ import { Card, Button } from "@blueprintjs/core";
 let mapStateToProps = (state) => { return { selected: state.SelectedColorReducer.selected } }
 
 class HSLBasicContainer extends Component {
+    state = {
+        displayTryPanel: true,
+    }
 
     // EXPORT JSON HANDLER
     handleExportJSON_ButtonClick = () => {
@@ -25,26 +28,27 @@ class HSLBasicContainer extends Component {
         for (var i = 0; i < colorElements.length; i++) { colors["color" + i] = colorElements[i].style.backgroundColor }
         exportJSON(colors)
     }
-
+    setDisplayTryPanel = () => this.setState({ displayTryPanel: !this.state.displayTryPanel })
     render() {
         return (
             <div style={{ display: 'flex', justifyContent: 'space-between' }}>
 
-                <div style={{ width: '100%', display: 'flex', flexDirection:'column', background: '#10161A' }}  id='palette-container'>
+                <div style={{ width: '100%', display: 'flex', flexDirection: 'column', background: '#10161A' }} id='palette-container'>
                     <div className=" hsl-container-2 bottom-bordered top-bordered" style={{ borderColor: '#30404D' }}>
                         <DisplayOrderButtons />
                         <ExportJSONButton onClick={this.handleExportJSON_ButtonClick} />
                         <SelectedColorPanel selectedColor={this.props.selected} />
                     </div>
                     <Tiles />
-                    <TryIt/>
+                    <div style={{ display: this.state.displayTryPanel ? 'block' : 'none' }}><TryIt /></div>
+
                 </div>
 
-                <Card style={{ display: 'inline-block',  height: '92vh' }}>
+                <Card style={{ display: 'inline-block', height: '92vh' }}>
                     <SelectMode />
                     <Filters />
                     <ColorPicker />
-                    <Button>Try Colors</Button>
+                    <Button onClick={this.setDisplayTryPanel}>Try Colors</Button>
                 </Card>
 
                 {/*  <TryIt /> */}

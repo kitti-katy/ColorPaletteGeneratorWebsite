@@ -8,13 +8,15 @@
     justify-content: start; 
     flex-wrap: wrap; 
     overflow: auto;
+    align-content: baseline;
 }
 .try-colors-container{ 
-    position: fixed; 
-    margin: auto;
+    display: flex;
+    justify-content: space-between
+
 }
 .try-card-holder{
-    width: 50%;
+    max-width: 836px;
     font-size: 1em;
 }
 #try-background{

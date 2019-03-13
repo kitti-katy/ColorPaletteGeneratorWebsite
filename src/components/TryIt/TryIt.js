@@ -82,7 +82,7 @@ class TryIt extends Component {
     getSelectedColor = () => this.props.selectedColor != null ? this.props.selectedColor : this.props.selected
 
     getTryButton = (component, id, background, font, text) => <Button
-        onClick={(e) => this.setColor(e, component)} id={id} style={{ backgroundColor: background, color: font, marginRight: '16px', borderColor: 'transparent', fontSize:'9.5pt' }}
+        onClick={(e) => this.setColor(e, component)} id={id} style={{ backgroundColor: background, color: font, marginRight: '16px', borderColor: 'transparent', fontSize: '9.5pt' }}
         label={<div onClick={(e) => this.setColor(e, component + 'Font')} id={id + "-font"}>{text} </div>} />
 
     render() {
@@ -97,8 +97,8 @@ class TryIt extends Component {
         let componentsKeys = Object.keys(components)
 
         return (
-            <Card style={{  width:'100%', /* minHeight: '750px' */}} >
-                <div id="try-colors-container">
+            <Card style={{ width: '100%', /* minHeight: '750px' */ }} >
+                <div className="try-colors-container">
                     <div className="try-card-holder">
 
                         <Card id="try-background" onClick={(e) => this.setColor(e, 'background')}
@@ -126,8 +126,11 @@ class TryIt extends Component {
                             <br />
                         </Card >
 
+                    </div>
+
+                    <div>
                         <div className="applied-colors-header">
-                           {/* <Label>Applied Colors:</Label> */}
+                            {/* <Label>Applied Colors:</Label> */}
                             <ExportJSONButton onClick={() => exportJSON(components)} />
                         </div>
 
@@ -140,7 +143,6 @@ class TryIt extends Component {
                         </div>
                     </div>
                 </div>
-
             </Card>
         );
     }
