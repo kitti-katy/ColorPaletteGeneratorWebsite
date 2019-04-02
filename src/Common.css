@@ -1,12 +1,6 @@
 .main-holder {
     display: inline-block; 
     vertical-align: top; 
-  /*  padding: 40px;
-    box-shadow: #00000059 1px 1px 10px 1px; */
-    width: 100%;
-    height: max-content;
-  }
-  .ant-card-bordered {
-    box-shadow: rgba(0, 0, 0, 0.51) 0px 0px 2px;
-    border: none;  
+    height: 100%;
+    width: 100%
   }

@@ -6,7 +6,7 @@ import Community from '../pages/community/Community'
 import React from "react";
 import "../Common.css"
 export const Main = () => (
-  <main style={{display:'grid'}} className="main-holder">
+  <main className="main-holder">
     <Switch>
       <Route exact path='/generate/hsl' component={HSL}/>
       <Route path='/generate/custom' component={Custom}/>

@@ -11,7 +11,7 @@ import { SelectedColorPanel } from '../../../../components/SelectedColorPanel'
 import { Slider, Tooltip } from 'antd';
 import './HSLFiltersAlternative.css'
 import './HSLFiltersCommon.css'
-import SelectMode from "./SelectMode"
+import SelectMode from "./SelectMode/SelectMode"
 import { Card, Label, Icon } from "@blueprintjs/core";
 
 let mapStateToProps = (state) => {

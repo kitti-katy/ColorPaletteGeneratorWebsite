@@ -12,23 +12,27 @@
 }
 .try-colors-container{ 
     display: flex;
-    justify-content: space-between
-
+    justify-content: space-between;
+    height: 100%
 }
 .try-card-holder{
-    max-width: 836px;
     font-size: 1em;
 }
-#try-background{
+#try-background {
     cursor: pointer; 
+    padding: 24px;
+    height: 100%;
+   /* margin: 24px; */
 }
 .try-title-holder{  
-    font-family: 'Lora', serif; 
-    border-bottom: 1px solid #e8e8e8; 
+    text-align: center;
     padding-bottom: 12px 
 }
 .reset-try-card-btn{
     float: right
+}
+#try-text{
+    font-size: 0.8em;
 }
 
 .applied-colors-header{

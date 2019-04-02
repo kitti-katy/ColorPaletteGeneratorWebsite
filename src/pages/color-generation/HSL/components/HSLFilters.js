@@ -14,7 +14,7 @@ import { Icon, Slider, Select, Tooltip } from 'antd';
 import { Radio } from 'antd';
 import './HSLFilters.css'
 import './HSLFiltersCommon.css'
-import SelectMode from "./SelectMode"
+import SelectMode from "./SelectMode/SelectMode"
 import { Card, Label } from "@blueprintjs/core";
 
 

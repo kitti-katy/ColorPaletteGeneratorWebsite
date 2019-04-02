@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import ColorPicker from "../../../components/color-picker/ColorPicker";
 import HSLFilters from "./components/HSLFilters";
 import HSLBasicContainer from "./components/HSLBasic/HSLBasicContainer";
-import SelectMode from "./components/SelectMode"
 import HSLFiltersAlternative from "./components/HSLFiltersAlternative";
 import TryIt from "../../../components/TryIt/TryIt";
 import { Select } from 'antd';

@@ -23,8 +23,14 @@
     line-height: 0;
 }
 #hsl-container-1 {
-    margin-bottom: 60px;
-    margin-top: 36px;
+    display: flex;
+    flex-direction: column;
+    height: 80%;
+    justify-content: space-around;
+}
+#hsl-container-1 > div{
+    font-size: 1em;
+    min-height: 60px;
 }
 .arrow-btn{ 
     margin-right: 16px; 

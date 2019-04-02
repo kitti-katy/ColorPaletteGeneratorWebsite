@@ -34,7 +34,6 @@ class Tiles extends Component {
         let tileWidth = containerWidth / (width * innerWidth)
         let scaler = innerWidth * width >= 40 ? 1 : 2
         let padding = 100 / (innerWidth * 2) + '%'
-        console.log(padding)
         return padding
     }
     getRowHolderWidth = (palette) => {
@@ -42,12 +41,12 @@ class Tiles extends Component {
         let innerWidth = palette[0][0].length
         let tilesHorizontal = innerWidth * width
         let scaler = tilesHorizontal <= 1 ? 0.125 :
-                     tilesHorizontal <= 2 ? 0.25 :
-                     tilesHorizontal <= 4 ? 0.5 :
-                     tilesHorizontal < 40 ? 1 :
-                     tilesHorizontal < 100 ? 2 :
-                     tilesHorizontal < 120 ? 3 :
-                     tilesHorizontal < 140 ? 4 : 5
+            tilesHorizontal <= 2 ? 0.25 :
+                tilesHorizontal <= 4 ? 0.5 :
+                    tilesHorizontal < 40 ? 1 :
+                        tilesHorizontal < 100 ? 2 :
+                            tilesHorizontal < 120 ? 3 :
+                                tilesHorizontal < 140 ? 4 : 5
         return (100 / width) * scaler + '%'
     }
     getPalette = () => {
@@ -72,7 +71,7 @@ class Tiles extends Component {
         //let selectedColorFont = new Color(selectedColor, 0, 0, 'Hex').hsl.light > 50 ? 'black' : 'white'
 
         return (
-            <div class="bottom-bordered tiles-holder generated-tiles" >
+            <div class="tiles-holder generated-tiles" style={{ width: '62%', margin: 'auto' }} >
                 {palette.map((satArr, i1) =>
                     <div className="level-1-holder" key={i1 + "l1"} style={{ width: l1Width }}>
                         {satArr.map((lightArr, i2) =>

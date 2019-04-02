@@ -4,6 +4,7 @@
     background: #293742;
     padding: 24px; */
     width: min-content;
+    margin: auto;
 }
 
 #canvases-container{

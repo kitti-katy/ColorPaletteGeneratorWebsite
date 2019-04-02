@@ -1,6 +1,5 @@
 import React, { Component } from "react";
-import { Button, Navbar, Alignment } from "@blueprintjs/core";
-import {  withRouter } from 'react-router-dom'
+import { withRouter } from 'react-router-dom'
 
 class Header extends Component {
   state = {
@@ -14,19 +13,10 @@ class Header extends Component {
   render() {
 
     return (
-      <Navbar>
-        <Navbar.Group align={Alignment.LEFT}>
-            <Navbar.Heading>Awesome Color Palette Generator</Navbar.Heading>
-            <Navbar.Divider />
-            <Button className="bp3-minimal" icon="build" text="Generate Palette Style" onClick={() => this.navigateTo('/generate/hsl')}  />
-            <Button className="bp3-minimal" icon="media" text="From Image" onClick={() => this.navigateTo('/generate/picture')}  />
-            <Button className="bp3-minimal" icon="drag-handle-horizontal" text="Custom" onClick={() => this.navigateTo('/generate/custom')}  />
-        </Navbar.Group>
-        <Navbar.Group align={Alignment.RIGHT}>
+      <div style={{ padding: '12px 12px 12px 24px', background: 'rgb(218, 223, 231)' }}>
+        <h2 style={{ margin: '0', color: 'rgb(36, 44, 56)', fontWeight: '700' }}>Awesome Color Palette Generator</h2>
+      </div>
 
-            <Button className="bp3-minimal" icon="flash" text="Light Theme" onClick={() => this.navigateTo('/generate/custom')}  />
-        </Navbar.Group>
-      </Navbar>
     );
   }
 }

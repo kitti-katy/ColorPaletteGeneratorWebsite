@@ -2,27 +2,29 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import Color from '../../utilities/Color'
 import { exportJSON } from '../../utilities/ExportJSON';
-import { Button } from 'primereact/button';
 import { ExportJSONButton } from '../ExportJSONButton'
-import { Card, Label, Icon } from "@blueprintjs/core";
+import { Icon } from "@blueprintjs/core";
 import "./TryIt.css"
+import { GoldenRatio } from "../GoldenRatio";
+import { borderStyle } from '../../styles'
 
 let mapStateToProps = (state) => { return { selected: state.SelectedColorReducer.selected } }
 let mapDispatchToProps = (dispatch) => { /*return bindActionCreators({ changeBaseColor: changeBaseColor }, dispatch)*/ }
-
 
 const tryIds = ["try-background", "try-title", "try-header", "try-text", "try-button-primary",
     "try-button-primary-font", "try-button-secondary", "try-button-secondary-font", "try-button-success",
     "try-button-warning-font", "try-button-warning",
     "try-button-success-font", "try-button-info", "try-button-info-font", "try-button-danger", "try-button-danger-font"]
-const hoverStyle = '3px dotted red'
+
+const texts = ['title', 'header', 'primaryButtonFont', 'secondaryButtonFont', 'successButtonFont', 'dangerButtonFont', 'warningButtonFont', 'infoButtonFont', 'paragraph']
+const backgrounds = ['background', 'primaryButton', 'secondaryButton', 'successButton', 'warningButton', 'dangerButton', 'infoButton']
 
 class TryIt extends Component {
     state = this.initialState;
     get initialState() {
         return {
             components: {
-                background: '#ffffff',
+                background: '#f9fafb',
                 primaryButton: '#ffffff',
                 secondaryButton: '#ffffff',
                 successButton: '#ffffff',
@@ -30,15 +32,15 @@ class TryIt extends Component {
                 dangerButton: '#ffffff',
                 infoButton: '#ffffff',
 
-                title: '#353535',
-                header: '#353535',
-                primaryButtonFont: '#353535',
-                secondaryButtonFont: '#353535',
-                successButtonFont: '#353535',
-                dangerButtonFont: '#353535',
-                warningButtonFont: '#353535',
-                infoButtonFont: '#353535',
-                paragraph: '#353535',
+                title: '#8c9db5',
+                header: '#8c9db5',
+                primaryButtonFont: '#8c9db5',
+                secondaryButtonFont: '#8c9db5',
+                successButtonFont: '#8c9db5',
+                dangerButtonFont: '#8c9db5',
+                warningButtonFont: '#8c9db5',
+                infoButtonFont: '#8c9db5',
+                paragraph: '#8c9db5',
             }
         };
     }
@@ -81,9 +83,16 @@ class TryIt extends Component {
     // selectedColor when passed from a compononent
     getSelectedColor = () => this.props.selectedColor != null ? this.props.selectedColor : this.props.selected
 
-    getTryButton = (component, id, background, font, text) => <Button
-        onClick={(e) => this.setColor(e, component)} id={id} style={{ backgroundColor: background, color: font, marginRight: '16px', borderColor: 'transparent', fontSize: '9.5pt' }}
-        label={<div onClick={(e) => this.setColor(e, component + 'Font')} id={id + "-font"}>{text} </div>} />
+    getTryButton = (component, id, background, font, text) => {
+
+        return (
+            <button
+                onClick={(e) => this.setColor(e, component)} id={id} style={{
+                    backgroundColor: background, color: font, marginRight: '16px', border: '1px solid ' + font + '80', fontSize: '0.8em',
+                    padding: '8px', borderRadius: '4px'
+                }}>
+                <div onClick={(e) => this.setColor(e, component + 'Font')} id={id + "-font"}>{text} </div></button>)
+    }
 
     render() {
         let components = this.state.components
@@ -92,58 +101,81 @@ class TryIt extends Component {
             dangerButton, infoButton, primaryButtonFont, warningButton, warningButtonFont,
             secondaryButtonFont, successButtonFont, dangerButtonFont, infoButtonFont, paragraph } = components
         let selectedColor = this.getSelectedColor()
+        
+
         let selectedColorFont = new Color(selectedColor, 0, 0, 'Hex').hsl.light > 50 ? 'black' : 'white'
 
-        let componentsKeys = Object.keys(components)
 
         return (
-            <Card style={{ width: '100%', /* minHeight: '750px' */ }} >
-                <div className="try-colors-container">
-                    <div className="try-card-holder">
+            <div style={{ width: '100%', background: 'white', height: '100%', border: borderStyle }} >
+                <GoldenRatio
+                    direction="horizontal"
+                    longFirst={true}
+                    shortChild={
+                        <div className="try-colors-container">
+                            <div className="try-card-holder">
 
-                        <Card id="try-background" onClick={(e) => this.setColor(e, 'background')}
-                            style={{ backgroundColor: background }} headStyle={{ backgroundColor: appBar }} >
+                                <div id="try-background" onClick={(e) => this.setColor(e, 'background')}
+                                    style={{ backgroundColor: background}} headStyle={{ backgroundColor: appBar }} >
+                                    <h3 className="try-title-holder" style={{ color: title }}>
+                                        <span id="try-title" onClick={(e) => this.setColor(e, 'title')}>Apply Selected Color Here </span>
+                                    </h3>
+                                    
+                                    <h4 style={{ color: header }} id="try-header" onClick={(e) => this.setColor(e, 'header')}> Header </h4>
+                                    <p id="try-text" onClick={(e) => this.setColor(e, 'paragraph')} style={{ color: paragraph, lineHeight: '1.7' }}>
+                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                                         Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                                    </p>
+                                    <br />
+                                    <div style={{ display: 'flex' }}>
+                                        {this.getTryButton('primaryButton', "try-button-primary", primaryButton, primaryButtonFont, 'Primary')}
+                                        {this.getTryButton('secondaryButton', "try-button-secondary", secondaryButton, secondaryButtonFont, 'Secondary')}
+                                    </div>
+                                    <br />
+                                    <div style={{ display: 'flex' }}>
+                                        {this.getTryButton('successButton', "try-button-success", successButton, successButtonFont, 'Success')}
+                                        {this.getTryButton('infoButton', "try-button-info", infoButton, infoButtonFont, 'Info')}
+                                        {this.getTryButton('warningButton', "try-button-warning", warningButton, warningButtonFont, 'Warning')}
+                                        {this.getTryButton('dangerButton', "try-button-danger", dangerButton, dangerButtonFont, 'Danger')}
+                                    </div>
+                                </div >
 
-                            <h2 className="try-title-holder" style={{ color: title }}>
-                                <span id="try-title" onClick={(e) => this.setColor(e, 'title')}>Apply Selected Color Here </span>
-                                <Button className="reset-try-card-btn" onClick={this.reset} label={<Icon icon="repeat" />} />
-                            </h2>
+                            </div>
+
+
+                        </div>
+                    }
+                    longChild={
+                        <div style={{ direction: 'rtl', padding: '24px', borderRight: '2px dashed rgb(202, 210, 221)', height: '100%' }}>
+                            <h3 style={{ color: 'gray' }}> <Icon icon="repeat" onClick={this.reset} /> <ExportJSONButton onClick={() => exportJSON(components)} /></h3>
+                            <br /> <br />
+                            <h3> Backgrounds </h3>
                             <br />
-                            <h3 style={{ color: header, fontFamily: "'Lora', serif" }} id="try-header" onClick={(e) => this.setColor(e, 'header')}> Header </h3>
-                            <p id="try-text" onClick={(e) => this.setColor(e, 'paragraph')} style={{ color: paragraph, fontFamily: "'Nanum Gothic', sans-serif", lineHeight: '2' }}>
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                                 Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                           </p>
-                            <br />
-                            <div>
-                                {this.getTryButton('primaryButton', "try-button-primary", primaryButton, primaryButtonFont, 'Primary')}
-                                {this.getTryButton('secondaryButton', "try-button-secondary", secondaryButton, secondaryButtonFont, 'Secondary')}
-                                {this.getTryButton('successButton', "try-button-success", successButton, successButtonFont, 'Success')}
-                                {this.getTryButton('infoButton', "try-button-info", infoButton, infoButtonFont, 'Info')}
-                                {this.getTryButton('warningButton', "try-button-warning", warningButton, warningButtonFont, 'Warning')}
-                                {this.getTryButton('dangerButton', "try-button-danger", dangerButton, dangerButtonFont, 'Danger')}
+                            <div className="applied-colors-container">
+                                {backgrounds.map(key =>
+                                    <div className="applied-color"
+                                        style={{
+                                            backgroundColor: components[key],
+                                            color: new Color(components[key], 0, 0, 'Hex').hsl.light > 50 ? 'rgb(36, 44, 56)' : 'white',
+                                            border: new Color(components[key], 0, 0, 'Hex').hsl.light > 50 ? '1px solid rgb(202, 210, 221)' : ''
+                                        }}>
+                                        {components[key]}
+                                    </div>)}
                             </div>
                             <br />
-                        </Card >
+                            <h3> Texts </h3>
+                            <br />
+                            <div className="applied-colors-container">
+                                {texts.map(key =>
+                                    <div className="applied-color"
+                                        style={{ backgroundColor: components[key], color: new Color(components[key], 0, 0, 'Hex').hsl.light > 50 ? 'rgb(36, 44, 56)' : 'white' }}>
+                                        {components[key]}
+                                    </div>)}
+                            </div>
 
-                    </div>
-
-                    <div>
-                        <div className="applied-colors-header">
-                            {/* <Label>Applied Colors:</Label> */}
-                            <ExportJSONButton onClick={() => exportJSON(components)} />
-                        </div>
-
-                        <div className="applied-colors-container">
-                            {componentsKeys.map(key =>
-                                <div className="applied-color"
-                                    style={{ backgroundColor: components[key], color: new Color(components[key], 0, 0, 'Hex').hsl.light > 50 ? 'black' : 'white' }}>
-                                    {components[key]}
-                                </div>)}
-                        </div>
-                    </div>
-                </div>
-            </Card>
+                        </div>}
+                />
+            </div>
         );
     }
 }
