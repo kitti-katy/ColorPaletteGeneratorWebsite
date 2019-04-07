@@ -22,10 +22,10 @@ class SelectMode extends Component {
     render() {
         return (
             <div className="select-mode-table">
-                <div onClick={() => this.navigateTo('/generate/hsl')} ><PaletteIcon style={iconStyle} fontSize="small"/> Basic</div>
-                <div onClick={() => this.navigateTo('/generate/hsl')} ><BrushIcon style={iconStyle} fontSize="small"/> Advanced</div>
-                <div onClick={() => this.navigateTo('/generate/custom')}><StarIcon style={iconStyle} fontSize="small"/> Custom</div>
-                <div onClick={() => this.navigateTo('/generate/picture')}><ImageIcon style={iconStyle} fontSize="small"/> From Picture</div>
+                <div onClick={() => this.navigateTo('/generate/hsl')} ><PaletteIcon style={iconStyle} fontSize="small"/> BASIC </div>
+                <div onClick={() => this.navigateTo('/generate/hsl')} ><BrushIcon style={iconStyle} fontSize="small"/> ADVANCED </div>
+                <div onClick={() => this.navigateTo('/generate/custom')}><StarIcon style={iconStyle} fontSize="small"/> CUSTOM </div>
+                <div onClick={() => this.navigateTo('/generate/picture')}><ImageIcon style={iconStyle} fontSize="small"/> FROM PICTURE </div>
             </div>
         );
     }

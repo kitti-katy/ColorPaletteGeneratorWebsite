@@ -28,13 +28,10 @@ class Tiles extends Component {
     }
     getPadding = (palette) => {
         let width = palette.length
-        let height = palette[0].length
         let innerWidth = palette[0][0].length
         let containerWidth = this.state.containerWidth
-        let tileWidth = containerWidth / (width * innerWidth)
-        let scaler = innerWidth * width >= 40 ? 1 : 2
-        let padding = 100 / (innerWidth * 2) + '%'
-        return padding
+        let padding = 95 / (innerWidth * 2)
+        return Math.floor(padding) - 0.1
     }
     getRowHolderWidth = (palette) => {
         let width = palette.length
@@ -72,21 +69,28 @@ class Tiles extends Component {
 
         return (
             <div class="tiles-holder generated-tiles" style={{ width: '62%', margin: 'auto' }} >
-                {palette.map((satArr, i1) =>
-                    <div className="level-1-holder" key={i1 + "l1"} style={{ width: l1Width }}>
-                        {satArr.map((lightArr, i2) =>
-                            <div style={{ display: 'block' }} key={i2 + "l2"}>
-                                {lightArr.map((lightColor, i3) => {
-                                    let color = lightColor.HEXString
-                                    let isSelected = selectedColor == color
-                                    return <div key={i1 + '' + i2 + '' + i3 + color} id={color}
-                                        className={"single-tile-basic " + (isSelected ? 'selected-tile' : '')} style={{ background: color, padding: tilePadding }}
-                                        onClick={() => this.handleSelectColor(color, color)} />
-                                }
-                                )}
-                            </div>
-                        )}
-                    </div>)}
+                <div style={{ height: '100%', width: '100%', alignItems: 'center', display: 'flex', flexWrap: 'wrap', justifyContent: 'center' }}>
+                    {palette.map((satArr, i1) =>
+                        <table className="level-1-holder" key={i1 + "l1"} style={{ width: l1Width }}>
+
+                            {satArr.map((lightArr, i2) =>
+                                <tr key={i2 + "l2"}>
+                                    {lightArr.map((lightColor, i3) => {
+                                        let color = lightColor.HEXString
+                                        let isSelected = selectedColor == color
+                                        return <td key={i1 + '' + i2 + '' + i3 + color} id={color}
+                                            className={"single-tile-basic " + (isSelected ? 'selected-tile' : '')}
+                                            style={{
+                                                background: color, padding: tilePadding + '%', minWidth: tilePadding + '%', minHeight: tilePadding + '%',
+                                                border: 'none'
+                                            }}
+                                            onClick={() => this.handleSelectColor(color, color)} />
+                                    }
+                                    )}
+                                </tr>
+                            )}
+                        </table >)}
+                </div>
             </div>
         );
     }

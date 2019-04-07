@@ -1,10 +1,3 @@
-.App {
-  background-color: "black" !important;
-  height: 96vh;
-  font-family:  'Roboto', sans-serif;
+.App{
+    height: 100vh;
 }
-
-span.ant-radio + * {
-  font-weight: bold;
-}
-

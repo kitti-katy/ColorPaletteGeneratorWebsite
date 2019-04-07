@@ -149,8 +149,8 @@ class TryIt extends Component {
                         <div style={{ direction: 'rtl', padding: '24px', borderRight: '2px dashed rgb(202, 210, 221)', height: '100%' }}>
                             <h3 style={{ color: 'gray' }}> <Icon icon="repeat" onClick={this.reset} /> <ExportJSONButton onClick={() => exportJSON(components)} /></h3>
                             <br /> <br />
-                            <h3> Backgrounds </h3>
-                            <br />
+                            <h4> Backgrounds </h4>
+                            
                             <div className="applied-colors-container">
                                 {backgrounds.map(key =>
                                     <div className="applied-color"
@@ -162,9 +162,9 @@ class TryIt extends Component {
                                         {components[key]}
                                     </div>)}
                             </div>
-                            <br />
-                            <h3> Texts </h3>
-                            <br />
+                            <br /><br />
+                            <h4> Texts </h4>
+                            
                             <div className="applied-colors-container">
                                 {texts.map(key =>
                                     <div className="applied-color"

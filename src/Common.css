@@ -1,6 +1,6 @@
 .main-holder {
     display: inline-block; 
     vertical-align: top; 
-    height: 100%;
-    width: 100%
+    height: -webkit-fill-available;
+    width: -webkit-fill-available;
   }

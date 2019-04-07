@@ -15,8 +15,8 @@ export const GoldenRatio = (props) => {
     let firstStyle = {}, secondStyle = {}
     firstStyle[measure] = longFirst ? '62%' : '38%'
     secondStyle[measure] = longFirst ? '38%' : '62%'
-    firstStyle[maxMeasure] = '100%'
-    secondStyle[maxMeasure] = '100%'
+    firstStyle[maxMeasure] = '-webkit-fill-available'
+    secondStyle[maxMeasure] = '-webkit-fill-available'
     if (!isVertical) {
         firstStyle.display = 'inline-block'
         secondStyle.display = 'inline-block'
@@ -30,7 +30,7 @@ export const GoldenRatio = (props) => {
     let short = <div style={longFirst ? secondStyle : firstStyle}>{shortChild}</div>
 
     return (
-        <div style={{  height: '100%', width: '100%', ...props.style }}>
+        <div style={{ display: direction == 'vertical' ? 'inline-table' : 'inherit', height: '-webkit-fill-available', width: '100%', ...props.style }}>
             {longFirst ? long : short}
             {longFirst ? short : long}
         </div>

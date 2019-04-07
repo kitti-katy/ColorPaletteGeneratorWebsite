@@ -12,10 +12,15 @@ import SelectMode from "../SelectMode/SelectMode"
 import ColorPicker from "../../../../../components/color-picker/ColorPicker";
 import TryIt from "../../../../../components/TryIt/TryIt";
 import { GoldenRatio } from "../../../../../components/GoldenRatio";
-import {borderStyle} from '../../../../../styles'
+import { borderStyle } from '../../../../../styles'
+import { Popover } from 'antd';
 
-let mapStateToProps = (state) => { return { selected: state.SelectedColorReducer.selected } }
-
+let mapStateToProps = (state) => {
+    return {
+        selected: state.SelectedColorReducer.selected,
+        baseColor: state.BaseColorReducer.baseColor
+    }
+}
 class HSLBasicContainer extends Component {
 
     // EXPORT JSON HANDLER
@@ -26,6 +31,9 @@ class HSLBasicContainer extends Component {
         exportJSON(colors)
     }
     render() {
+        console.log(this.props.baseColor)
+        let baseColorFont = this.props.baseColor.hsl.light > 60 ? 'rgb(33,33,33)' : 'white'
+        console.log(baseColorFont)
         return (
             <GoldenRatio
                 direction="horizontal"
@@ -49,12 +57,23 @@ class HSLBasicContainer extends Component {
                 }
 
                 shortChild={
-                    <div style={{ background: 'white', borderTop: borderStyle, height: '100%' }}>
+                    <div style={{ background: 'white', borderTop: borderStyle, height: 'inherit' }}>
                         <SelectMode />
-                        <div style={{ height: 'inherit' }}>
-                            <GoldenRatio direction="vertical" longFirst={false} style={{ height: 'inherit' }}
+                        <div style={{height: '100%'}}>
+                            <GoldenRatio direction="vertical" longFirst={false}
                                 shortChild={<Filters />}
-                                longChild={<ColorPicker />}
+                                longChild={
+                                    <div>
+                                        <br />
+
+                                        <br />
+                                        <Popover content={<ColorPicker />}>
+                                            <div style={{ background: this.props.baseColor.HEXString, width: '62%', margin: 'auto' }} id='base-color-select-container'>
+                                                <h3 style={{ textAlign: 'center', margin: 'auto', paddingTop: '1em', paddingBottom: '1em', color: baseColorFont }}>SELECT BASE COLOR</h3>
+                                            </div>
+                                        </Popover>
+                                    </div>
+                                }
                             />
                         </div>
                     </ div>
