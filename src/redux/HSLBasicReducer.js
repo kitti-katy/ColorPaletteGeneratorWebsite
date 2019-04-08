@@ -10,7 +10,7 @@ export let setLightSplit = (lightSplit) => { return { type: SET_LIGHT_SPLIT, lig
 export let setDisplayOrder = (l1, l2, l3) => { return { type: SET_DISPLAY_ORDER, l1, l2, l3 } }
 
 /* ---------------------- Initial State ---------------------- */
-const initial_state = {  hueSplit: 8, satSplit: 4, lightSplit: 4, l1: 'h', l2: 's', l3: 'l' };
+const initial_state = {  hueSplit: 1, satSplit: 4, lightSplit: 4, l1: 'h', l2: 's', l3: 'l' };
 
 /* ---------------------- Export Reducer ---------------------- */
 export const HSLBasicReducer = (state = initial_state, action) => {

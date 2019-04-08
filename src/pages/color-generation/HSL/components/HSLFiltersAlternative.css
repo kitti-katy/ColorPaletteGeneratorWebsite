@@ -32,7 +32,7 @@
 #hsl-container-1 {
     display: flex;
     flex-direction: column;
-    height: 80%;
+    height: 100%;
     justify-content: space-around;
 }
 #hsl-container-1 > div{

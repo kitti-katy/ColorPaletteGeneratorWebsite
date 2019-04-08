@@ -3,6 +3,7 @@ import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import { setDisplayOrder } from '../../../../../redux/HSLBasicReducer'
 import { Icon } from "@blueprintjs/core";
+import { Tooltip } from 'antd'
 let mapDispatchToProps = (dispatch) => { return bindActionCreators({ setDisplayOrder: setDisplayOrder }, dispatch) }
 
 const displayOptions = [['h', 's', 'l'], ['h', 'l', 's'], ['s', 'h', 'l'], ['l', 'h', 's'], ['s', 'l', 'h'], ['l', 's', 'h']]
@@ -29,9 +30,13 @@ class DisplayOrderButtons extends Component {
         return (
             <div>
                 {/* Change Order Up */}
-                <Icon icon="arrow-up" className="arrow-btn" onClick={this.handleChangeOrderUpClick} />
+                <Tooltip placement="top" title={"Change Colors Order"}>
+                    <Icon icon="arrow-up" className="arrow-btn" onClick={this.handleChangeOrderUpClick} />
+                </Tooltip>
                 {/* Change Order Down*/}
-                <Icon icon="arrow-down" className="arrow-btn" onClick={this.handleChangeOrderDownClick} />
+                <Tooltip placement="top" title={"Change Colors Order"}>
+                    <Icon icon="arrow-down" className="arrow-btn" onClick={this.handleChangeOrderDownClick} />
+                </Tooltip>
             </div>
 
         );

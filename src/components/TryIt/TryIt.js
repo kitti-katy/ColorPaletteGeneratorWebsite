@@ -7,6 +7,7 @@ import { Icon } from "@blueprintjs/core";
 import "./TryIt.css"
 import { GoldenRatio } from "../GoldenRatio";
 import { borderStyle } from '../../styles'
+import { Tooltip } from 'antd'
 
 let mapStateToProps = (state) => { return { selected: state.SelectedColorReducer.selected } }
 let mapDispatchToProps = (dispatch) => { /*return bindActionCreators({ changeBaseColor: changeBaseColor }, dispatch)*/ }
@@ -24,23 +25,23 @@ class TryIt extends Component {
     get initialState() {
         return {
             components: {
-                background: '#f9fafb',
-                primaryButton: '#ffffff',
-                secondaryButton: '#ffffff',
-                successButton: '#ffffff',
-                warningButton: '#ffffff',
-                dangerButton: '#ffffff',
-                infoButton: '#ffffff',
+                background: '#cdb6be',
+                primaryButton: '#b94b6e',
+                secondaryButton: '#b94b6e',
+                successButton: '#b94b6e',
+                warningButton: '#b94b6e',
+                dangerButton: '#b94b6e',
+                infoButton: '#b94b6e',
 
-                title: '#8c9db5',
-                header: '#8c9db5',
-                primaryButtonFont: '#8c9db5',
-                secondaryButtonFont: '#8c9db5',
-                successButtonFont: '#8c9db5',
-                dangerButtonFont: '#8c9db5',
-                warningButtonFont: '#8c9db5',
-                infoButtonFont: '#8c9db5',
-                paragraph: '#8c9db5',
+                title: '#030202',
+                header: '#030202',
+                primaryButtonFont: '#030202',
+                secondaryButtonFont: '#030202',
+                successButtonFont: '#030202',
+                dangerButtonFont: '#030202',
+                warningButtonFont: '#030202',
+                infoButtonFont: '#030202',
+                paragraph: '#030202',
             }
         };
     }
@@ -101,13 +102,13 @@ class TryIt extends Component {
             dangerButton, infoButton, primaryButtonFont, warningButton, warningButtonFont,
             secondaryButtonFont, successButtonFont, dangerButtonFont, infoButtonFont, paragraph } = components
         let selectedColor = this.getSelectedColor()
-        
+
 
         let selectedColorFont = new Color(selectedColor, 0, 0, 'Hex').hsl.light > 50 ? 'black' : 'white'
 
 
         return (
-            <div style={{ width: '100%', background: 'white', height: '100%', border: borderStyle }} >
+            <div style={{ width: '100%', background: 'white', height: '-webkit-fill-available', border: borderStyle }} >
                 <GoldenRatio
                     direction="horizontal"
                     longFirst={true}
@@ -116,11 +117,11 @@ class TryIt extends Component {
                             <div className="try-card-holder">
 
                                 <div id="try-background" onClick={(e) => this.setColor(e, 'background')}
-                                    style={{ backgroundColor: background}} headStyle={{ backgroundColor: appBar }} >
+                                    style={{ backgroundColor: background }} headStyle={{ backgroundColor: appBar }} >
                                     <h3 className="try-title-holder" style={{ color: title }}>
                                         <span id="try-title" onClick={(e) => this.setColor(e, 'title')}>Apply Selected Color Here </span>
                                     </h3>
-                                    
+
                                     <h4 style={{ color: header }} id="try-header" onClick={(e) => this.setColor(e, 'header')}> Header </h4>
                                     <p id="try-text" onClick={(e) => this.setColor(e, 'paragraph')} style={{ color: paragraph, lineHeight: '1.7' }}>
                                         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
@@ -146,29 +147,32 @@ class TryIt extends Component {
                         </div>
                     }
                     longChild={
-                        <div style={{ direction: 'rtl', padding: '24px', borderRight: '2px dashed rgb(202, 210, 221)', height: '100%' }}>
-                            <h3 style={{ color: 'gray' }}> <Icon icon="repeat" onClick={this.reset} /> <ExportJSONButton onClick={() => exportJSON(components)} /></h3>
+                        <div style={{ direction: 'rtl', padding: '24px', borderRight: '2px dashed rgb(202, 210, 221)', height: '-webkit-fill-available' }}>
+                            <h3 style={{ color: 'rgb(97, 97, 97)' }}>
+                                <Tooltip placement="top" title={"Reset Applied Colors"}>
+                                    <Icon icon="repeat" onClick={this.reset} style={{ cursor: 'pointer' }} />
+                                </Tooltip>
+                                <ExportJSONButton onClick={() => exportJSON(components)} /></h3>
                             <br /> <br />
                             <h4> Backgrounds </h4>
-                            
+
                             <div className="applied-colors-container">
                                 {backgrounds.map(key =>
                                     <div className="applied-color"
                                         style={{
                                             backgroundColor: components[key],
-                                            color: new Color(components[key], 0, 0, 'Hex').hsl.light > 50 ? 'rgb(36, 44, 56)' : 'white',
-                                            border: new Color(components[key], 0, 0, 'Hex').hsl.light > 50 ? '1px solid rgb(202, 210, 221)' : ''
+                                            color: new Color(components[key], 0, 0, 'Hex').hsl.light > 40 ? 'rgb(33, 33, 33)' : 'white'
                                         }}>
                                         {components[key]}
                                     </div>)}
                             </div>
                             <br /><br />
                             <h4> Texts </h4>
-                            
+
                             <div className="applied-colors-container">
                                 {texts.map(key =>
                                     <div className="applied-color"
-                                        style={{ backgroundColor: components[key], color: new Color(components[key], 0, 0, 'Hex').hsl.light > 50 ? 'rgb(36, 44, 56)' : 'white' }}>
+                                        style={{ backgroundColor: components[key], color: new Color(components[key], 0, 0, 'Hex').hsl.light > 40 ? 'rgb(33, 33, 33)' : 'white' }}>
                                         {components[key]}
                                     </div>)}
                             </div>

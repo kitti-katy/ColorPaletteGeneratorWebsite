@@ -31,9 +31,7 @@ class HSLBasicContainer extends Component {
         exportJSON(colors)
     }
     render() {
-        console.log(this.props.baseColor)
-        let baseColorFont = this.props.baseColor.hsl.light > 60 ? 'rgb(33,33,33)' : 'white'
-        console.log(baseColorFont)
+        let baseColorFont = this.props.baseColor.hsl.light > 40 ? 'rgb(33,33,33)' : 'white'
         return (
             <GoldenRatio
                 direction="horizontal"
@@ -65,9 +63,8 @@ class HSLBasicContainer extends Component {
                                 longChild={
                                     <div>
                                         <br />
-
                                         <br />
-                                        <Popover content={<ColorPicker />}>
+                                        <Popover content={<ColorPicker />} placement="bottom">
                                             <div style={{ background: this.props.baseColor.HEXString, width: '62%', margin: 'auto' }} id='base-color-select-container'>
                                                 <h3 style={{ textAlign: 'center', margin: 'auto', paddingTop: '1em', paddingBottom: '1em', color: baseColorFont }}>SELECT BASE COLOR</h3>
                                             </div>
