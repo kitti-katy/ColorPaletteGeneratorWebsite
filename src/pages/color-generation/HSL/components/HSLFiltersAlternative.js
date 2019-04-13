@@ -10,7 +10,6 @@ import { ExportJSONButton } from '../../../../components/ExportJSONButton'
 import { SelectedColorPanel } from '../../../../components/SelectedColorPanel'
 import { Slider, Tooltip } from 'antd';
 import './HSLFiltersAlternative.css'
-import './HSLFiltersCommon.css'
 import SelectMode from "./SelectMode/SelectMode"
 import { Card, Label, Icon } from "@blueprintjs/core";
 

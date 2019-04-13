@@ -2,7 +2,6 @@
 
 /* FILTERS */
 #number-of-colors-input{
-  /*  display:inline-block; */
 }
 .hsl-advanced-filters{
     padding-bottom: 24px;
@@ -24,10 +23,9 @@
 .generated-tiles{
     line-height: 1.45; 
     width: 100%;
-    overflow-y: scroll;
+    overflow-y: auto;
     background: white;
     align-items: baseline;
-   /* padding: 8px 0;*/
     display: flex; 
     justify-content: center;
     flex-wrap: wrap; 
@@ -75,5 +73,5 @@
 }
 label.bp3-label.slider-label { 
     margin: 0;
-    margin-bottom: 8px;
+    margin-bottom: 16px;
 }

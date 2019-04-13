@@ -1,0 +1,256 @@
+@import "~normalize.css";
+@import "~@blueprintjs/core/lib/css/blueprint.css";
+@import "~@blueprintjs/icons/lib/css/blueprint-icons.css";
+@import "./variables";
+
+
+
+.App{
+  height: $fill;
+  grid-template-rows: 5% 95%;
+  display: grid;
+}
+#root{
+  height: 100%;
+}
+h1,h2,h3,h4,h5,h6{
+  color: $darkerColor2
+}
+body {
+  height: 95vh;
+  margin: 0;
+  padding: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  line-height: 1;
+  font-weight: 500 !important;
+  color: $darkerColor2 !important;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
+
+.header {
+  @include align-inner-element-center-vertically;
+  padding-left: $padding-l1;
+  background: $darkerColor1;
+
+}
+.header >h2 {
+  margin: 0; 
+  color: $lighterColor2;
+  font-weight: 400;
+}
+// RIGHT PART
+.filters-part{
+  display: grid;
+  border-top: $borderStyle;
+  grid-template-rows: 10% 90%;
+}
+// SELECT FILTERS MODE
+.select-mode-table > div{
+    @include align-inner-element-center-vertically;
+    -webkit-flex: 1; 
+    flex: 1;
+    text-align: center;
+    font-size: 1.05em;
+    color: $darkerColor1;
+    background: $lightestColor;
+    cursor: pointer;
+    transition: box-shadow;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.6, 1);
+}
+.select-mode-table > div:first-child{
+  background: white;
+}
+.select-mode-table > div:hover{
+  background:white;
+}
+.select-mode-table > div:nth-last-child(1){
+    border: none
+} 
+.select-mode-table{
+    display: flex;
+   // border-bottom: $borderStyle;
+}
+
+// HSL BASIC
+.filters-short{
+  padding: $padding-l1;
+}
+// HSL FILTERS
+#hsl-container-1 {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  justify-content: space-between;
+  padding-right: $padding-l1;
+}
+#hsl-container-1 > div{
+  font-size: 1em;
+  min-height: 60px;
+}
+
+
+// SELECT COLOR
+.base-color-select-container:hover,
+.base-color-select-container:focus{
+  box-shadow: $button-shadow-focus;
+  cursor: pointer;
+}
+.base-color-select-container{
+ // box-shadow: $button-shadow;
+  width: 100%; 
+}
+.select-color-btn {
+  @include align-inner-element-center-vertically;
+  height: 100%;
+  text-align: center;
+  margin: auto; 
+  font-size: 1em
+}
+
+
+
+.horizontal-holder-sl{
+  display: grid;
+  grid-template-columns: $short $long;
+  height: 100%;
+}
+.horizontal-holder-ls{
+  display: grid;
+  grid-template-columns: $long $short;
+  height: 100%;
+}
+.vertical-holder-sl{
+  height: 100%;
+  display: grid;
+  grid-template-rows: $short $long;
+}
+.vertical-holder-ls{
+  height: 100%;
+  display: grid;
+  grid-template-rows: $long $short;
+}
+
+
+
+
+/* SINGLE COMPONENTS */
+
+.export-json-btn {
+  margin-right: $padding-l2; 
+  font-size: 1em; 
+  cursor: pointer;
+}
+.selected-color-panel {
+  height: 100%;
+  padding: $padding-l3 $padding-l2; 
+  text-align: center;
+  display: inline-grid;
+  font-size: 1em;
+  border-radius:2px;
+  cursor: 'pointer';
+}
+
+
+.hsl-container-2{
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: $padding-l3 $padding-l1;
+  color: $darkerColor2;
+}
+
+.tiles-holder{
+}
+
+
+
+$ant-slider-box-shadow-1 : inset 0 0 0 1px rgba(16,22,26,.2), inset 0 -1px 0 rgba(16,22,26,.1);
+$ant-slider-box-shadow-2 : 0 0 0 1px rgba(16,22,26,.2), 0 1px 1px rgba(16,22,26,.2);
+.ant-slider-rail {
+    background-color:#ededed;
+}
+
+.ant-slider-track  {
+  background: transparent; 
+}
+.ant-slider-step {
+  border: none;
+  border-radius: 50%;
+}
+
+.ant-slider-handle:hover {
+  background-color: #394b59;
+}
+
+.ant-slider-handle:hover {
+  box-shadow: 0 0 0 1px rgba(16,22,26,.4);
+  background-color: #30404d;
+}
+.ant-slider-handle-white {
+  box-shadow: $ant-slider-box-shadow-1;
+  background-color: #f5f8fa;
+  background-image: -webkit-gradient(linear,left top,left bottom,from(hsla(0,0%,100%,.8)),to(hsla(0,0%,100%,0)));
+  background-image: linear-gradient(180deg,hsla(0,0%,100%,.8),hsla(0,0%,100%,0));
+  color: #182026;
+}
+.ant-slider-handle:hover {
+  box-shadow: $ant-slider-box-shadow-1;
+  background-clip: padding-box;
+  background-color: #ebf1f5;
+  z-index: 2;
+  box-shadow: $ant-slider-box-shadow-2;
+  cursor: -webkit-grab;
+  cursor: grab;
+}
+.ant-slider-handle {
+  
+}
+
+.ant-slider-handle {
+  background-color: white;
+  background-image: -webkit-gradient(linear,left top,left bottom,from(hsla(0,0%,100%,.05)),to(hsla(0,0%,100%,0)));
+  background-image: linear-gradient(180deg,hsla(0,0%,100%,.05),hsla(0,0%,100%,0));
+  color: #f5f8fa;
+  position: absolute;
+  left: 0;
+  border-radius: 3px;
+  box-shadow: $ant-slider-box-shadow-2;
+  cursor: pointer;
+  width: 16px;
+  height: 16px;
+  border: none;
+}
+
+.ant-slider-handle:focus{
+  border:none;
+  box-shadow: $ant-slider-box-shadow-2;
+}
+.ant-slider {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.ant-slider-dot-active {
+  box-shadow: $ant-slider-box-shadow-2;
+  border: none;
+}
+
+.ant-slider-dot {
+  box-shadow: $ant-slider-box-shadow-2;
+  border: none;
+  background-color: rgb(249, 250, 251);
+  background-image: linear-gradient(180deg,hsla(0,0%,100%,.05),hsla(0,0%,100%,0));
+}
+
+.ant-slider-mark-text-active {
+ /* color: rgb(249, 250, 251)*/
+}
+.ant-slider-mark-text {
+  color: $darkerColor2
+}
+

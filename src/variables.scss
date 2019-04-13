@@ -1,0 +1,36 @@
+
+$darkerColor2: rgb(8, 8, 8);
+$darkerColor2: rgb(33, 33, 33);
+$darkerColor1: rgb(59, 59, 59);
+$darkColor2: rgb(84, 84, 84);
+$darkColor1: rgb(110, 110, 110);
+
+$lightColor1: rgb(135, 135, 135);
+$lightColor2: rgb(161, 161, 161);
+$lighterColor1: rgb(186, 186, 186);
+$lighterColor2: rgb(212, 212, 212);
+$lightestColor: rgb(237, 237, 237);
+
+
+$lightColor: rgb(224, 224, 224);
+$borderColor: $lighterColor2;
+$borderStyle: 1px solid $borderColor;
+$fill: -webkit-fill-available;
+$padding-l1: 24px;
+$padding-l2: 16px;
+$padding-l3: 8px;
+$short: 38%;
+$long: 62%;
+$button-shadow: 0px 1px 5px 0px rgba(0,0,0,0.2), 0px 2px 2px 0px rgba(0,0,0,0.14), 0px 3px 1px -2px rgba(0,0,0,0.12);
+$button-shadow-focus: 0 5px 5px -3px rgba(0,0,0,.2), 0 8px 10px 1px rgba(0,0,0,.14), 0 3px 14px 2px rgba(0,0,0,.12);
+
+
+@mixin vertical-padding-l2 {
+  padding-top: $padding-l2;
+  padding-bottom: $padding-l2;
+}
+@mixin align-inner-element-center-vertically{
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
+}

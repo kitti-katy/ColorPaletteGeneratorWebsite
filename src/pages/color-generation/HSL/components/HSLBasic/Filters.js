@@ -3,7 +3,6 @@ import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import { Slider } from 'antd';
 import '../HSLFiltersAlternative.css'
-import '../HSLFiltersCommon.css'
 import { Card, Label } from "@blueprintjs/core";
 import { setHueSplit, setSatSplit, setLightSplit } from '../../../../../redux/HSLBasicReducer'
 
@@ -31,20 +30,20 @@ class Filters extends Component {
     render() {
         const { hueSplit, satSplit, lightSplit } = this.props
         return (
-            <div id='hsl-container-1' style={{ margin: 'auto', width: '62%' }}>
+            <div id='hsl-container-1' >
                 <div>
                     <Label className="slider-label">Hues</Label>
                     <Slider marks={hueDivisors} step={null} defaultValue={hueSplit} max={hueMax} min={1} onChange={this.handleHueSliderChange} />
-                </div>
-                {/* Light */}
-                <div>
-                    <Label className="slider-label">Lights</Label>
-                    <Slider marks={lightDivisors} step={null} defaultValue={satSplit} max={lightMax} min={1} onChange={this.handleLightSliderChange} />
                 </div>
                 {/* Saturation */}
                 <div>
                     <Label className="slider-label" >Saturations</Label>
                     <Slider marks={satDivisors} step={null} defaultValue={lightSplit} max={satMax} min={1} onChange={this.handleSatSliderChange} />
+                </div>
+                {/* Light */}
+                <div>
+                    <Label className="slider-label">Lights</Label>
+                    <Slider marks={lightDivisors} step={null} defaultValue={satSplit} max={lightMax} min={1} onChange={this.handleLightSliderChange} />
                 </div>
             </div>
         );

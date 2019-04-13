@@ -1,6 +1,7 @@
+@import "../../variables";
 .applied-color{ 
     padding: 0.4vw; 
-    font-size: 9pt;
+    font-size: 0.8em;
 }
 
 .applied-colors-container{ 
@@ -20,24 +21,30 @@
 }
 #try-background {
     cursor: pointer; 
-    padding: 24px;
+    padding: $padding-l1;
     height: -webkit-fill-available;
-   /* margin: 24px; */
 }
 .try-title-holder{  
     text-align: center;
     padding-bottom: 12px 
 }
 .reset-try-card-btn{
-    float: right
+    float: right;
+    cursor: pointer; 
 }
 #try-text{
-    font-size: 0.8em;
+    font-size: 0.9em;
+    cursor: pointer; 
 }
-
+.try-button{
+    margin-right: $padding-l2;
+    font-size: 0.9em;
+    padding: $padding-l3; 
+    border-radius: 4px;
+    font-weight: 600;
+}
 .applied-colors-header{
-    
-    margin-top: 16px;
+    margin-top: $padding-l2;
     display: flex; 
     justify-content: space-between; 
     align-items: center; 

@@ -1,8 +1,4 @@
 #color-picker{ 
-    /* 
-    background: rgba(61, 61, 61, 0.04); 
-    background: #293742;
-    padding: 24px; */
     width: min-content;
     margin: auto;
 }
@@ -81,9 +77,6 @@
 #color-inputs-container{
     display: flex;
     justify-content: space-between;
-  /*  width: 400px;
-  /*  display: grid; */
-   /* justify-content: space-between;*/
 }
 
 .color-picker-numeric-input{

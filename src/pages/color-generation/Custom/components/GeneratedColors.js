@@ -10,8 +10,6 @@ import { ExportJSONButton } from '../../../../components/ExportJSONButton'
 import { ResetColorsButton } from '../../../../components/ResetColorsButton'
 import { SelectedColorPanel } from '../../../../components/SelectedColorPanel'
 
-import '../../../../Common.css'
-
 
 let mapStateToProps = (state) => { return { baseColor: state.BaseColorReducer.baseColor } }
 let mapDispatchToProps = (dispatch) => { return bindActionCreators({ selectColor: selectColor, changeBaseColor: changeBaseColor }, dispatch) }

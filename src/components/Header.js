@@ -13,8 +13,8 @@ class Header extends Component {
   render() {
 
     return (
-      <div style={{ padding: '16px 12px 16px 24px' }}>
-        <h2 style={{ margin: '0', color: 'rgb(33, 33, 33)', fontWeight: '600' }}>Awesome Color Palette Generator</h2>
+      <div className='header'>
+        <h2>Awesome Color Palette Generator</h2>
       </div>
 
     );

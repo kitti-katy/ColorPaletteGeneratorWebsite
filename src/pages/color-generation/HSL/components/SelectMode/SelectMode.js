@@ -6,7 +6,7 @@ import StarIcon from '@material-ui/icons/Star'
 import PaletteIcon from '@material-ui/icons/Palette'
 import BrushIcon from '@material-ui/icons/Brush'
 import ImageIcon from '@material-ui/icons/Image'
-import './SelectMode.css'
+import './SelectMode.scss'
 
 const iconStyle = { verticalAlign: 'sub', marginRight: '4px' }
 
@@ -22,10 +22,10 @@ class SelectMode extends Component {
     render() {
         return (
             <div className="select-mode-table">
-                <div onClick={() => this.navigateTo('/generate/hsl')} ><PaletteIcon style={iconStyle} fontSize="small"/> BASIC </div>
-                <div onClick={() => this.navigateTo('/generate/hsl')} ><BrushIcon style={iconStyle} fontSize="small"/> ADVANCED </div>
-                <div onClick={() => this.navigateTo('/generate/custom')}><StarIcon style={iconStyle} fontSize="small"/> CUSTOM </div>
-                <div onClick={() => this.navigateTo('/generate/picture')}><ImageIcon style={iconStyle} fontSize="small"/> FROM PICTURE </div>
+                <div onClick={() => this.navigateTo('/generate/hsl')} ><div><PaletteIcon style={iconStyle} fontSize="small" /> BASIC</div> </div>
+                <div onClick={() => this.navigateTo('/generate/hsl')} ><div><BrushIcon style={iconStyle} fontSize="small" /> ADVANCED </div></div>
+                <div onClick={() => this.navigateTo('/generate/custom')}><div><StarIcon style={iconStyle} fontSize="small" /> CUSTOM </div></div>
+                <div onClick={() => this.navigateTo('/generate/picture')}><div><ImageIcon style={iconStyle} fontSize="small" /> FROM PICTURE </div></div>
             </div>
         );
     }

@@ -5,15 +5,13 @@ import Tiles from './Tiles'
 import DisplayOrderButtons from './DisplayOrderButtons'
 import { ExportJSONButton } from '../../../../../components/ExportJSONButton'
 import { exportJSON } from '../../../../../utilities/ExportJSON'
-import { SelectedColorPanel } from '../../../../../components/SelectedColorPanel'
 import '../HSLFiltersAlternative.css'
-import '../HSLFiltersCommon.css'
 import SelectMode from "../SelectMode/SelectMode"
 import ColorPicker from "../../../../../components/color-picker/ColorPicker";
-import TryIt from "../../../../../components/TryIt/TryIt";
 import { GoldenRatio } from "../../../../../components/GoldenRatio";
 import { borderStyle } from '../../../../../styles'
 import { Popover } from 'antd';
+import TryMain from "../../../../../components/TryIt/TryMain";
 
 let mapStateToProps = (state) => {
     return {
@@ -33,49 +31,40 @@ class HSLBasicContainer extends Component {
     render() {
         let baseColorFont = this.props.baseColor.hsl.light > 40 ? 'rgb(33,33,33)' : 'white'
         return (
-            <GoldenRatio
-                direction="horizontal"
-                longFirst={true}
-                longChild={
-                    <GoldenRatio direction="vertical" longFirst={true}
-                        longChild={
-                            <div style={{
-                                background: 'white', borderRight: borderStyle,
-                                borderTop: borderStyle, height: '100%'
-                            }} id='palette-container'>
-                                <div className=" hsl-container-2 " >
-                                    <DisplayOrderButtons />
-                                    <ExportJSONButton onClick={this.handleExportJSON_ButtonClick} />
-                                    <SelectedColorPanel selectedColor={this.props.selected} />
-                                </div>
-                                <Tiles />
-                            </div>}
-                        shortChild={<TryIt />}
-                    />
-                }
-
-                shortChild={
-                    <div style={{ background: 'white', borderTop: borderStyle, height: 'inherit' }}>
-                        <SelectMode />
-                        <div style={{height: '100%'}}>
-                            <GoldenRatio direction="vertical" longFirst={false}
-                                shortChild={<Filters />}
-                                longChild={
-                                    <div>
-                                        <br />
-                                        <br />
-                                        <Popover content={<ColorPicker />} placement="bottom">
-                                            <div style={{ background: this.props.baseColor.HEXString, width: '62%', margin: 'auto' }} id='base-color-select-container'>
-                                                <h3 style={{ textAlign: 'center', margin: 'auto', paddingTop: '1em', paddingBottom: '1em', color: baseColorFont }}>SELECT BASE COLOR</h3>
-                                            </div>
-                                        </Popover>
-                                    </div>
-                                }
-                            />
+            <div className='horizontal-holder-ls'>
+                <div className='vertical-holder-ls'>
+                    <div id='palette-container' style={{ borderRight: borderStyle, borderTop: borderStyle, display: 'flex', flexDirection: 'column' }} >
+                        <div className=" hsl-container-2 " >
+                            <DisplayOrderButtons />
+                            <ExportJSONButton onClick={this.handleExportJSON_ButtonClick} />
                         </div>
-                    </ div>
-                }
-            />
+                        <Tiles />
+                    </div>
+                    <div className='vertical-long'><TryMain /></div>
+                </div>
+
+
+
+                <div className='vertical-holder-sl'>
+                    <div className='filters-part' >
+                        <SelectMode />
+                        <div className='horizontal-holder-ls filters-short'>
+                            <Filters />
+                            <Popover content={<ColorPicker />} placement="bottom">
+                                <div className='base-color-select-container' style={{ background: this.props.baseColor.HEXString }} >
+                                    <h3 className='select-color-btn' style={{ color: baseColorFont }} >SELECT BASE COLOR</h3>
+                                </div>
+                            </Popover>
+                        </div>
+
+                    </div>
+
+
+
+                </div>
+
+
+            </div>
         );
     }
 }

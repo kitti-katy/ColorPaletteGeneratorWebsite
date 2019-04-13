@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import 'antd/dist/antd.css'; 
-import "./index.scss";
+import 'antd/dist/antd.css';
+import "./styles.scss";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 import { Provider } from "react-redux";
@@ -12,19 +12,13 @@ import 'primereact/resources/themes/nova-light/theme.css';
 import 'primereact/resources/primereact.min.css';
 import 'primeicons/primeicons.css';
 
-
-
-import Firebase, { FirebaseContext } from './firebase';
-
 const store = createStore(rootReducer);
 
 ReactDOM.render(
-
   <Provider store={store}>
     <BrowserRouter>
-      <FirebaseContext.Provider value={new Firebase()}>
-        <App />
-      </FirebaseContext.Provider>
+    
+      <App />
     </BrowserRouter>
   </Provider >
   ,

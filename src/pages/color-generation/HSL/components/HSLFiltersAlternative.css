@@ -2,7 +2,6 @@
 }
 
 .single-tile-basic {
-    /*padding: 1.2em; */
     display: inline-block;
     cursor: pointer;
     transition: border-radius 0.1s linear;
@@ -18,7 +17,6 @@
 }
 
 .level-1-holder { 
-    
     border-collapse: collapse;
 }
 .level-1-holder div{
@@ -29,16 +27,7 @@
     OVERFLOW: auto;
     height: 62%;
 }
-#hsl-container-1 {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-    justify-content: space-around;
-}
-#hsl-container-1 > div{
-    font-size: 1em;
-    min-height: 60px;
-}
+
 .arrow-btn{ 
     margin-right: 16px; 
     cursor: pointer;
