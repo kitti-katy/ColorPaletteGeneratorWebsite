@@ -30,7 +30,7 @@ class Filters extends Component {
     render() {
         const { hueSplit, satSplit, lightSplit } = this.props
         return (
-            <div id='hsl-container-1' >
+            <div id='hsl-basic-filters' >
                 <div>
                     <Label className="slider-label">Hues</Label>
                     <Slider marks={hueDivisors} step={null} defaultValue={hueSplit} max={hueMax} min={1} onChange={this.handleHueSliderChange} />

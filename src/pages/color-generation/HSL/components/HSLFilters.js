@@ -120,7 +120,7 @@ class HSLFilters extends Component {
             {/* Number Of Colors */}
             <div id='number-of-colors-input'> {this.getSliderInput(numberOfColors, this.handleNumberOfColorsChange, 6, 181, 'Number of Colors')} </div>
 
-            <div className=" hsl-container-2" style={{ marginBottom: "0", padding: "0" }}>
+            <div className=" tiles-actions-bar" style={{ marginBottom: "0", padding: "0" }}>
               {/* ExportJSON */}
               < ExportJSONButton onClick={this.handleExportJSON_ButtonClick} />
               {/* Reset */}

@@ -5,8 +5,7 @@ import { exportJSON } from '../../utilities/ExportJSON';
 import { ExportJSONButton } from '../ExportJSONButton'
 import { Icon } from "@blueprintjs/core";
 import "./TryIt.scss"
-import { GoldenRatio } from "../GoldenRatio";
-import { borderStyle } from '../../styles'
+
 import { Tooltip } from 'antd'
 
 let mapStateToProps = (state) => { return { selected: state.SelectedColorReducer.selected } }
@@ -87,7 +86,7 @@ class TryIt extends Component {
     getTryButton = (component, id, background, font, text) => {
 
         return (
-            <button class='try-button'
+            <button className='try-button'
                 onClick={(e) => this.setColor(e, component)} id={id} style={{
                     backgroundColor: background, color: font, border: '1px solid ' + font + '80'
                 }}>
@@ -96,7 +95,7 @@ class TryIt extends Component {
 
     render() {
         let components = this.state.components
-        const { appBar, title, header, header2,
+        const { appBar, title, header,
             background, primaryButton, secondaryButton, successButton,
             dangerButton, infoButton, primaryButtonFont, warningButton, warningButtonFont,
             secondaryButtonFont, successButtonFont, dangerButtonFont, infoButtonFont, paragraph } = components
@@ -104,20 +103,56 @@ class TryIt extends Component {
 
         let selectedColorFont = new Color(selectedColor, 0, 0, 'Hex').hsl.light > 50 ? 'black' : 'white'
 
-        return (
-            <div style={{ width: '100%', background: 'white', height: '-webkit-fill-available', border: borderStyle }} className='horizontal-holder-ls'>
+        const codeContainer = <span>.container {'{'} <br /> &nbsp;&nbsp; background-color: {background}; <br /> {'}'} <br /></span>
+        const codeTitle = <span>.title {'{'} <br /> &nbsp;&nbsp; background-color: {title}; <br /> {'}'} <br /></span>
+        const codeHeader = <span>.header {'{'} <br /> &nbsp;&nbsp; background-color: {header}; <br /> {'}'} <br /></span>
+        const codeParagraph = <span>.paragraph {'{'} <br /> &nbsp;&nbsp; color: {paragraph}; <br /> {'}'} <br /></span>
+        const codePrimary = <span>.primary {'{'} <br /> &nbsp;&nbsp; color: {primaryButton}; <br /> {'}'} <br /></span>
+        const codeSecondary = <span>.secondary {'{'} <br /> &nbsp;&nbsp; color: {secondaryButton}; <br /> {'}'} <br /></span>
+        const codeSuccess = <span>.success {'{'} <br /> &nbsp;&nbsp; color: {successButton}; <br /> {'}'} <br /></span>
 
-                <div style={{ direction: 'rtl', padding: '24px', borderRight: '2px dashed rgb(202, 210, 221)', height: '-webkit-fill-available', lineHeight: '2' }}>
-                    <div style={{ color: 'rgb(97, 97, 97)' }}>
+        return (
+            <div className='try-web'>
+
+
+                <div className="try-card-holder">
+                    <div id="try-background" onClick={(e) => this.setColor(e, 'background')}
+                        style={{ backgroundColor: background }}> {/*  headStyle={{ backgroundColor: appBar }} > */}
+                        <h3 className="try-title-holder" style={{ color: title }}>
+                            <span id="try-title" onClick={(e) => this.setColor(e, 'title')}>Apply Selected Color Here </span>
+                        </h3>
+
+                        <h4 style={{ color: header }} id="try-header" onClick={(e) => this.setColor(e, 'header')}> Header </h4>
+                        <p id="try-text" onClick={(e) => this.setColor(e, 'paragraph')} style={{ color: paragraph, lineHeight: '1.6' }}>
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                             Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                                    </p>
+                        <br />
+                        <div style={{ display: 'flex' }}>
+                            {this.getTryButton('primaryButton', "try-button-primary", primaryButton, primaryButtonFont, 'Primary')}
+                            {this.getTryButton('secondaryButton', "try-button-secondary", secondaryButton, secondaryButtonFont, 'Secondary')}
+                        </div>
+                        <br />
+                        <div style={{ display: 'flex' }}>
+                            {this.getTryButton('successButton', "try-button-success", successButton, successButtonFont, 'Success')}
+                            {this.getTryButton('infoButton', "try-button-info", infoButton, infoButtonFont, 'Info')}
+                            {this.getTryButton('warningButton', "try-button-warning", warningButton, warningButtonFont, 'Warning')}
+                            {this.getTryButton('dangerButton', "try-button-danger", dangerButton, dangerButtonFont, 'Danger')}
+                        </div>
+                    </div >
+                </div>
+
+
+                <div className="try-left">
+                    <div className='try-actions-container'>
                         <Tooltip placement="top" title={"Reset Applied Colors"}>
                             <Icon icon="repeat" onClick={this.reset} style={{ cursor: 'pointer' }} />
                         </Tooltip>
-                        <ExportJSONButton onClick={() => exportJSON(components)} /></div>
-                    <br />
-                    <h4> Backgrounds </h4>
+                        <ExportJSONButton onClick={() => exportJSON(components)} />
+                    </div>
                     <div className="applied-colors-container">
-                        {backgrounds.map(key =>
-                            <div className="applied-color"
+                        {backgrounds.map((key, i) =>
+                            <div className="applied-color" key={"text_" + key + "_" + i}
                                 style={{
                                     backgroundColor: components[key],
                                     color: new Color(components[key], 0, 0, 'Hex').hsl.light > 40 ? 'rgb(33, 33, 33)' : 'white'
@@ -125,44 +160,15 @@ class TryIt extends Component {
                                 {components[key]}
                             </div>)}
                     </div>
-                    <br />
-                    <h4> Texts </h4>
+
                     <div className="applied-colors-container">
-                        {texts.map(key =>
-                            <div className="applied-color"
+                        {texts.map((key, i) =>
+                            <div className="applied-color" key={"bg_" + key + "_" + i}
                                 style={{ backgroundColor: components[key], color: new Color(components[key], 0, 0, 'Hex').hsl.light > 40 ? 'rgb(33, 33, 33)' : 'white' }}>
                                 {components[key]}
                             </div>)}
                     </div>
-                </div>
 
-                <div className="try-colors-container">
-                    <div className="try-card-holder">
-                        <div id="try-background" onClick={(e) => this.setColor(e, 'background')}
-                            style={{ backgroundColor: background }} headStyle={{ backgroundColor: appBar }} >
-                            <h3 className="try-title-holder" style={{ color: title }}>
-                                <span id="try-title" onClick={(e) => this.setColor(e, 'title')}>Apply Selected Color Here </span>
-                            </h3>
-
-                            <h4 style={{ color: header }} id="try-header" onClick={(e) => this.setColor(e, 'header')}> Header </h4>
-                            <p id="try-text" onClick={(e) => this.setColor(e, 'paragraph')} style={{ color: paragraph, lineHeight: '2' }}>
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                                 Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                                    </p>
-                            <br />
-                            <div style={{ display: 'flex' }}>
-                                {this.getTryButton('primaryButton', "try-button-primary", primaryButton, primaryButtonFont, 'Primary')}
-                                {this.getTryButton('secondaryButton', "try-button-secondary", secondaryButton, secondaryButtonFont, 'Secondary')}
-                            </div>
-                            <br />
-                            <div style={{ display: 'flex' }}>
-                                {this.getTryButton('successButton', "try-button-success", successButton, successButtonFont, 'Success')}
-                                {this.getTryButton('infoButton', "try-button-info", infoButton, infoButtonFont, 'Info')}
-                                {this.getTryButton('warningButton', "try-button-warning", warningButton, warningButtonFont, 'Warning')}
-                                {this.getTryButton('dangerButton', "try-button-danger", dangerButton, dangerButtonFont, 'Danger')}
-                            </div>
-                        </div >
-                    </div>
                 </div>
 
             </div>

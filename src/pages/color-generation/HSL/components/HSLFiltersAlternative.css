@@ -23,12 +23,8 @@
     border: 1px solid white;
 } 
 .tiles-holder{
-    line-height: 0;
+    /*line-height: 0;*/
     OVERFLOW: auto;
     height: 62%;
 }
 
-.arrow-btn{ 
-    margin-right: 16px; 
-    cursor: pointer;
-}

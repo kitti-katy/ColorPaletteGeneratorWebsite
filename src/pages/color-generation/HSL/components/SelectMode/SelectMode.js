@@ -22,7 +22,7 @@ class SelectMode extends Component {
     render() {
         return (
             <div className="select-mode-table">
-                <div onClick={() => this.navigateTo('/generate/hsl')} ><div><PaletteIcon style={iconStyle} fontSize="small" /> BASIC</div> </div>
+                <div onClick={() => this.navigateTo('/generate/hsl')} className='selected-mode'><div><PaletteIcon style={iconStyle} fontSize="small" /> BASIC</div> </div>
                 <div onClick={() => this.navigateTo('/generate/hsl')} ><div><BrushIcon style={iconStyle} fontSize="small" /> ADVANCED </div></div>
                 <div onClick={() => this.navigateTo('/generate/custom')}><div><StarIcon style={iconStyle} fontSize="small" /> CUSTOM </div></div>
                 <div onClick={() => this.navigateTo('/generate/picture')}><div><ImageIcon style={iconStyle} fontSize="small" /> FROM PICTURE </div></div>

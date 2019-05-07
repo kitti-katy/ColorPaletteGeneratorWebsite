@@ -29,14 +29,19 @@ class DisplayOrderButtons extends Component {
     render() {
         return (
             <div>
-                {/* Change Order Up */}
+                <Icon icon="arrow-up" className="arrow-btn" onClick={this.handleChangeOrderUpClick} />
+                <Icon icon="arrow-down" className="arrow-btn" onClick={this.handleChangeOrderDownClick} />
+                
+                {/* Change Order Up 
                 <Tooltip placement="top" title={"Change Colors Order"}>
-                    <Icon icon="arrow-up" className="arrow-btn" onClick={this.handleChangeOrderUpClick} />
+                    
                 </Tooltip>
-                {/* Change Order Down*/}
+                */}
+                {/* Change Order Down
                 <Tooltip placement="top" title={"Change Colors Order"}>
-                    <Icon icon="arrow-down" className="arrow-btn" onClick={this.handleChangeOrderDownClick} />
+                    
                 </Tooltip>
+                */}
             </div>
 
         );

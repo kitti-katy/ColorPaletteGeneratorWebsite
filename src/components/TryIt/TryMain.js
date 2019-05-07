@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { Icon } from "@blueprintjs/core";
-import { borderStyle } from '../../styles'
 import TryItGradient from "./TryItGradient";
 import TryIt from "./TryIt";
 import { SelectedColorPanel } from "../SelectedColorPanel";
@@ -15,10 +14,19 @@ let mapStateToProps = (state) => {
 
 const switchers = [
     {
-        label: 'Web App', component: () => <TryIt />
+        label: 'WEB', component: () => <TryIt />
     },
     {
-        label: 'Gradient', component: () => <TryItGradient />
+        label: 'GRADIENT', component: () => <TryItGradient />
+    },
+    {
+        label: 'IMAGE', component: () => <TryItGradient />
+    },
+    {
+        label: 'PIXEL ART', component: () => <TryItGradient />
+    },
+    {
+        label: 'SHADER', component: () => <TryItGradient />
     }]
 
 class TryMain extends Component {
@@ -39,28 +47,23 @@ class TryMain extends Component {
         else
             this.setState({ selectedTryIndex: selected - 1 })
     }
+    setSelected = (i) => this.setState({ selectedTryIndex: i })
 
     render() {
         const selectedTryIndex = this.state.selectedTryIndex
+        //<SelectedColorPanel selectedColor={this.props.selected} />
 
         const label = switchers[selectedTryIndex].label
         const tryComponent = switchers[selectedTryIndex].component()
 
         return (
-            <div style={{ width: '100%', background: 'white', border: borderStyle }} >
-                <div className='horizontal-holder-ls' style={{ padding: '8px' }}>
-                    <div/>
-                    <div style={{ textAlign: 'center' }}>
-
-                        <Icon icon="arrow-left" className="arrow-btn" onClick={this.switchPrevious} />
-                        {label}
-                        <Icon icon="arrow-right" className="arrow-btn" style={{ marginLeft: '16px' }} onClick={this.switchNext} />
-
-                        <SelectedColorPanel selectedColor={this.props.selected} />
-
-                    </div>
-                </div>
+            <div className='try-holder'>
                 {tryComponent}
+                <div className="select-mode-table">
+                    {switchers.map(
+                        (option, i) => <div key={"switcher" + i} onClick={() => this.setSelected(i)} className={i == selectedTryIndex ? 'selected-mode' : ''}><div> {option.label}</div> </div>)}
+                </div>
+
             </div>
         )
     }

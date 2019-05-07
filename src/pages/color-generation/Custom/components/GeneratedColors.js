@@ -48,7 +48,7 @@ class GeneratedColors extends Component {
         return (
             <div style={{ width: '400px', width: '41vw' }} className="element-holder">
 
-                <div className=" hsl-container-2 bottom-bordered top-bordered" style={{}}>
+                <div className=" tiles-actions-bar bottom-bordered top-bordered" style={{}}>
                     {/* ExportJSON */}
                     < ExportJSONButton onClick={this.exportJSON} />
                     {/* Reset */}

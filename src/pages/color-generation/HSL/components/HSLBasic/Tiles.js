@@ -20,23 +20,36 @@ let mapStateToProps = (state) => {
 }
 let mapDispatchToProps = (dispatch) => { return bindActionCreators({ selectColor: selectColor }, dispatch) }
 
-class Tiles extends Component {
-    state = { containerWidth: 0 }
 
-    componentDidMount = () => {
-        this.setState({ containerWidth: document.getElementById('palette-container').clientWidth })
-    }
+class Tiles extends Component {
+
     getPadding = (palette) => {
-        let width = palette.length
-        let innerWidth = palette[0][0].length
-        let containerWidth = this.state.containerWidth
-        let padding = 95 / (innerWidth * 2)
-        return Math.floor(padding) - 0.1
+        let horizontal = palette[0][0].length
+        let padding = 100 / (horizontal * 2) // * by 2 because padding takes left and right parts
+        return padding //- 0.1
     }
     getRowHolderWidth = (palette) => {
         let width = palette.length
         let innerWidth = palette[0][0].length
+        let vertical = palette[0].length
         let tilesHorizontal = innerWidth * width
+        if (width < 5 && vertical == 2 && innerWidth == 1)
+            return 4
+        if (width < 5 && vertical < 5 && vertical > 2 && innerWidth == 2)
+            return 4
+        if (width < 5 && vertical < 5 && innerWidth < 6)
+            return 2
+        if (innerWidth > 10)
+            return 1
+        if (innerWidth > 7)
+            return 2
+        if (innerWidth == 6)
+            return 3
+        if (innerWidth == 5)
+            return 4
+        if (innerWidth == 4)
+            return 5
+
         let scaler = tilesHorizontal <= 1 ? 0.125 :
             tilesHorizontal <= 2 ? 0.25 :
                 tilesHorizontal <= 4 ? 0.5 :
@@ -44,7 +57,10 @@ class Tiles extends Component {
                         tilesHorizontal < 100 ? 2 :
                             tilesHorizontal < 120 ? 3 :
                                 tilesHorizontal < 140 ? 4 : 5
-        return (100 / width) * scaler + '%'
+        return Math.floor(100 / ((100 / width) * scaler)) //+ '%'
+    }
+    getFractionNumber = (palette) => {
+
     }
     getPalette = () => {
         let { baseColor, hueSplit, satSplit, lightSplit, l1, l2, l3 } = this.props
@@ -66,31 +82,62 @@ class Tiles extends Component {
         let tilePadding = this.getPadding(palette)
         let l1Width = this.getRowHolderWidth(palette)
         //let selectedColorFont = new Color(selectedColor, 0, 0, 'Hex').hsl.light > 50 ? 'black' : 'white'
+        let wrapperStyle = {
+            display: 'grid', gridTemplateColumns: 'repeat(' + l1Width + ', 1fr)',
+            gridGap: '2px', width: '100%'
+        }
 
         return (
-            <div class="tiles-holder generated-tiles" style={{ width: '62%', margin: 'auto' }} >
-                <div style={{ height: '100%', width: '100%', alignItems: 'center', display: 'flex', flexWrap: 'wrap', justifyContent: 'center' }}>
+            <div style={{ display: 'flex', alignItems: 'center' }}>
+
+                <div style={wrapperStyle}>
                     {palette.map((satArr, i1) =>
-                        <table className="level-1-holder" key={i1 + "l1"} style={{ width: l1Width }}>
+                        <div key={i1 + "l1"}>
 
                             {satArr.map((lightArr, i2) =>
-                                <tr key={i2 + "l2"}>
+                                <div key={i2 + "l2"} style={{ lineHeight: 0 }}>
                                     {lightArr.map((lightColor, i3) => {
                                         let color = lightColor.HEXString
                                         let isSelected = selectedColor == color
-                                        return <td key={i1 + '' + i2 + '' + i3 + color} id={color}
+                                        return <div key={i1 + '' + i2 + '' + i3 + color} id={color}
                                             className={"single-tile-basic " + (isSelected ? 'selected-tile' : '')}
                                             style={{
-                                                background: color, padding: tilePadding + '%', minWidth: tilePadding + '%', minHeight: tilePadding + '%',
+                                                background: color, padding: tilePadding + '%',  minWidth: tilePadding + '%', minHeight: tilePadding + '%',
                                                 border: 'none'
                                             }}
                                             onClick={() => this.handleSelectColor(color, color)} />
                                     }
                                     )}
-                                </tr>
+                                </div>
                             )}
+                        </div >)}
+                </div>
+                {/*
+                <div style={{ height: '100%', width: '100%', alignItems: 'center', display: 'flex', flexWrap: 'wrap', justifyContent: 'center' }}>
+                    {palette.map((satArr, i1) =>
+                        <table className="level-1-holder" key={i1 + "l1"} style={{ width: l1Width }}>
+                            <tbody>
+
+                                {satArr.map((lightArr, i2) =>
+                                    <tr key={i2 + "l2"}>
+                                        {lightArr.map((lightColor, i3) => {
+                                            let color = lightColor.HEXString
+                                            let isSelected = selectedColor == color
+                                            return <td key={i1 + '' + i2 + '' + i3 + color} id={color}
+                                                className={"single-tile-basic " + (isSelected ? 'selected-tile' : '')}
+                                                style={{
+                                                    background: color, padding: tilePadding + '%', minWidth: tilePadding + '%', minHeight: tilePadding + '%',
+                                                    border: 'none'
+                                                }}
+                                                onClick={() => this.handleSelectColor(color, color)} />
+                                        }
+                                        )}
+                                    </tr>
+                                )}
+                            </tbody>
                         </table >)}
                 </div>
+                                    */}
             </div>
         );
     }

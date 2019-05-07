@@ -4,32 +4,36 @@
 @import "./variables";
 
 
-
 .App{
   height: $fill;
-  grid-template-rows: 5% 95%;
+  grid-template-rows: 5% 90% 5%;
   display: grid;
 }
 #root{
   height: 100%;
 }
 h1,h2,h3,h4,h5,h6{
-  color: $darkerColor2
+  color: $darkerColor2;
+  font-weight: 400 !important;
 }
 body {
-  height: 95vh;
+  height: 100%;
   margin: 0;
   padding: 0;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   line-height: 1;
-  font-weight: 500 !important;
+  font-weight: 400 !important;
   color: $darkerColor2 !important;
+}
+footer {
+  background: $darkerColor1;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
+    font-size: 0.9em;
 }
 
 .header {
@@ -47,9 +51,17 @@ code {
 .filters-part{
   display: grid;
   border-top: $borderStyle;
-  grid-template-rows: 10% 90%;
+  grid-template-rows: 15% 85%;
 }
+.filters-long-part{
+  display: grid;
+  grid-template-rows: 15% 85%;
+}
+
 // SELECT FILTERS MODE
+.selected-mode{
+  background: white !important;
+}
 .select-mode-table > div{
     @include align-inner-element-center-vertically;
     -webkit-flex: 1; 
@@ -61,9 +73,10 @@ code {
     cursor: pointer;
     transition: box-shadow;
     transition-timing-function: cubic-bezier(0.4, 0, 0.6, 1);
+    font-weight: 600;
 }
 .select-mode-table > div:first-child{
-  background: white;
+  //background: white;
 }
 .select-mode-table > div:hover{
   background:white;
@@ -76,19 +89,22 @@ code {
    // border-bottom: $borderStyle;
 }
 
+
 // HSL BASIC
 .filters-short{
-  padding: $padding-l1;
+  width: 62%;
+  margin: auto;
 }
 // HSL FILTERS
-#hsl-container-1 {
+#hsl-basic-filters {
   display: flex;
   flex-direction: column;
   height: 100%;
-  justify-content: space-between;
-  padding-right: $padding-l1;
+  width: 62%;
+  margin: auto;
+  justify-content: space-around;
 }
-#hsl-container-1 > div{
+#hsl-basic-filters > div{
   font-size: 1em;
   min-height: 60px;
 }
@@ -101,8 +117,11 @@ code {
   cursor: pointer;
 }
 .base-color-select-container{
- // box-shadow: $button-shadow;
-  width: 100%; 
+  width: 62%;
+  margin: auto;
+  box-shadow: $button-shadow;
+  font-weight: 600;
+  padding: $padding-l2 0;
 }
 .select-color-btn {
   @include align-inner-element-center-vertically;
@@ -112,7 +131,52 @@ code {
   font-size: 1em
 }
 
+// TILES
 
+#palette-container {
+  border-right: $borderStyle;
+  border-top: $borderStyle;
+  display: grid;
+  grid-template-columns: 19% 62% 19%; 
+  overflow: auto;
+} 
+.tiles-actions-bar{
+  @include btn-icon-color;
+  padding-top: $padding-l2;
+  //padding-left: $padding-l2;
+  //color: $lighterColor1;
+  //display: grid;
+  //grid-template-rows: 33% 33% 33%;
+  //background: $lighterColor2;
+}
+.tiles-actions-bar2 > div{
+  @include align-inner-element-center-vertically;
+}
+.arrow-btn{ 
+  padding-top: $padding-l1;
+  margin-left: $padding-l2; 
+  cursor: pointer;
+  display: block;
+}
+.arrow-btn:hover{ 
+  @include btn-icon-color-hover;
+}
+
+// TRY PART
+
+.selected-color-panel {
+  width: fit-content;
+  height: fit-content;
+  padding: $padding-l3 $padding-l2; 
+  text-align: center;
+  display: grid;
+  font-size: 1em;
+  border-radius:2px;
+  cursor: pointer;
+  float: right;
+  border-radius: $radius;
+  margin-right: $padding-l1;
+}
 
 .horizontal-holder-sl{
   display: grid;
@@ -140,29 +204,20 @@ code {
 
 /* SINGLE COMPONENTS */
 
+
+
 .export-json-btn {
-  margin-right: $padding-l2; 
+
+  margin-left: $padding-l2; 
   font-size: 1em; 
   cursor: pointer;
 }
-.selected-color-panel {
-  height: 100%;
-  padding: $padding-l3 $padding-l2; 
-  text-align: center;
-  display: inline-grid;
-  font-size: 1em;
-  border-radius:2px;
-  cursor: 'pointer';
+.export-json-btn:hover {
+  @include btn-icon-color-hover;
 }
 
 
-.hsl-container-2{
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  padding: $padding-l3 $padding-l1;
-  color: $darkerColor2;
-}
+
 
 .tiles-holder{
 }

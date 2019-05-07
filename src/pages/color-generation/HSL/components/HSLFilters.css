@@ -21,7 +21,7 @@
 
 /* TILES */
 .generated-tiles{
-    line-height: 1.45; 
+   /* line-height: 1.45; */
     width: 100%;
     overflow-y: auto;
     background: white;

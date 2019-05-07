@@ -89,7 +89,7 @@ class HSLFiltersAlternative extends Component {
 
           {/* CHANGE FILTERS */}
           {/* Hue */}
-          <div id='hsl-container-1'>
+          <div id='hsl-basic-filters'>
             <Label className="slider-label">Number Of Hues</Label>
             <Slider marks={hueDivisors} step={null} defaultValue={12} max={hueMax} min={1} onChange={this.handleHueSliderChange} />
 
@@ -111,7 +111,7 @@ class HSLFiltersAlternative extends Component {
           {/*} <div className="vertical-padding bottom-bordered"></div>*/}
 
           {/* SELECTED COLOR VALUE, EXPORT JSON */}
-          <div className=" hsl-container-2 bottom-bordered top-bordered">
+          <div className=" tiles-actions-bar bottom-bordered top-bordered">
             {/* Change Order Up */}
             <Icon icon="arrow-up" className="arrow-btn" onClick={this.handleChangeOrderUpClick} />
             {/* Change Order Down*/}

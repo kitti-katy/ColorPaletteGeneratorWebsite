@@ -10,23 +10,72 @@
     flex-wrap: wrap; 
     overflow: auto;
     align-content: baseline;
+    letter-spacing: 0.09em;
 }
-.try-colors-container{ 
+.try-holder {
+    //height: 100%;
+    display: grid;
+    grid-template-rows: 90% 10%;
+    //border-top: $borderStyle; 
+}
+  .try-holder .select-mode-table > div {
+    font-size: 0.9em;
+    background: $lighterColor2;
+    font-weight: 600; 
+}
+  .try-switch {
+    display: grid;
+    grid-template-columns: 33.33% 33.33% 33.33%;
+    color: $darkerColor1;
+    background: $lightestColor;
+    text-align: center;
+}
+  
+.try-web{
+    width: 62%;
+    margin: auto;
+    display: grid;
+    grid-template-rows: 60% 40%;
+}
+.try-right{ 
     display: flex;
     justify-content: space-between;
-    height: -webkit-fill-available;
+    line-height: 1;
+}
+.try-left{
+    padding: $padding-l2; 
+    //border-right: 1px dashed $borderColor; 
+    //height: 100%;
+    line-height: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+    text-align: left;
+}
+.try-left > div {
+    margin-bottom: $padding-l2;
+}
+.try-actions-container{
+    @include btn-icon-color;
+    display: flex;
+    flex-flow: row;
+    width: 100%;
+}
+.try-actions-container > span:hover {
+    @include btn-icon-color-hover;
 }
 .try-card-holder{
     font-size: 1em;
+    border-left: $borderStyle;
+    height: fit-content;
 }
 #try-background {
     cursor: pointer; 
     padding: $padding-l1;
-    height: -webkit-fill-available;
+    height: 100%;
 }
 .try-title-holder{  
     text-align: center;
-    padding-bottom: 12px 
 }
 .reset-try-card-btn{
     float: right;
