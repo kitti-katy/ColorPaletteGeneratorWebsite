@@ -32,17 +32,17 @@ class Filters extends Component {
         return (
             <div id='hsl-basic-filters' >
                 <div>
-                    <Label className="slider-label">Hues</Label>
+                    <Label className="slider-label">Hues (outer)</Label>
                     <Slider marks={hueDivisors} step={null} defaultValue={hueSplit} max={hueMax} min={1} onChange={this.handleHueSliderChange} />
                 </div>
                 {/* Saturation */}
                 <div>
-                    <Label className="slider-label" >Saturations</Label>
+                    <Label className="slider-label" >Saturations (vertical)</Label>
                     <Slider marks={satDivisors} step={null} defaultValue={lightSplit} max={satMax} min={1} onChange={this.handleSatSliderChange} />
                 </div>
                 {/* Light */}
                 <div>
-                    <Label className="slider-label">Lights</Label>
+                    <Label className="slider-label">Lights (width)</Label>
                     <Slider marks={lightDivisors} step={null} defaultValue={satSplit} max={lightMax} min={1} onChange={this.handleLightSliderChange} />
                 </div>
             </div>

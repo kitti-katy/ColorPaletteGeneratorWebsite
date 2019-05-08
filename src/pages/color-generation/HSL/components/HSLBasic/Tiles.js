@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import { selectColor } from '../../../../../redux/SelectedColorReducer'
-import { Card, Icon } from "@blueprintjs/core";
 import { getAdvancedPalette } from "../../../../../utilities/HSLPaletteGenerator";
 
 let mapStateToProps = (state) => {
@@ -29,35 +28,108 @@ class Tiles extends Component {
         return padding //- 0.1
     }
     getRowHolderWidth = (palette) => {
-        let width = palette.length
-        let innerWidth = palette[0][0].length
+        let outer = palette.length
+        let width = palette[0][0].length
         let vertical = palette[0].length
-        let tilesHorizontal = innerWidth * width
-        if (width < 5 && vertical == 2 && innerWidth == 1)
-            return 4
-        if (width < 5 && vertical < 5 && vertical > 2 && innerWidth == 2)
-            return 4
-        if (width < 5 && vertical < 5 && innerWidth < 6)
-            return 2
-        if (innerWidth > 10)
-            return 1
-        if (innerWidth > 7)
-            return 2
-        if (innerWidth == 6)
-            return 3
-        if (innerWidth == 5)
-            return 4
-        if (innerWidth == 4)
-            return 5
 
-        let scaler = tilesHorizontal <= 1 ? 0.125 :
-            tilesHorizontal <= 2 ? 0.25 :
-                tilesHorizontal <= 4 ? 0.5 :
-                    tilesHorizontal < 40 ? 1 :
-                        tilesHorizontal < 100 ? 2 :
-                            tilesHorizontal < 120 ? 3 :
-                                tilesHorizontal < 140 ? 4 : 5
-        return Math.floor(100 / ((100 / width) * scaler)) //+ '%'
+        // 1
+        if (width == 1) {
+            if (vertical == 1)
+                return 6
+            if (vertical == 10)
+                return 20
+            if (vertical == 5 & outer > 6)
+                return 12
+            if (vertical > 1)
+                return 8
+        }
+
+        // 2
+        if (width == 2) {
+            if (vertical == 5 && outer > 4 && outer < 9)
+                return 5
+            if (vertical == 10 && outer == 15)
+                return 10
+            if (vertical == 10 && outer < 6)
+                return 5
+            if (vertical == 5 && outer == 15)
+                return 8
+            if (vertical == 10 && outer > 10)
+                return 10
+            if (vertical < 10 && outer < 9)
+                return 4
+            if (vertical < 10 && outer > 8 && outer < 12)
+                return 5
+            if (vertical < 10 && outer > 10)
+                return 6
+            if (vertical == 5 && outer == 1)
+                return 3
+        }
+
+        // 4
+        if (width == 4) {
+            if (vertical == 4 && outer > 9)
+                return 4
+            if (vertical == 1 && outer > 1)
+                return 2
+            if (vertical == 5 && outer == 1)
+                return 2
+            if (vertical == 10 && outer == 6)
+                return 6
+            if (vertical == 10 && outer < 3)
+                return 3
+            if (vertical > 4 && outer == 4)
+                return 4
+            if (vertical == 5 && outer == 15)
+                return 5
+            if (vertical == 5 && outer > 7)
+                return 4
+            if (vertical == 10 && outer > 7)
+                return 7
+        }
+        // 5
+        if (width == 5) {
+            if (vertical == 4 && outer <= 2)
+                return 2
+            if (vertical == 4 && outer == 4)
+                return 2
+            if (vertical == 5 && outer <= 2)
+                return 2
+            if (vertical == 10 && outer > 7)
+                return 6
+            if (vertical == 1 && outer < 7)
+                return 1
+            if (vertical == 1 && outer > 6)
+                return 2
+        }
+
+        // 4 5
+        if (width > 3 && width < 6) {
+            if (vertical > 3 && outer == 3)
+                return 3
+            if (vertical == 2 && outer > 4)
+                return 3
+            if (vertical > 2 && vertical < 6 && outer > 4 && outer < 10)
+                return 3
+            if (vertical == 10 && outer == 1)
+                return 2
+        }
+
+        // 10 12 15
+        if (width >= 10 && width < 20) {
+            if (vertical == 2 && outer < 6)
+                return 1
+            if (outer <= 2)
+                return 1
+            if (outer >= 2)
+                return 2
+        }
+        // 20
+        if (width == 20)
+            return 1
+
+        return 2
+
     }
     getFractionNumber = (palette) => {
 
@@ -88,56 +160,32 @@ class Tiles extends Component {
         }
 
         return (
-            <div style={{ display: 'flex', alignItems: 'center' }}>
+            <div style={{ display: 'table', alignItems: 'center', height: '100%' }}> 
+                <div style={{ display: 'table-cell', verticalAlign: 'middle' }}> 
 
-                <div style={wrapperStyle}>
-                    {palette.map((satArr, i1) =>
-                        <div key={i1 + "l1"}>
-
-                            {satArr.map((lightArr, i2) =>
-                                <div key={i2 + "l2"} style={{ lineHeight: 0 }}>
-                                    {lightArr.map((lightColor, i3) => {
-                                        let color = lightColor.HEXString
-                                        let isSelected = selectedColor == color
-                                        return <div key={i1 + '' + i2 + '' + i3 + color} id={color}
-                                            className={"single-tile-basic " + (isSelected ? 'selected-tile' : '')}
-                                            style={{
-                                                background: color, padding: tilePadding + '%',  minWidth: tilePadding + '%', minHeight: tilePadding + '%',
-                                                border: 'none'
-                                            }}
-                                            onClick={() => this.handleSelectColor(color, color)} />
-                                    }
-                                    )}
-                                </div>
-                            )}
-                        </div >)}
-                </div>
-                {/*
-                <div style={{ height: '100%', width: '100%', alignItems: 'center', display: 'flex', flexWrap: 'wrap', justifyContent: 'center' }}>
-                    {palette.map((satArr, i1) =>
-                        <table className="level-1-holder" key={i1 + "l1"} style={{ width: l1Width }}>
-                            <tbody>
+                    <div style={wrapperStyle}>
+                        {palette.map((satArr, i1) =>
+                            <div key={i1 + "l1"}>
 
                                 {satArr.map((lightArr, i2) =>
-                                    <tr key={i2 + "l2"}>
+                                    <div key={i2 + "l2"} style={{ lineHeight: 0 }}>
                                         {lightArr.map((lightColor, i3) => {
                                             let color = lightColor.HEXString
                                             let isSelected = selectedColor == color
-                                            return <td key={i1 + '' + i2 + '' + i3 + color} id={color}
+                                            return <div key={i1 + '' + i2 + '' + i3 + color} id={color}
                                                 className={"single-tile-basic " + (isSelected ? 'selected-tile' : '')}
                                                 style={{
-                                                    background: color, padding: tilePadding + '%', minWidth: tilePadding + '%', minHeight: tilePadding + '%',
+                                                    background: color, padding: tilePadding + '%', width: tilePadding*2 + '%', height: tilePadding*2+ '%',
                                                     border: 'none'
                                                 }}
                                                 onClick={() => this.handleSelectColor(color, color)} />
                                         }
                                         )}
-                                    </tr>
+                                    </div>
                                 )}
-                            </tbody>
-                        </table >)}
+                            </div >)}
+                    </div>
                 </div>
-                                    */}
             </div>
         );
     }
