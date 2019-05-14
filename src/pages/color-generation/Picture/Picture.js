@@ -8,8 +8,7 @@ class Picture extends Component {
   render() {
     return (
       <div id="picture-page">
-        <div id="picture-upload-section"> <PictureUpload /></div>
-        <div id="picture-try-it"> <TryIt /></div>
+        <PictureUpload /><TryIt />
       </div>
     );
   }

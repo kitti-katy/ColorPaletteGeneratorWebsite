@@ -1,17 +1,30 @@
 .slider-label { 
-    font-weight: bold
 }
 
 .single-tile-basic {
-    padding: 10pt; 
     display: inline-block;
+    cursor: pointer;
+    transition: border-radius 0.1s linear;
 }
-.selected-tile {
+.single-tile-basic:hover{
+    border-radius: 25%
+}
+.selected-tile, .selected-tile:hover {
     border-radius:50%
 }
-
-.level-1-holder{ 
-    /*border: '3px solid ' + satArr[0][0].HEXString,*/ 
-    padding: 4px; 
-    display: inline-block;
+.single-tile-basic:last-child {
+    border-right: none
 }
+
+.level-1-holder { 
+    border-collapse: collapse;
+}
+.level-1-holder div{
+    border: 1px solid white;
+} 
+.tiles-holder{
+    /*line-height: 0;*/
+    OVERFLOW: auto;
+    height: 62%;
+}
+

@@ -1,0 +1,113 @@
+@import "../../variables";
+.applied-color{ 
+    height: $padding-l2; 
+    margin-top: auto;
+    margin-bottom: auto;
+    cursor: pointer;
+}
+.applied-color:hover{ 
+    border-radius: 20%;
+}
+.applied-colors-container{ 
+    display: grid; 
+    grid-auto-flow: column;
+    font-weight: 300;
+    width: 62%;
+    letter-spacing: 0.037em;
+    margin-top: $padding-l0;
+}
+.applied-colors-container:first-child{
+    margin-bottom: $padding-l3;
+}
+.try-holder {
+    display: grid;
+    //grid-template-rows: 93% 7%;
+    grid-template-rows: 7% 93%;
+    border-top: $borderStyle; 
+    border-color: $lighterColor2;
+    height: 100%;
+}
+  .try-holder .select-mode-table > div {
+    font-size: ms(0);
+    background: $lighterColor2;
+    font-weight: 600; 
+}
+  .try-switch {
+    display: grid;
+    grid-template-columns: 33.33% 33.33% 33.33%;
+    color: $darkerColor1;
+    background: $lightestColor;
+    text-align: center;
+}
+  
+.try-web{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: auto;
+}
+.try-web >div {
+    width: 62%;
+}
+.try-right{ 
+    display: flex;
+    justify-content: space-between;
+    line-height: 1;
+}
+
+.try-left > div {
+    margin-bottom: $padding-l2;
+}
+.try-actions-container{
+    display: flex;
+    width: 63%;
+    justify-content: space-around;
+}
+.try-actions-container button{
+    padding: $padding-l3;
+    margin-top: $padding-l2;
+}
+.try-actions-container button span{
+    @include btn-icon-color;
+}
+.try-actions-container button> span:hover {
+    @include btn-icon-color-hover;
+}
+.try-card-holder{
+    height: fit-content;
+    max-width: 62%;
+    letter-spacing: 0.5px;
+   // margin-left: $padding-l0;
+}
+#try-background {
+    cursor: pointer; 
+    padding: $padding-l2;
+}
+.try-title-holder{  
+    text-align: center;
+    text-transform: uppercase;
+    font-size: ms(0)
+}
+.reset-try-card-btn{
+    float: right;
+    cursor: pointer; 
+}
+#try-text{
+    font-size: ms(-1);
+    cursor: pointer; 
+}
+.try-button{
+    margin-right: $padding-l2;
+    font-size: ms(-1);
+    padding: $padding-l4; 
+    border-radius: 4px;
+    //font-weight: 500;
+   // text-transform: lowercase;
+}
+.applied-colors-header{
+    margin-top: $padding-l2;
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+}
