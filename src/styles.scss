@@ -6,7 +6,7 @@
 
 .App{
   height: $fill;
-  grid-template-rows: 5% 90% 5%;
+  grid-template-rows: 5% 95%; // 5%;
   display: grid;
 }
 #root{
@@ -15,6 +15,9 @@
 h1,h2,h3,h4,h5,h6{
   color: $darkerColor2;
   font-weight: 400 !important;
+}
+html {
+  font-family: Roboto,serif;
 }
 body {
   height: 100%;
@@ -25,6 +28,8 @@ body {
   line-height: 1;
   font-weight: 400 !important;
   color: $darkerColor2 !important;
+  font-family: 'Roboto', sans-serif;
+  font-size: ms(-1);
 }
 footer {
   background: $darkerColor1;
@@ -33,7 +38,6 @@ footer {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
-    font-size: 0.9em;
 }
 
 .header {
@@ -46,16 +50,18 @@ code {
   margin: 0; 
   color: $lighterColor2;
   font-weight: 400;
+  letter-spacing: 0.05em;
 }
 // RIGHT PART
 .filters-part{
   display: grid;
   border-top: $borderStyle;
-  grid-template-rows: 15% 85%;
+  grid-template-rows: 13% 87%;
 }
 .filters-long-part{
   display: grid;
   grid-template-rows: 15% 85%;
+  height: 100%;
 }
 
 // SELECT FILTERS MODE
@@ -67,7 +73,7 @@ code {
     -webkit-flex: 1; 
     flex: 1;
     text-align: center;
-    font-size: 1.05em;
+    font-size: ms(0);
     color: $darkerColor1;
     background: $lightestColor;
     cursor: pointer;
@@ -101,11 +107,12 @@ code {
   flex-direction: column;
   height: 100%;
   width: 62%;
-  margin: auto;
+  //margin: auto;
+  margin-left: $padding-l0;
   justify-content: space-around;
 }
 #hsl-basic-filters > div{
-  font-size: 1em;
+  font-size: ms(0);
   min-height: 60px;
 }
 
@@ -119,16 +126,18 @@ code {
 .base-color-select-container{
   width: 62%;
   margin: auto;
+  margin-left: $padding-l0;
   box-shadow: $button-shadow;
   font-weight: 600;
-  padding: $padding-l2 0;
+  padding: $padding-l3 0;
 }
 .select-color-btn {
   @include align-inner-element-center-vertically;
   height: 100%;
   text-align: center;
   margin: auto; 
-  font-size: 1em
+  font-size: ms(-1);
+  font-weight: 500;
 }
 
 // TILES
@@ -306,6 +315,7 @@ $ant-slider-box-shadow-2 : 0 0 0 1px rgba(16,22,26,.2), 0 1px 1px rgba(16,22,26,
  /* color: rgb(249, 250, 251)*/
 }
 .ant-slider-mark-text {
-  color: $darkerColor2
+  color: $darkerColor2;
+  font-size: ms(-2)
 }
 

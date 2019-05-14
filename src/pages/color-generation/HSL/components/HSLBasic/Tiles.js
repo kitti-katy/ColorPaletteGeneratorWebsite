@@ -37,7 +37,7 @@ class Tiles extends Component {
             if (vertical == 1)
                 return 6
             if (vertical == 10)
-                return 20
+                return 12
             if (vertical == 5 & outer > 6)
                 return 12
             if (vertical > 1)
@@ -46,61 +46,70 @@ class Tiles extends Component {
 
         // 2
         if (width == 2) {
+            if (vertical == 5 && outer == 1)
+                return 3
             if (vertical == 5 && outer > 4 && outer < 9)
-                return 5
-            if (vertical == 10 && outer == 15)
-                return 10
-            if (vertical == 10 && outer < 6)
                 return 5
             if (vertical == 5 && outer == 15)
                 return 8
-            if (vertical == 10 && outer > 10)
-                return 10
             if (vertical < 10 && outer < 9)
                 return 4
             if (vertical < 10 && outer > 8 && outer < 12)
                 return 5
-            if (vertical < 10 && outer > 10)
+            if (vertical < 10 && outer >= 12)
                 return 6
-            if (vertical == 5 && outer == 1)
-                return 3
+            if (vertical >= 10 && outer >= 6)
+                return 10
+            if (vertical >= 10 && outer < 6)
+                return 5
         }
 
         // 4
         if (width == 4) {
-            if (vertical == 4 && outer > 9)
-                return 4
             if (vertical == 1 && outer > 1)
                 return 2
+            if (vertical == 4 && outer > 9)
+                return 4
+            if (vertical > 4 && outer == 4)
+                return 4
+
             if (vertical == 5 && outer == 1)
                 return 2
-            if (vertical == 10 && outer == 6)
-                return 6
-            if (vertical == 10 && outer < 3)
-                return 3
-            if (vertical > 4 && outer == 4)
+            if (vertical == 5 && outer > 7)
                 return 4
             if (vertical == 5 && outer == 15)
                 return 5
-            if (vertical == 5 && outer > 7)
-                return 4
-            if (vertical == 10 && outer > 7)
+
+            if (vertical >= 10 && outer < 3)
+                return 3
+            if (vertical >= 10 && outer == 5)
+                return 5
+            if (vertical >= 10 && outer == 6)
+                return 6
+            if (vertical >= 10 && outer > 7)
                 return 7
+
         }
         // 5
         if (width == 5) {
+            if (vertical == 1 && outer < 7)
+                return 1
+            if (vertical == 1 && outer > 6)
+                return 2
+            if (vertical == 2 && outer > 9)
+                return 3
+            if (vertical == 2 && outer < 9)
+                return 2
             if (vertical == 4 && outer <= 2)
                 return 2
             if (vertical == 4 && outer == 4)
                 return 2
             if (vertical == 5 && outer <= 2)
                 return 2
-            if (vertical == 10 && outer > 7)
+            if (vertical >= 10 && outer > 7)
                 return 6
-            if (vertical == 1 && outer < 7)
-                return 1
-            if (vertical == 1 && outer > 6)
-                return 2
+            if (outer > 9)
+                return 4
         }
 
         // 4 5
@@ -109,17 +118,19 @@ class Tiles extends Component {
                 return 3
             if (vertical == 2 && outer > 4)
                 return 3
-            if (vertical > 2 && vertical < 6 && outer > 4 && outer < 10)
+            if (vertical > 2 && vertical < 6 && outer > 4)// && outer < 10)
                 return 3
-            if (vertical == 10 && outer == 1)
+            if (vertical >= 10 && outer == 1)
                 return 2
         }
 
         // 10 12 15
         if (width >= 10 && width < 20) {
+            if (vertical == 1)
+                return 1
             if (vertical == 2 && outer < 6)
                 return 1
-            if (outer <= 2)
+            if (outer == 1)
                 return 1
             if (outer >= 2)
                 return 2
@@ -129,10 +140,6 @@ class Tiles extends Component {
             return 1
 
         return 2
-
-    }
-    getFractionNumber = (palette) => {
-
     }
     getPalette = () => {
         let { baseColor, hueSplit, satSplit, lightSplit, l1, l2, l3 } = this.props
@@ -150,32 +157,35 @@ class Tiles extends Component {
     render() {
         let palette = this.getPalette()
         let selectedColor = this.props.selected
-
         let tilePadding = this.getPadding(palette)
-        let l1Width = this.getRowHolderWidth(palette)
+        let numberOfFractions = this.getRowHolderWidth(palette)
         //let selectedColorFont = new Color(selectedColor, 0, 0, 'Hex').hsl.light > 50 ? 'black' : 'white'
         let wrapperStyle = {
-            display: 'grid', gridTemplateColumns: 'repeat(' + l1Width + ', 1fr)',
-            gridGap: '2px', width: '100%'
+            display: 'flex',
+            flexWrap: 'wrap',
+            justifyContent: 'center'
+
+            // display: 'grid', gridTemplateColumns: 'repeat(' + numberOfFractions + ', 1fr)',
+            // gridGap: '2px', width: '100%'
         }
 
         return (
-            <div style={{ display: 'table', alignItems: 'center', height: '100%' }}> 
-                <div style={{ display: 'table-cell', verticalAlign: 'middle' }}> 
+            <div style={{ display: 'table', alignItems: 'center', height: '100%' }}>
+                <div style={{ display: 'table-cell', verticalAlign: 'middle' }}>
 
                     <div style={wrapperStyle}>
                         {palette.map((satArr, i1) =>
-                            <div key={i1 + "l1"}>
+                            <div key={i1 + "l1"} style={{ border: 'solid 4px white', width: (100 / numberOfFractions) - 1 + '%' }}>
 
                                 {satArr.map((lightArr, i2) =>
-                                    <div key={i2 + "l2"} style={{ lineHeight: 0 }}>
+                                    <div key={i1 + "-" + i2 + "l2"} style={{ lineHeight: 0 }}>
                                         {lightArr.map((lightColor, i3) => {
                                             let color = lightColor.HEXString
                                             let isSelected = selectedColor == color
                                             return <div key={i1 + '' + i2 + '' + i3 + color} id={color}
                                                 className={"single-tile-basic " + (isSelected ? 'selected-tile' : '')}
                                                 style={{
-                                                    background: color, padding: tilePadding + '%', width: tilePadding*2 + '%', height: tilePadding*2+ '%',
+                                                    background: color, padding: tilePadding + '%', width: tilePadding * 2 + '%', height: tilePadding * 2 + '%',
                                                     border: 'none'
                                                 }}
                                                 onClick={() => this.handleSelectColor(color, color)} />

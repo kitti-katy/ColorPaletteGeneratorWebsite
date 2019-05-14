@@ -14,7 +14,7 @@ class Header extends Component {
 
     return (
       <div className='header'>
-        <h2>Awesome Color Palette Generator</h2>
+        <h2>PALETTE</h2>
       </div>
 
     );

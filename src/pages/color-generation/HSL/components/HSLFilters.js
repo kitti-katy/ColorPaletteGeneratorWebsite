@@ -12,7 +12,7 @@ import { ResetColorsButton } from '../../../../components/ResetColorsButton'
 import { SelectedColorPanel } from '../../../../components/SelectedColorPanel'
 import { Icon, Slider, Select, Tooltip } from 'antd';
 import { Radio } from 'antd';
-import './HSLFilters.css'
+import './HSLFilters.scss'
 import SelectMode from "./SelectMode/SelectMode"
 import { Card, Label } from "@blueprintjs/core";
 

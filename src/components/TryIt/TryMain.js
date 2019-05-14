@@ -58,12 +58,11 @@ class TryMain extends Component {
 
         return (
             <div className='try-holder'>
-                {tryComponent}
                 <div className="select-mode-table">
                     {switchers.map(
                         (option, i) => <div key={"switcher" + i} onClick={() => this.setSelected(i)} className={i == selectedTryIndex ? 'selected-mode' : ''}><div> {option.label}</div> </div>)}
                 </div>
-
+                {tryComponent}
             </div>
         )
     }

@@ -2,13 +2,13 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import Color from '../../utilities/Color'
 import { exportJSON } from '../../utilities/ExportJSON';
-import { ExportJSONButton } from '../ExportJSONButton'
-import { Icon } from "@blueprintjs/core";
 import "./TryIt.scss"
-import { GoldenRatio } from "../GoldenRatio";
-import { borderStyle } from '../../styles'
 import { Tooltip, Slider } from 'antd'
-import { Label } from "@blueprintjs/core";
+import AutorenewIcon from '@material-ui/icons/Autorenew'
+import CloudDownloadIcon from '@material-ui/icons/CloudDownload'
+import UndoIcon from '@material-ui/icons/Undo'
+import RedoIcon from '@material-ui/icons/Redo'
+import IconButton from '@material-ui/core/IconButton';
 
 let mapStateToProps = (state) => { return { selected: state.SelectedColorReducer.selected } }
 let mapDispatchToProps = (dispatch) => { /*return bindActionCreators({ changeBaseColor: changeBaseColor }, dispatch)*/ }
@@ -60,7 +60,7 @@ class TryItGradient extends Component {
                 gradientColors.push('#ffffff')
             }
         if (n < oldN) {
-            for (let i = 0; i <  oldN - n; i++) {
+            for (let i = 0; i < oldN - n; i++) {
                 gradientColors.pop()
             }
         }
@@ -86,45 +86,46 @@ class TryItGradient extends Component {
         let selectedColorFont = new Color(selectedColor, 0, 0, 'Hex').hsl.light > 50 ? 'black' : 'white'
 
         return (
-            <div style={{ width: '100%', background: 'white', height: '-webkit-fill-available', border: borderStyle }} >
-                <GoldenRatio
-                    direction="horizontal"
-                    longFirst={true}
-                    shortChild={
-                        <div className="try-colors-container" style={{ backgroundImage: gradientString }}>
-                            {gradientColors.map(
-                                (color, i) =>
-                                    <div style={{ padding: '10px', width: '100%', }}
-                                        onClick={(e) => this.setColor(e, i)} id={'gradient-' + i} />
-                            )}
-                        </div>
-                    }
-                    longChild={
-                        <div style={{ direction: 'rtl', padding: '24px', borderRight: '2px dashed rgb(202, 210, 221)', height: '-webkit-fill-available', lineHeight: '2' }}>
-                            <div style={{ color: 'rgb(97, 97, 97)' }}>
-                                <Tooltip placement="top" title={"Reset Applied Colors"}>
-                                    <Icon icon="repeat" onClick={this.reset} style={{ cursor: 'pointer' }} />
-                                </Tooltip>
-                                <ExportJSONButton onClick={() => exportJSON(gradientColors)} /></div>
-                            <br />
-                            <div className="hsl-slider">
-                                <Label className="slider-label" style={{ textAlign: 'right' }}>Number of Gradients</Label>
-                                <Slider className="slider-input" min={2} max={8} onChange={this.setNumberOfColors} value={this.state.numberOfColors} />
-                            </div>
+            <div className='try-web'>
 
-                            <br />
-                            <h4> Gradient Colors </h4>
+                <div className="try-colors-container" style={{ backgroundImage: gradientString, gridAutoFlow: 'column', display: 'grid' }}>
+                    {gradientColors.map(
+                        (color, i) =>
+                            <div style={{ paddingTop: '150px', }}
+                                onClick={(e) => this.setColor(e, i)} id={'gradient-' + i} />
+                    )}
+                </div>
 
-                            <div className="applied-colors-container">
-                                {gradientColors.map(color =>
-                                    <div className="applied-color"
-                                        style={{ backgroundColor: color, color: new Color(color, 0, 0, 'Hex').hsl.light > 40 ? 'rgb(33, 33, 33)' : 'white' }}>
-                                        {color}
-                                    </div>)}
-                            </div>
+                <div >
+                    <Slider className="slider-input" style={{ width: '100%', margin: 0, marginTop: '16px' }} min={2} max={8} onChange={this.setNumberOfColors} value={this.state.numberOfColors} />
+                </div>
+                
+                <div className="applied-colors-container">
+                    {gradientColors.map(color =>
+                        <div className="applied-color"
+                            style={{ backgroundColor: color, color: new Color(color, 0, 0, 'Hex').hsl.light > 40 ? 'rgb(33, 33, 33)' : 'white' }}>
+                        </div>)}
+                </div>
 
-                        </div>}
-                />
+                <div className='try-actions-container'>
+                    <Tooltip placement="bottom" title={"Export JSON"}>
+                        <IconButton size='small' onClick={() => exportJSON(gradientColors)} > <CloudDownloadIcon /> </IconButton>
+                    </Tooltip>
+
+                    <Tooltip placement="bottom" title={"Reset Applied Colors"}>
+                        <IconButton size='small' onClick={this.reset} > <AutorenewIcon /></IconButton>
+                    </Tooltip>
+
+                    <IconButton size='small' >
+                        <UndoIcon />
+                    </IconButton>
+
+                    <IconButton size='small' disabled={this.state.futureQueue}>
+                        <RedoIcon />
+                    </IconButton>
+
+                </div>
+
             </div>
         );
     }
