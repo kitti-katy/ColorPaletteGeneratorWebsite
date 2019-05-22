@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
-import { selectColor } from '../../../../../redux/SelectedColorReducer'
-import { getAdvancedPalette } from "../../../../../utilities/HSLPaletteGenerator";
+import { selectColor } from '../../../redux/SelectedColorReducer'
+import { getAdvancedPalette } from "../../../utilities/HSLPaletteGenerator";
 
 let mapStateToProps = (state) => {
     return {

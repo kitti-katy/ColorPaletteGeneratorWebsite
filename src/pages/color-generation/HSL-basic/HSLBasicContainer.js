@@ -2,15 +2,15 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import Filters from './Filters'
 import Tiles from './Tiles'
-import DisplayOrderButtons from './DisplayOrderButtons'
-import { ExportJSONButton } from '../../../../../components/ExportJSONButton'
-import { exportJSON } from '../../../../../utilities/ExportJSON'
+import DisplayOrderButtons from '../DisplayOrderButtons'
+import { ExportJSONButton } from '../../../components/ExportJSONButton'
+import { exportJSON } from '../../../utilities/ExportJSON'
 import '../HSLFiltersAlternative.css'
-import SelectMode from "../SelectMode/SelectMode"
-import ColorPicker from "../../../../../components/color-picker/ColorPicker";
-import { borderStyle } from '../../../../../styles'
+import SelectMode from "../HSL/components/SelectMode/SelectMode"
+import ColorPicker from "../../../components/color-picker/ColorPicker";
+import { borderStyle } from '../../../styles'
 import { Popover } from 'antd';
-import TryMain from "../../../../../components/TryIt/TryMain";
+import TryMain from "../../../components/TryIt/TryMain";
 
 let mapStateToProps = (state) => {
     return {
@@ -48,13 +48,14 @@ class HSLBasicContainer extends Component {
                     </div>
                     <div>
                         <div className='filters-long-part'>
-                            <div style={{ display: 'flex' }}>
+                           {/*} <div style={{ display: 'flex' }}>
                                 <Popover content={<ColorPicker />} placement="bottom">
                                     <div className='base-color-select-container' style={{ background: this.props.baseColor.HEXString }} >
                                         <h3 className='select-color-btn' style={{ color: baseColorFont }} >BASE COLOR</h3>
                                     </div>
                                 </Popover>
                             </div>
+        */}
                             <div><TryMain /></div>
                         </div>
                     </div>
