@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import { changeHSLMode } from '../../../../../redux/HSLModeReducer'
+import { changeHSLMode } from '../../../redux/HSLModeReducer'
 import StarIcon from '@material-ui/icons/Star'
 import PaletteIcon from '@material-ui/icons/Palette'
 import BrushIcon from '@material-ui/icons/Brush'
 import ImageIcon from '@material-ui/icons/Image'
 import './SelectMode.scss'
+
 
 const iconStyle = { verticalAlign: 'sub', marginRight: '4px' }
 

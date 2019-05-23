@@ -6,11 +6,10 @@ import DisplayOrderButtons from '../DisplayOrderButtons'
 import { ExportJSONButton } from '../../../components/ExportJSONButton'
 import { exportJSON } from '../../../utilities/ExportJSON'
 import '../HSLFiltersAlternative.css'
-import SelectMode from "../HSL/components/SelectMode/SelectMode"
-import ColorPicker from "../../../components/color-picker/ColorPicker";
-import { borderStyle } from '../../../styles'
-import { Popover } from 'antd';
+import SelectMode from "../SelectMode/SelectMode"
 import TryMain from "../../../components/TryIt/TryMain";
+import { SelectedColorPanel } from "../../../components/SelectedColorPanel";
+import SelectBlindness from "../../../components/SelectBlindness";
 
 let mapStateToProps = (state) => {
     return {
@@ -33,9 +32,20 @@ class HSLBasicContainer extends Component {
             <div className='horizontal-holder-ls'>
                 <div id='palette-container' >
                     <div className=" tiles-actions-bar " >
-                        <ExportJSONButton onClick={this.handleExportJSON_ButtonClick} />
-                        <DisplayOrderButtons />
+                        <div>
+                            <SelectBlindness />
+                        </div>
+                        <div>
+                            <ExportJSONButton onClick={this.handleExportJSON_ButtonClick} />
+                        </div>
+                        <div>
+                            <DisplayOrderButtons />
+                        </div>
+                        <div>
+                            <SelectedColorPanel selectedColor={this.props.selected} />
+                        </div>
                     </div>
+                    <div></div>
                     <Tiles />
                     <div></div>
                 </div>
@@ -43,19 +53,11 @@ class HSLBasicContainer extends Component {
 
                 <div className='vertical-holder-sl'>
                     <div className='filters-part' >
-                        <SelectMode />
+                        <SelectMode history={this.props.history} />
                         <Filters />
                     </div>
                     <div>
                         <div className='filters-long-part'>
-                           {/*} <div style={{ display: 'flex' }}>
-                                <Popover content={<ColorPicker />} placement="bottom">
-                                    <div className='base-color-select-container' style={{ background: this.props.baseColor.HEXString }} >
-                                        <h3 className='select-color-btn' style={{ color: baseColorFont }} >BASE COLOR</h3>
-                                    </div>
-                                </Popover>
-                            </div>
-        */}
                             <div><TryMain /></div>
                         </div>
                     </div>

@@ -22,9 +22,9 @@ const lightDivisors = { 1: '1', 2: '2', 4: '4', 5: '5', 10: '10', 20: '20' }
 const satDivisors = { 1: '1', 2: '2', 4: '4', 5: '5', 10: '10' }
 */
 
-const hueDivisors = ['1', '2', '3', '4', '5', '6', '8', '9', '10', '12', '15']
-const lightDivisors = ['1', '2', '4', '5', '10', '20']
-const satDivisors = ['1', '2', '4', '5', '10', '10']
+const hueDivisors = [1, 2, 3, 4, 5, 6, 8, 9, 10, 12, 15]
+const lightDivisors = [1, 2, 4, 5, 10, 20]
+const satDivisors = [1, 2, 4, 5, 10]
 
 //const hueMax = 15
 //const satMax = 10

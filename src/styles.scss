@@ -60,7 +60,6 @@ code {
 }
 .filters-long-part{
   display: grid;
-  //grid-template-rows: 15% 85%;
   height: 100%;
 }
 
@@ -108,13 +107,9 @@ code {
   margin-top: auto;
   margin-bottom: auto;
   margin: auto;
-  //height: 100%;
-  width: 38%; //62%;
-  //margin: auto;
- // margin-left: $padding-l0;
+  width: 83%; 
  height: 100%;
- justify-content: flex-end;
-  //justify-content: space-around;
+ justify-content: center;
 }
 #hsl-basic-filters > div{
   font-size: ms(0);
@@ -129,10 +124,7 @@ code {
   cursor: pointer;
 }
 .base-color-select-container{
-  width: 100%; //62%;
   margin: auto;
-  //margin-left: $padding-l0;
-  //box-shadow: $button-shadow;
   font-weight: 600;
   padding: $padding-l3 0;
 }
@@ -151,45 +143,47 @@ code {
   border-right: $borderStyle;
   border-top: $borderStyle;
   display: grid;
-  grid-template-columns: 19% 62% 19%; 
+  grid-template-columns: 17% 15.75% 51.5% 15.75%; 
   overflow: auto;
 } 
 .tiles-actions-bar{
   @include btn-icon-color;
-  padding-top: $padding-l2;
-  //padding-left: $padding-l2;
-  //color: $lighterColor1;
-  //display: grid;
-  //grid-template-rows: 33% 33% 33%;
-  //background: $lighterColor2;
+  border-right: $borderStyle;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background: $lightestColor;
+}
+.tiles-actions-bar > div{
+  margin-bottom: $padding-l1;
+  margin-top: $padding-l1;
 }
 .tiles-actions-bar2 > div{
   @include align-inner-element-center-vertically;
 }
 .arrow-btn{ 
-  padding-top: $padding-l1;
-  margin-left: $padding-l2; 
   cursor: pointer;
-  display: block;
+  display: inline-block;
 }
 .arrow-btn:hover{ 
   @include btn-icon-color-hover;
+}
+.arrow-btn:first-child{
+  margin-right: $padding-l2; 
 }
 
 // TRY PART
 
 .selected-color-panel {
-  width: fit-content;
+  width: 150px;
   height: fit-content;
   padding: $padding-l3 $padding-l2; 
   text-align: center;
   display: grid;
   font-size: 1em;
-  border-radius:2px;
   cursor: pointer;
-  float: right;
   border-radius: $radius;
-  margin-right: $padding-l1;
 }
 
 .horizontal-holder-sl{
@@ -199,7 +193,7 @@ code {
 }
 .horizontal-holder-ls{
   display: grid;
-  grid-template-columns: $long $short;
+  grid-template-columns: 72% 28%;// $long $short;
   height: 100%;
 }
 .vertical-holder-sl{
@@ -221,8 +215,6 @@ code {
 
 
 .export-json-btn {
-
-  margin-left: $padding-l2; 
   font-size: 1em; 
   cursor: pointer;
 }

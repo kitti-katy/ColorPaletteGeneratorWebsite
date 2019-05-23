@@ -3,6 +3,7 @@ import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import { selectColor } from '../../../redux/SelectedColorReducer'
 import { getAdvancedPalette } from "../../../utilities/HSLPaletteGenerator";
+import { convertToBlind } from "../../../utilities/BlindConversion";
 
 let mapStateToProps = (state) => {
     return {
@@ -14,7 +15,8 @@ let mapStateToProps = (state) => {
         displayOrder: state.HSLBasicReducer.displayOrder,
         l1: state.HSLBasicReducer.l1,
         l2: state.HSLBasicReducer.l2,
-        l3: state.HSLBasicReducer.l3
+        l3: state.HSLBasicReducer.l3,
+        blindness: state.ColorBlindnessReducer.blindness
     }
 }
 let mapDispatchToProps = (dispatch) => { return bindActionCreators({ selectColor: selectColor }, dispatch) }
@@ -182,10 +184,11 @@ class Tiles extends Component {
                                         {lightArr.map((lightColor, i3) => {
                                             let color = lightColor.HEXString
                                             let isSelected = selectedColor == color
+                                            let blindedColor = convertToBlind( lightColor, this.props.blindness)
                                             return <div key={i1 + '' + i2 + '' + i3 + color} id={color}
                                                 className={"single-tile-basic " + (isSelected ? 'selected-tile' : '')}
                                                 style={{
-                                                    background: color, padding: tilePadding + '%', width: tilePadding * 2 + '%', height: tilePadding * 2 + '%',
+                                                    background: blindedColor, padding: tilePadding + '%', width: tilePadding * 2 + '%', height: tilePadding * 2 + '%',
                                                     border: 'none'
                                                 }}
                                                 onClick={() => this.handleSelectColor(color, color)} />

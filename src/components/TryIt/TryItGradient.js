@@ -54,7 +54,6 @@ class TryItGradient extends Component {
     setNumberOfColors = (n) => {
         let oldN = this.state.numberOfColors
         let gradientColors = Array.from(this.state.gradientColors)
-        console.log(n - oldN)
         if (n > oldN)
             for (let i = 0; i < n - oldN; i++) {
                 gradientColors.push('#ffffff')
@@ -64,7 +63,6 @@ class TryItGradient extends Component {
                 gradientColors.pop()
             }
         }
-        console.log(gradientColors)
         this.setState({ numberOfColors: n, gradientColors: gradientColors }, this.setHoverEffects)
     }
     setColor = (e, colorIndex) => {

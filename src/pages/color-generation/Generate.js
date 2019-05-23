@@ -2,15 +2,16 @@ import React, { Component } from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom'
 import { connect } from "react-redux";
 //import Filters from './Filters'
-import Tiles from './Tiles'
+import Tiles from './HSL-basic/Tiles'
 import DisplayOrderButtons from './DisplayOrderButtons'
 import { ExportJSONButton } from '../../components/ExportJSONButton'
 import { exportJSON } from '../../utilities/ExportJSON'
 import './HSLFiltersAlternative.css'
-import SelectMode from "./HSL/components/SelectMode/SelectMode"
+import SelectMode from "./SelectMode/SelectMode"
 import ColorPicker from "../../components/color-picker/ColorPicker";
 import { Popover } from 'antd';
 import TryMain from "../../components/TryIt/TryMain";
+import {FiltersRoutes} from '../../routes/FiltersRoutes';
 
 let mapStateToProps = (state) => {
     return {
@@ -44,19 +45,11 @@ class Generate extends Component {
 
                 <div className='vertical-holder-sl'>
                     <div className='filters-part' >
-                        <SelectMode />
-                        
-
+                        <SelectMode history={this.props.history}/>
+                        <FiltersRoutes/>
                     </div>
                     <div>
                         <div className='filters-long-part'>
-                            <div style={{ display: 'flex' }}>
-                                <Popover content={<ColorPicker />} placement="bottom">
-                                    <div className='base-color-select-container' style={{ background: this.props.baseColor.HEXString }} >
-                                        <h3 className='select-color-btn' style={{ color: baseColorFont }} >BASE COLOR</h3>
-                                    </div>
-                                </Popover>
-                            </div>
                             <div><TryMain /></div>
                         </div>
                     </div>
@@ -68,6 +61,6 @@ class Generate extends Component {
     }
 }
 
-export default Generate;
+export default connect(mapStateToProps)(Generate);
 
 

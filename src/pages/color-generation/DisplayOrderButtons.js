@@ -2,7 +2,8 @@ import React, { Component } from "react";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import { setDisplayOrder } from '../../redux/HSLBasicReducer'
-import { Icon } from "@blueprintjs/core";
+import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward'
+import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward'
 let mapDispatchToProps = (dispatch) => { return bindActionCreators({ setDisplayOrder: setDisplayOrder }, dispatch) }
 
 const displayOptions = [['h', 's', 'l'], ['h', 'l', 's'], ['s', 'h', 'l'], ['l', 'h', 's'], ['s', 'l', 'h'], ['l', 's', 'h']]
@@ -28,8 +29,8 @@ class DisplayOrderButtons extends Component {
     render() {
         return (
             <div>
-                <Icon icon="arrow-up" className="arrow-btn" onClick={this.handleChangeOrderUpClick} />
-                <Icon icon="arrow-down" className="arrow-btn" onClick={this.handleChangeOrderDownClick} />
+                <ArrowUpwardIcon  className="arrow-btn" onClick={this.handleChangeOrderUpClick} />
+                <ArrowDownwardIcon className="arrow-btn" onClick={this.handleChangeOrderDownClick} />
             </div>
 
         );

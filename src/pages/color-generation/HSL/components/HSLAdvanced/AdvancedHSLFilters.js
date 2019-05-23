@@ -1,19 +1,18 @@
 import React, { Component } from "react";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
-import Color from "../../../../utilities/Color";
-import HSLPaletteGenerator from "../../../../utilities/HSLPaletteGenerator";
-import { getChunks } from "../../../../utilities/ArrayMethods";
-import { selectColor } from '../../../../redux/SelectedColorReducer'
-import { exportJSON } from '../../../../utilities/ExportJSON'
+import Color from "../../../../../utilities/Color";
+import HSLPaletteGenerator from "../../../../../utilities/HSLPaletteGenerator";
+import { getChunks } from "../../../../../utilities/ArrayMethods";
+import { selectColor } from '../../../../../redux/SelectedColorReducer'
+import { exportJSON } from '../../../../../utilities/ExportJSON'
 //import { Label } from '../../../../components/Label'
-import { ExportJSONButton } from '../../../../components/ExportJSONButton'
-import { ResetColorsButton } from '../../../../components/ResetColorsButton'
-import { SelectedColorPanel } from '../../../../components/SelectedColorPanel'
+import { ExportJSONButton } from '../../../../../components/ExportJSONButton'
+import { ResetColorsButton } from '../../../../../components/ResetColorsButton'
+import { SelectedColorPanel } from '../../../../../components/SelectedColorPanel'
 import { Icon, Slider, Select, Tooltip } from 'antd';
 import { Radio } from 'antd';
-import './HSLFilters.scss'
-import SelectMode from "./SelectMode/SelectMode"
+import SelectMode from "../../../SelectMode/SelectMode"
 import { Card, Label } from "@blueprintjs/core";
 
 
