@@ -7,7 +7,7 @@ class HSLPaletteGenerator {
       let h = (parseInt(hue) + (Math.floor(index / hueStep) * hueChange)) % 360
       let s = (parseInt(sat) + (Math.floor(index / satStep) * satChange)) % 100
       let l = (parseInt(light) + (Math.floor(index / lightStep) * lightChange)) % 100
-      return new Color(h, s, l, 'HSL').HEXString
+      return new Color(h, s, l, 'HSL')
     })
   }
   get palette() { return this._palette }

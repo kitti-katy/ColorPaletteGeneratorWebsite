@@ -23,6 +23,7 @@ let mapDispatchToProps = (dispatch) => { return bindActionCreators({ selectColor
 
 
 class Tiles extends Component {
+    state = { selectedKey: '' }
 
     getPadding = (palette) => {
         let horizontal = palette[0][0].length
@@ -150,25 +151,20 @@ class Tiles extends Component {
     }
 
     // TILES PART
-    handleSelectColor = (hex, selectedColorId) => {
-        this.setState({ selectedColorId })
-        this.props.selectColor(hex)
+    handleSelectColor = (hexValue, selectedKey) => {
+        this.setState({ selectedKey })
+        this.props.selectColor(hexValue)
     }
 
 
     render() {
         let palette = this.getPalette()
-        let selectedColor = this.props.selected
         let tilePadding = this.getPadding(palette)
         let numberOfFractions = this.getRowHolderWidth(palette)
-        //let selectedColorFont = new Color(selectedColor, 0, 0, 'Hex').hsl.light > 50 ? 'black' : 'white'
         let wrapperStyle = {
             display: 'flex',
             flexWrap: 'wrap',
             justifyContent: 'center'
-
-            // display: 'grid', gridTemplateColumns: 'repeat(' + numberOfFractions + ', 1fr)',
-            // gridGap: '2px', width: '100%'
         }
 
         return (
@@ -183,15 +179,16 @@ class Tiles extends Component {
                                     <div key={i1 + "-" + i2 + "l2"} style={{ lineHeight: 0 }}>
                                         {lightArr.map((lightColor, i3) => {
                                             let color = lightColor.HEXString
-                                            let isSelected = selectedColor == color
-                                            let blindedColor = convertToBlind( lightColor, this.props.blindness)
-                                            return <div key={i1 + '' + i2 + '' + i3 + color} id={color}
+                                            let blindedColor = convertToBlind(lightColor, this.props.blindness)
+                                            let colorKey = i1 + '' + i2 + '' + i3 + color
+                                            let isSelected = this.state.selectedKey == colorKey
+                                            return <div key={colorKey} id={color}
                                                 className={"single-tile-basic " + (isSelected ? 'selected-tile' : '')}
                                                 style={{
                                                     background: blindedColor, padding: tilePadding + '%', width: tilePadding * 2 + '%', height: tilePadding * 2 + '%',
                                                     border: 'none'
                                                 }}
-                                                onClick={() => this.handleSelectColor(color, color)} />
+                                                onClick={() => this.handleSelectColor(color, colorKey)} />
                                         }
                                         )}
                                     </div>

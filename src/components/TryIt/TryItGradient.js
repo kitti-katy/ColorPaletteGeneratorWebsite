@@ -81,8 +81,6 @@ class TryItGradient extends Component {
 
         let gradientString = "linear-gradient(to right," + gradientColors.join(',') + ")"
 
-        let selectedColorFont = new Color(selectedColor, 0, 0, 'Hex').hsl.light > 50 ? 'black' : 'white'
-
         return (
             <div className='try-web'>
 

@@ -2,19 +2,15 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import Filters from './Filters'
 import Tiles from './Tiles'
-import DisplayOrderButtons from '../DisplayOrderButtons'
-import { ExportJSONButton } from '../../../components/ExportJSONButton'
 import { exportJSON } from '../../../utilities/ExportJSON'
 import '../HSLFiltersAlternative.css'
 import SelectMode from "../SelectMode/SelectMode"
 import TryMain from "../../../components/TryIt/TryMain";
-import { SelectedColorPanel } from "../../../components/SelectedColorPanel";
-import SelectBlindness from "../../../components/SelectBlindness";
+import LeftActionsBar from "../LeftActionsBar";
 
 let mapStateToProps = (state) => {
     return {
-        selected: state.SelectedColorReducer.selected,
-        baseColor: state.BaseColorReducer.baseColor
+        // baseColor: state.BaseColorReducer.baseColor
     }
 }
 class HSLBasicContainer extends Component {
@@ -27,29 +23,15 @@ class HSLBasicContainer extends Component {
         exportJSON(colors)
     }
     render() {
-        let baseColorFont = this.props.baseColor.hsl.light > 40 ? 'rgb(33,33,33)' : 'rgb(237, 237, 237)'
         return (
             <div className='horizontal-holder-ls'>
+
                 <div id='palette-container' >
-                    <div className=" tiles-actions-bar " >
-                        <div>
-                            <SelectBlindness />
-                        </div>
-                        <div>
-                            <ExportJSONButton onClick={this.handleExportJSON_ButtonClick} />
-                        </div>
-                        <div>
-                            <DisplayOrderButtons />
-                        </div>
-                        <div>
-                            <SelectedColorPanel selectedColor={this.props.selected} />
-                        </div>
-                    </div>
+                    <LeftActionsBar exportJSON={this.handleExportJSON_ButtonClick} />
                     <div></div>
                     <Tiles />
                     <div></div>
                 </div>
-
 
                 <div className='vertical-holder-sl'>
                     <div className='filters-part' >
@@ -62,7 +44,6 @@ class HSLBasicContainer extends Component {
                         </div>
                     </div>
                 </div>
-
 
             </div>
         );

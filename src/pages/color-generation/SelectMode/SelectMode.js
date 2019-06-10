@@ -20,13 +20,20 @@ let mapDispatchToProps = (dispatch) => { return bindActionCreators({ changeHSLMo
 
 class SelectMode extends Component {
     navigateTo = (link) => this.props.history.push(link);
+    getRoute = (link, icon, text) => {
+        let currentLocation = ''
+        if (this.props.history)
+            currentLocation = this.props.history.location.pathname
+        return <div className={currentLocation == link ? 'selected-mode' : ''} onClick={() => this.navigateTo(link)} ><div> {icon} {text} </div></div>
+    }
     render() {
+
         return (
             <div className="select-mode-table">
-                <div onClick={() => this.navigateTo('/generate/hsl-basic')} className='selected-mode'><div><PaletteIcon style={iconStyle} fontSize="small" /> BASIC</div> </div>
-                <div onClick={() => this.navigateTo('/generate/hsl-advanced')} ><div><BrushIcon style={iconStyle} fontSize="small" /> ADVANCED </div></div>
-                <div onClick={() => this.navigateTo('/generate/custom')}><div><StarIcon style={iconStyle} fontSize="small" /> CUSTOM </div></div>
-                <div onClick={() => this.navigateTo('/generate/picture')}><div><ImageIcon style={iconStyle} fontSize="small" /> FROM PICTURE </div></div>
+                {this.getRoute('/hsl-basic', <PaletteIcon style={iconStyle} fontSize="small" />, 'BASIC')}
+                {this.getRoute('/hsl-advanced', <BrushIcon style={iconStyle} fontSize="small" />, 'ADVANCED')}
+                {this.getRoute('/custom', <StarIcon style={iconStyle} fontSize="small" />, 'CUSTOM')}
+                {this.getRoute('/picture', <ImageIcon style={iconStyle} fontSize="small" />, 'FROM PICTURE')}
             </div>
         );
     }

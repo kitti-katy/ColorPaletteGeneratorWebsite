@@ -27,12 +27,17 @@
     border-color: $lighterColor2;
     height: 100%;
 }
-  .try-holder .select-mode-table > div {
+
+.try-holder .select-mode-table > div {
     font-size: ms(0);
     background: $lighterColor2;
     font-weight: 600; 
 }
-  .try-switch {
+
+.try-holder .select-mode-table > div:hover{
+    background:white;
+  }
+.try-switch {
     display: grid;
     grid-template-columns: 33.33% 33.33% 33.33%;
     color: $darkerColor1;
@@ -100,10 +105,11 @@
 .try-button{
     margin-right: $padding-l2;
     font-size: ms(-1);
-    padding: $padding-l4; 
+    padding-top: $padding-l4; 
+    padding-bottom: $padding-l4; 
+    padding-left: $padding-l3; 
+    padding-right: $padding-l3; 
     border-radius: 4px;
-    //font-weight: 500;
-   // text-transform: lowercase;
 }
 .applied-colors-header{
     margin-top: $padding-l2;

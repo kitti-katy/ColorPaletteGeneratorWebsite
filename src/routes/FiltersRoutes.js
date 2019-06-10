@@ -1,7 +1,7 @@
 import { Switch, Route, Redirect } from 'react-router-dom'
 import Custom from '../pages/color-generation/Custom/Custom'
 import Picture from '../pages/color-generation/Picture/Picture'
-import HSLAdvancedContainer from '../pages/color-generation/HSL/components/HSLAdvanced/HSLAdvancedContainer'
+import HSLAdvancedContainer from '../pages/color-generation/HSL-advanced/HSLAdvancedContainer'
 import React from "react";
 import Filters from '../pages/color-generation/HSL-basic/Filters'
 

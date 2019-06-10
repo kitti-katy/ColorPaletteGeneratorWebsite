@@ -3,11 +3,6 @@
 /* FILTERS */
 #number-of-colors-input{
 }
-.hsl-advanced-filters{
-    padding-bottom: 24px;
-    justify-content: space-between;
-    display: flex;
-}
 
 
 /* PRESETS */
@@ -60,7 +55,7 @@
     margin-bottom: 16px;
 }
 .slider-input { 
-    width: 140px; 
+    width: 100%; 
     display: inline-block; 
     vertical-align: bottom;
 }

@@ -34,6 +34,7 @@ class ColorPickerCanvas extends Component {
     enableColorChange = () => this.setState({ allowClrChange: true });
     disableColorChange = () => this.setState({ allowClrChange: false });
 
+    // Main Canvas events
     handleMouseDownMainCanvas = evt => {
         this.setMouseDownToTrue();
         this.enableColorChange();
@@ -54,6 +55,8 @@ class ColorPickerCanvas extends Component {
         this.props.setHexInput(color.HEXString.substring(1))
     };
 
+
+    // Saturation Canvas events
     handleMouseDownSatCanvas = evt => {
         this.setSatMouseDownToTrue();
         this.enableColorChange();

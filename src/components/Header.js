@@ -14,7 +14,8 @@ class Header extends Component {
 
     return (
       <div className='header'>
-        <h2>PALETTE</h2>
+        <h2>PALETTE GENERATOR</h2>
+        
       </div>
 
     );
