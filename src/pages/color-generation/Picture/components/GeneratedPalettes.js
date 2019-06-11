@@ -34,7 +34,7 @@ class GeneratedPalettes extends Component {
             return <div key={colorKey} id={hex}
               className={"single-tile-basic " + (isSelected ? 'selected-tile' : '')}
               style={{
-                background: blindedColor, padding: '5%', width: '10%', height: '10%',
+                background: blindedColor, padding: '4.15%', width: '8.3%', height: '8.3%',
                 border: 'none'
               }}
               onClick={() => this.handleSelectColor(hex, colorKey)} />

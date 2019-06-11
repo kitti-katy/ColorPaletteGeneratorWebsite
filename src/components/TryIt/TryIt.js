@@ -8,12 +8,20 @@ import IconButton from '@material-ui/core/IconButton';
 import CloudDownloadIcon from '@material-ui/icons/CloudDownload'
 import UndoIcon from '@material-ui/icons/Undo'
 import RedoIcon from '@material-ui/icons/Redo'
+import VisibilityIcon from '@material-ui/icons/Visibility'
+import VisibilityOffIcon from '@material-ui/icons/VisibilityOff'
 import AutorenewIcon from '@material-ui/icons/Autorenew'
+import { convertToBlind } from "../../utilities/BlindConversion";
 
 import { Tooltip } from 'antd'
 import * as _ from 'lodash'
 
-let mapStateToProps = (state) => { return { selected: state.SelectedColorReducer.selected } }
+let mapStateToProps = (state) => {
+    return {
+        selected: state.SelectedColorReducer.selected,
+        blindness: state.ColorBlindnessReducer.blindness
+    }
+}
 let mapDispatchToProps = (dispatch) => { /*return bindActionCreators({ changeBaseColor: changeBaseColor }, dispatch)*/ }
 
 const tryIds = ["try-background", "try-title", "try-header", "try-text", "try-button-primary",
@@ -24,7 +32,7 @@ const tryIds = ["try-background", "try-title", "try-header", "try-text", "try-bu
 const texts = ['title', 'header', 'primaryButtonFont', 'secondaryButtonFont', 'successButtonFont', 'dangerButtonFont', 'warningButtonFont', 'infoButtonFont', 'paragraph']
 const backgrounds = ['background', 'primaryButton', 'secondaryButton', 'successButton', 'warningButton', 'dangerButton', 'infoButton']
 
-const backgroundColor = 'white'
+const backgroundColor = '#ffffff'
 const textColor = '#030202'
 
 class TryIt extends Component {
@@ -33,7 +41,8 @@ class TryIt extends Component {
         return {
             ...this.initialComponentsState,
             historyStack: [],
-            futureStack: []
+            futureStack: [],
+            showBlindness: true
         };
     }
     get initialComponentsState() {
@@ -144,7 +153,7 @@ class TryIt extends Component {
     }
     )
 
-    reset = (e) => { e.stopPropagation(); this.pushCurrentStateToHistory(); this.setState(this.initialComponentsState);  }
+    reset = (e) => { e.stopPropagation(); this.pushCurrentStateToHistory(); this.setState(this.initialComponentsState); }
 
     setColor = (e, compName) => {
         e.stopPropagation()
@@ -163,15 +172,28 @@ class TryIt extends Component {
             }}>
             <div onClick={(e) => this.setColor(e, component + 'Font')} id={id + "-font"}>{text} </div></button>
 
+    getBlindComponentsColors = () => {
+        let oldComponents = this.state.components
+        let newComponents = {}
+        let blindness = this.props.blindness
+        if (this.state.showBlindness && blindness != 'None') {
+            Object.keys(oldComponents).forEach(key =>
+                newComponents[key] = convertToBlind(new Color(oldComponents[key], 0, 0, 'Hex'), blindness)
+            )
+            return newComponents
+        }
+
+        return oldComponents
+    }
+
     render() {
-        let components = this.state.components
-        const { appBar, title, header,
+        let components = this.getBlindComponentsColors()
+        const { title, header,
             background, primaryButton, secondaryButton, successButton,
             dangerButton, infoButton, primaryButtonFont, warningButton, warningButtonFont,
             secondaryButtonFont, successButtonFont, dangerButtonFont, infoButtonFont, paragraph } = components
         let selectedColor = this.getSelectedColor()
 
-        let selectedColorFont = new Color(selectedColor, 0, 0, 'Hex').hsl.light > 50 ? 'black' : 'white'
         return (
             <div className='try-web'>
 
@@ -217,8 +239,7 @@ class TryIt extends Component {
                                 onMouseLeave={() => this.setHoverEffectInPalette(null)}
                                 onClick={(e) => this.setColor(e, name)}
                                 style={{
-                                    backgroundColor: bg_color,
-                                    color: new Color(bg_color, 0, 0, 'Hex').hsl.light > 40 ? 'rgba(33, 33, 33, 0.9)' : 'rgba(255, 255, 255, 0.75)'
+                                    backgroundColor: bg_color
                                 }} />)
                     }
                     )}
@@ -226,8 +247,7 @@ class TryIt extends Component {
                         <div className="applied-color" key={"bg_" + key + "_" + i}
                             onClick={(e) => this.setColor(e, key)}
                             style={{
-                                backgroundColor: components[key],
-                                color: new Color(components[key], 0, 0, 'Hex').hsl.light > 40 ? 'rgba(33, 33, 33, 0.9)' : 'rgba(255, 255, 255, 0.75)'
+                                backgroundColor: components[key]
                             }}>
                             {}
                         </div>)}
@@ -250,6 +270,12 @@ class TryIt extends Component {
                     <IconButton size='small' onClick={this.redo} disabled={this.state.futureStack.length == 0}>
                         <RedoIcon />
                     </IconButton>
+
+                    <Tooltip placement="bottom" title={this.state.showBlindness ? "Hide blind colors" : "Show blind colors"}>
+                        <IconButton size='small' onClick={() => this.setState({ showBlindness: !this.state.showBlindness })}>
+                            {this.state.showBlindness && <VisibilityOffIcon /> || <VisibilityIcon />}
+                        </IconButton>
+                    </Tooltip>
 
                 </div>
 
