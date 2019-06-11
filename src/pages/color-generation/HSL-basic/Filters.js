@@ -68,10 +68,7 @@ class Filters extends Component {
                             tooltipVisible={false}
                         />
                     </div>
-                    <div>
-                        {/*} <Label className="slider-label">Base Color</Label>*/}
-                        <SelectBaseColorButton />
-                    </div>
+                    <SelectBaseColorButton />
                 </div>
             </div>
         );

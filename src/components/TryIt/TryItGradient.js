@@ -9,6 +9,7 @@ import CloudDownloadIcon from '@material-ui/icons/CloudDownload'
 import UndoIcon from '@material-ui/icons/Undo'
 import RedoIcon from '@material-ui/icons/Redo'
 import IconButton from '@material-ui/core/IconButton';
+import * as _ from 'lodash'
 
 let mapStateToProps = (state) => { return { selected: state.SelectedColorReducer.selected } }
 let mapDispatchToProps = (dispatch) => { /*return bindActionCreators({ changeBaseColor: changeBaseColor }, dispatch)*/ }
@@ -17,9 +18,16 @@ class TryItGradient extends Component {
     state = this.initialState;
     get initialState() {
         return {
+            ...this.initialComponentsState,
+            historyStack: [],
+            futureStack: []
+        };
+    }
+    get initialComponentsState() {
+        return {
             gradientColors: ['#81042b', '#9a6a79', '#dda7b8', '#040102'],
             numberOfColors: 4
-        };
+        }
     }
     componentDidUpdate = () => { }
     componentDidMount = () => { this.setHoverEffects() }
@@ -49,7 +57,7 @@ class TryItGradient extends Component {
     }
     )
 
-    reset = (e) => { e.stopPropagation(); this.setState(this.initialState) }
+    reset = (e) => { e.stopPropagation(); this.pushCurrentStateToHistory(); this.setState(this.initialComponentsState);  }
 
     setNumberOfColors = (n) => {
         let oldN = this.state.numberOfColors
@@ -67,12 +75,62 @@ class TryItGradient extends Component {
     }
     setColor = (e, colorIndex) => {
         e.stopPropagation()
+        this.pushCurrentStateAndClearFuture()
         let newColors = this.state.gradientColors
         newColors[colorIndex] = this.getSelectedColor()
         this.setState({ gradientColors: newColors })
     }
     // selectedColor when passed from a compononent
     getSelectedColor = () => this.props.selectedColor != null ? this.props.selectedColor : this.props.selected
+
+
+    // Add/Remove History
+
+    // TODO: rename it? 
+    pushCurrentStateAndClearFuture = () => {
+        this.pushCurrentStateToHistory()
+        this.clearFutureStack()
+    }
+
+    pushCurrentStateToHistory = () => {
+        let historyStack = Array.from(this.state.historyStack)
+        let gradientColors = this.getCurrentComponentsStateCopy()
+        if (!_.isEqual(historyStack[0], gradientColors)) {
+            historyStack.push(gradientColors)
+            this.setState({ historyStack })
+        }
+    }
+    clearFutureStack = () =>
+        this.setState({ futureStack: [] })
+
+    undo = () => {
+        this.addCurrentStateToFutureStack()
+        this.setCurrentStateFromHistory()
+    }
+    addCurrentStateToFutureStack = () => {
+        let futureStack = Array.from(this.state.futureStack)
+        futureStack.push(this.getCurrentComponentsStateCopy())
+        this.setState({ futureStack })
+    }
+    setCurrentStateFromHistory = () => {
+        let historyStack = Array.from(this.state.historyStack)
+        let gradientColors = historyStack.pop()
+        this.setState({ historyStack, gradientColors })
+    }
+
+    redo = () => {
+        this.pushCurrentStateToHistory()
+        this.setStateFromFuture()
+    }
+    setStateFromFuture = () => {
+        let futureStack = Array.from(this.state.futureStack)
+        let gradientColors = futureStack.pop()
+        this.setState({ futureStack, gradientColors })
+    }
+
+    getCurrentComponentsStateCopy = () =>
+        JSON.parse(JSON.stringify(this.state.gradientColors))
+
 
 
     render() {
@@ -93,13 +151,14 @@ class TryItGradient extends Component {
                 </div>
 
                 <div >
-                    <Slider className="slider-input" style={{ width: '100%', margin: 0, marginTop: '16px' }} min={2} max={8} onChange={this.setNumberOfColors} value={this.state.numberOfColors} />
+                    <Slider className="slider-input gradient-slider" style={{ width: '100%' }} min={2} max={8} onChange={this.setNumberOfColors} value={this.state.numberOfColors} />
                 </div>
-                
+
                 <div className="applied-colors-container">
-                    {gradientColors.map(color =>
+                    {gradientColors.map( (color, i) =>
                         <div className="applied-color"
-                            style={{ backgroundColor: color, color: new Color(color, 0, 0, 'Hex').hsl.light > 40 ? 'rgb(33, 33, 33)' : 'white' }}>
+                            style={{ backgroundColor: color, color: new Color(color, 0, 0, 'Hex').hsl.light > 40 ? 'rgb(33, 33, 33)' : 'white' }}
+                            onClick={(e) => this.setColor(e, i)}>
                         </div>)}
                 </div>
 
@@ -112,11 +171,11 @@ class TryItGradient extends Component {
                         <IconButton size='small' onClick={this.reset} > <AutorenewIcon /></IconButton>
                     </Tooltip>
 
-                    <IconButton size='small' >
+                    <IconButton size='small' onClick={this.undo} disabled={this.state.historyStack.length == 0}>
                         <UndoIcon />
                     </IconButton>
 
-                    <IconButton size='small' disabled={this.state.futureQueue}>
+                    <IconButton size='small' onClick={this.redo} disabled={this.state.futureStack.length == 0}>
                         <RedoIcon />
                     </IconButton>
 

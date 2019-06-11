@@ -31,7 +31,6 @@ const Blind = function (v) { // this function just returns the Matrix
 };
 
 const getConvertedColor = (o, m) => { // takes: RGBA object, Matrix array
-
     function fu(n) { return (n < 0 ? 0 : (n < 255 ? n : 255)); }
 
     var r = ((o.r * m[0]) + (o.g * m[1]) + (o.b * m[2]) + (1 * m[3]) + m[4]);
@@ -47,7 +46,8 @@ export const blindnessNames = Object.keys(blinds)
 
 
 export const convertToBlind = (color, type) => {
-    const { r, g, b, a} = getConvertedColor(color.rgb, Blind(type));
+
+    const { r, g, b, a } = getConvertedColor(color.rgb, Blind(type));
     return 'rgba( ' + r + ', ' + g + ', ' + b + ', ' + a + ')'
 }
 

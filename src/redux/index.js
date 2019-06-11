@@ -7,6 +7,7 @@ import { HSLBasicReducer } from "./HSLBasicReducer";
 import { ColorBlindnessReducer } from "./ColorBlindnessReducer";
 import { ShowExtraToolsReducer } from "./ShowExtraToolsReducer";
 import { HSLAdvancedReducer } from "./HSLAdvancedReducer";
+import { PictureReducer } from "./PictureReducer";
 
 const rootReducer = combineReducers({
   BaseColorReducer,
@@ -15,6 +16,7 @@ const rootReducer = combineReducers({
   HSLBasicReducer,
   ColorBlindnessReducer,
   ShowExtraToolsReducer,
-  HSLAdvancedReducer
+  HSLAdvancedReducer,
+  PictureReducer
 });
 export default rootReducer;

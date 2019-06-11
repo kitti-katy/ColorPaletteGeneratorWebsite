@@ -18,7 +18,7 @@ const switchers = [
     },
     {
         label: 'GRADIENT', component: () => <TryItGradient />
-    },
+    }/*,
     {
         label: 'IMAGE', component: () => <TryItGradient />
     },
@@ -27,7 +27,7 @@ const switchers = [
     },
     {
         label: 'SHADER', component: () => <TryItGradient />
-    }]
+    }*/]
 
 class TryMain extends Component {
     state = {

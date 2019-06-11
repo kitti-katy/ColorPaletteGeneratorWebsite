@@ -47,29 +47,29 @@ class HSLFilters extends Component {
       <div>
         <div className=' filters'>
           {/* HSL FILTERS */}
-          <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap', alignItems: 'center' }}>
             {/* Changes */}
-            <div >
+            <div className='advanced-hsl-filters-group'>
               {this.getSliderInput(hueChange, 0, 120, 'Hue Change', 'hueChange')}
               {this.getSliderInput(satChange, 0, 100, 'Saturation Change', 'satChange')}
               {this.getSliderInput(lightChange, 0, 100, 'Light Change', 'lightChange')}
             </div>
             {/* Steps */}
-            <div>
+            <div className='advanced-hsl-filters-group'>
               {this.getSliderInput(hueStep, 1, 30, 'Hue Step', 'hueStep')}
               {this.getSliderInput(satStep, 1, 30, 'Saturation Step', 'satStep')}
               {this.getSliderInput(lightStep, 1, 30, 'Light Step', 'lightStep')}
             </div>
+            {/* Number Of Colors */}
+            <div className='advanced-hsl-filters-group'>
+              {this.getSliderInput(numberOfColors, 6, 181, 'Number of Colors', 'numberOfColors')}
+            </div>
+            <div className='advanced-hsl-filters-group'>
+              <SelectBaseColorButton />
+            </div>
+
           </div>
 
-          {/* NUMBER OF COLORS, SELECTED COLOR VALUE, EXPORT JSON, RESET BUTTON */}
-          <div className="vertical-padding bottom-bordered" style={{ display: 'flex', justifyContent: 'space-between', marginBottom: "12px" }}>
-            {/* Number Of Colors */}
-            <div id='number-of-colors-input'> {this.getSliderInput(numberOfColors, 6, 181, 'Number of Colors', 'numberOfColors')} </div>
-          </div>
-          <div>
-            <SelectBaseColorButton />
-          </div>
         </div>
       </div>
     );

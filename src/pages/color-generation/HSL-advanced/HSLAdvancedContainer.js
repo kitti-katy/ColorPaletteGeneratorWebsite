@@ -26,7 +26,7 @@ class HSLAdvancedContainer extends Component {
   // EXPORT JSON, RESET BUTTONS HANDLERS
 
   handleExportJSON_ButtonClick = () => {
-    let colorElements = document.getElementById("generated-tiles").getElementsByTagName("div")
+    let colorElements = document.getElementsByClassName("single-tile-basic")
     let colors = {}
     for (var i = 0; i < colorElements.length; i++) {
       colors["color" + i] = colorElements[i].style.backgroundColor

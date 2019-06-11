@@ -56,7 +56,7 @@ code {
 .filters-part{
   display: grid;
   border-top: $borderStyle;
-  grid-template-rows: 13% 87%;
+  grid-template-rows: 11% 89%;
 }
 .filters-long-part{
   display: grid;
@@ -113,6 +113,19 @@ code {
   min-height: 60px;
 }
 
+.advanced-hsl-filters-group{
+  width: 40%;
+}
+
+// FROM IMAGE
+.upload-photo-label{
+  border: $borderStyle;
+  padding-left: $padding-l1;
+  padding-right: $padding-l1;
+  padding-top: $padding-l3;
+  padding-bottom: $padding-l3;
+
+}
 
 // SELECT COLOR
 .base-color-select-container:hover,
@@ -124,6 +137,7 @@ code {
   margin: auto;
   font-weight: 600;
   padding: $padding-l3 0;
+  width: 100%;
 }
 .select-color-btn {
   @include align-inner-element-center-vertically;

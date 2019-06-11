@@ -32,8 +32,8 @@ class SelectMode extends Component {
             <div className="select-mode-table">
                 {this.getRoute('/hsl-basic', <PaletteIcon style={iconStyle} fontSize="small" />, 'BASIC')}
                 {this.getRoute('/hsl-advanced', <BrushIcon style={iconStyle} fontSize="small" />, 'ADVANCED')}
-                {this.getRoute('/custom', <StarIcon style={iconStyle} fontSize="small" />, 'CUSTOM')}
-                {this.getRoute('/picture', <ImageIcon style={iconStyle} fontSize="small" />, 'FROM PICTURE')}
+                {/*this.getRoute('/custom', <StarIcon style={iconStyle} fontSize="small" />, 'CUSTOM')*/}
+                {this.getRoute('/picture', <ImageIcon style={iconStyle} fontSize="small" />, 'FROM IMAGE')}
             </div>
         );
     }
