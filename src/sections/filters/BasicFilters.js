@@ -2,10 +2,10 @@ import React, { Component } from "react";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import { Slider } from 'antd';
-import '../HSLFiltersAlternative.css'
+import './Filters.css'
 import { Label } from "@blueprintjs/core";
-import { setHueSplit, setSatSplit, setLightSplit } from '../../../redux/HSLBasicReducer'
-import SelectBaseColorButton from "../../../components/SelectBaseColorButton";
+import { setHueSplit, setSatSplit, setLightSplit } from '../../redux/HSLBasicReducer'
+import SelectBaseColorButton from "../../components/SelectBaseColorButton";
 
 let mapDispatchToProps = (dispatch) => { return bindActionCreators({ setHueSplit: setHueSplit, setSatSplit: setSatSplit, setLightSplit: setLightSplit }, dispatch) }
 let mapStateToProps = (state) => {
@@ -21,7 +21,7 @@ const lightDivisors = [1, 2, 4, 5, 10, 20]
 const satDivisors = [1, 2, 4, 5, 10]
 
 
-class Filters extends Component {
+class BasicFilters extends Component {
     handleHueSliderChange = (index) => this.props.setHueSplit(hueDivisors[index])
     handleSatSliderChange = (index) => this.props.setSatSplit(satDivisors[index])
     handleLightSliderChange = (index) => this.props.setLightSplit(lightDivisors[index])
@@ -29,7 +29,7 @@ class Filters extends Component {
     render() {
         const { hueSplit, satSplit, lightSplit } = this.props
         return (
-            <div>
+            <div style={{ height: '100%' }}>
                 <div className='filters' >
 
                     <div>
@@ -75,5 +75,5 @@ class Filters extends Component {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Filters);
+export default connect(mapStateToProps, mapDispatchToProps)(BasicFilters);
 

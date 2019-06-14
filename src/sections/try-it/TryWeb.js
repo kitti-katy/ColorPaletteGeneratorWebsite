@@ -1,18 +1,27 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import Color from '../../../utilities/Color'
-import { exportJSON } from '../../../utilities/ExportJSON';
-import "../TryIt.scss"
+import Color from '../../utilities/Color'
+import { exportJSON } from '../../utilities/ExportJSON';
+import "./TryIt.scss"
 
 import IconButton from '@material-ui/core/IconButton';
 import CloudDownloadIcon from '@material-ui/icons/CloudDownload'
 import UndoIcon from '@material-ui/icons/Undo'
 import RedoIcon from '@material-ui/icons/Redo'
+import VisibilityIcon from '@material-ui/icons/Visibility'
+import VisibilityOffIcon from '@material-ui/icons/VisibilityOff'
 import AutorenewIcon from '@material-ui/icons/Autorenew'
+import { convertToBlind } from "../../utilities/BlindConversion";
 
 import { Tooltip } from 'antd'
+import * as _ from 'lodash'
 
-let mapStateToProps = (state) => { return { selected: state.SelectedColorReducer.selected } }
+let mapStateToProps = (state) => {
+    return {
+        selected: state.SelectedColorReducer.selected,
+        blindness: state.ColorBlindnessReducer.blindness
+    }
+}
 let mapDispatchToProps = (dispatch) => { /*return bindActionCreators({ changeBaseColor: changeBaseColor }, dispatch)*/ }
 
 const tryIds = ["try-background", "try-title", "try-header", "try-text", "try-button-primary",
@@ -23,16 +32,17 @@ const tryIds = ["try-background", "try-title", "try-header", "try-text", "try-bu
 const texts = ['title', 'header', 'primaryButtonFont', 'secondaryButtonFont', 'successButtonFont', 'dangerButtonFont', 'warningButtonFont', 'infoButtonFont', 'paragraph']
 const backgrounds = ['background', 'primaryButton', 'secondaryButton', 'successButton', 'warningButton', 'dangerButton', 'infoButton']
 
-const backgroundColor = 'white'
+const backgroundColor = '#ffffff'
 const textColor = '#030202'
 
-class TryItImage extends Component {
+class TryIt extends Component {
     state = this.initialState;
     get initialState() {
         return {
             ...this.initialComponentsState,
             historyStack: [],
-            futureQueue: []
+            futureStack: [],
+            showBlindness: true
         };
     }
     get initialComponentsState() {
@@ -62,34 +72,59 @@ class TryItImage extends Component {
     componentDidUpdate = () => { }
     componentDidMount = () => {
         this.setHoverEffects()
-        this.pushCurrentHistoryToStack()
+        this.pushCurrentStateAndClearFuture()
     }
     setHoverEffectInPalette = (color) => {
         this.setState({ hovered: color })
     }
-    pushCurrentHistoryToStack = () => {
+
+
+    // Add/Remove History
+
+    // TODO: rename it? 
+    pushCurrentStateAndClearFuture = () => {
+        this.pushCurrentStateToHistory()
+        this.clearFutureStack()
+    }
+
+    pushCurrentStateToHistory = () => {
         let historyStack = Array.from(this.state.historyStack)
-        historyStack.push(Object.assign(this.state.components))
-        console.log(historyStack)
-        this.setState({ historyStack, futureQueue: [] })
+        let components = this.getCurrentComponentsStateCopy()
+        if (!_.isEqual(historyStack[0], components)) {
+            historyStack.push(components)
+            this.setState({ historyStack })
+        }
     }
-    popHistoryStack = () => {
-        let historyStack = this.state.historyStack
-        let futureQueue = this.state.futureQueue
-        futureQueue.push(this.state.components)
-        console.log(historyStack)
+    clearFutureStack = () =>
+        this.setState({ futureStack: [] })
+
+    undo = () => {
+        this.addCurrentStateToFutureStack()
+        this.setCurrentStateFromHistory()
+    }
+    addCurrentStateToFutureStack = () => {
+        let futureStack = Array.from(this.state.futureStack)
+        futureStack.push(this.getCurrentComponentsStateCopy())
+        this.setState({ futureStack })
+    }
+    setCurrentStateFromHistory = () => {
+        let historyStack = Array.from(this.state.historyStack)
         let components = historyStack.pop()
-        console.log(components)
-        this.setState({ historyStack, futureQueue, components })
-        console.log(this.state)
+        this.setState({ historyStack, components })
     }
-    dequeueFutureQueue = () => {
-        let futureQueue = this.state.futureQueue
-        let historyStack = this.state.historyStack
-        historyStack.push(this.state.components)
-        let components = futureQueue.shift()
-        this.setState({ historyStack, futureQueue, components })
+
+    redo = () => {
+        this.pushCurrentStateToHistory()
+        this.setStateFromFuture()
     }
+    setStateFromFuture = () => {
+        let futureStack = Array.from(this.state.futureStack)
+        let components = futureStack.pop()
+        this.setState({ futureStack, components })
+    }
+
+    getCurrentComponentsStateCopy = () =>
+        JSON.parse(JSON.stringify(this.state.components))
 
     setHoverEffects = () => {
         let allTryElements = this.getAllTryElements()
@@ -116,11 +151,11 @@ class TryItImage extends Component {
     }
     )
 
-    reset = (e) => { e.stopPropagation(); this.setState(this.initialComponentsState); this.pushCurrentHistoryToStack() }
+    reset = (e) => { e.stopPropagation(); this.pushCurrentStateToHistory(); this.setState(this.initialComponentsState); }
 
     setColor = (e, compName) => {
         e.stopPropagation()
-        this.pushCurrentHistoryToStack()
+        this.pushCurrentStateAndClearFuture()
         let newColors = this.state.components
         newColors[compName] = this.getSelectedColor()
         this.setState({ components: newColors })
@@ -135,15 +170,28 @@ class TryItImage extends Component {
             }}>
             <div onClick={(e) => this.setColor(e, component + 'Font')} id={id + "-font"}>{text} </div></button>
 
+    getBlindComponentsColors = () => {
+        let oldComponents = this.state.components
+        let newComponents = {}
+        let blindness = this.props.blindness
+        if (this.state.showBlindness && blindness != 'None') {
+            Object.keys(oldComponents).forEach(key =>
+                newComponents[key] = convertToBlind(new Color(oldComponents[key], 0, 0, 'Hex'), blindness)
+            )
+            return newComponents
+        }
+
+        return oldComponents
+    }
+
     render() {
-        let components = this.state.components
-        const { appBar, title, header,
+        let components = this.getBlindComponentsColors()
+        const { title, header,
             background, primaryButton, secondaryButton, successButton,
             dangerButton, infoButton, primaryButtonFont, warningButton, warningButtonFont,
             secondaryButtonFont, successButtonFont, dangerButtonFont, infoButtonFont, paragraph } = components
         let selectedColor = this.getSelectedColor()
 
-        let selectedColorFont = new Color(selectedColor, 0, 0, 'Hex').hsl.light > 50 ? 'black' : 'white'
         return (
             <div className='try-web'>
 
@@ -151,14 +199,14 @@ class TryItImage extends Component {
                 <div className="try-card-holder">
 
                     <div id="try-background" onClick={(e) => this.setColor(e, 'background')}
-                        style={{ backgroundColor: background, border: '1px solid #d4d4d4', borderRadius: '1%'  }}> {/*  headStyle={{ backgroundColor: appBar }} > */}
+                        style={{ backgroundColor: background, border: '1px solid #d4d4d4', borderRadius: '1%' }}> {/*  headStyle={{ backgroundColor: appBar }} > */}
 
                         <h3 className="try-title-holder" style={{ color: title }}>
                             <span id="try-title" onClick={(e) => this.setColor(e, 'title')}>Apply Selected Color Here </span>
                         </h3>
 
                         <h4 style={{ color: header }} id="try-header" onClick={(e) => this.setColor(e, 'header')}> Header </h4>
-                        <p id="try-text" onClick={(e) => this.setColor(e, 'paragraph')} style={{ color: paragraph, lineHeight: '1.6' }}>
+                        <p id="try-text" onClick={(e) => this.setColor(e, 'paragraph')} style={{ color: paragraph, lineHeight: '2' }}>
                             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
                             {/* Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. */}
                         </p>
@@ -189,8 +237,7 @@ class TryItImage extends Component {
                                 onMouseLeave={() => this.setHoverEffectInPalette(null)}
                                 onClick={(e) => this.setColor(e, name)}
                                 style={{
-                                    backgroundColor: bg_color,
-                                    color: new Color(bg_color, 0, 0, 'Hex').hsl.light > 40 ? 'rgba(33, 33, 33, 0.9)' : 'rgba(255, 255, 255, 0.75)'
+                                    backgroundColor: bg_color
                                 }} />)
                     }
                     )}
@@ -198,8 +245,7 @@ class TryItImage extends Component {
                         <div className="applied-color" key={"bg_" + key + "_" + i}
                             onClick={(e) => this.setColor(e, key)}
                             style={{
-                                backgroundColor: components[key],
-                                color: new Color(components[key], 0, 0, 'Hex').hsl.light > 40 ? 'rgba(33, 33, 33, 0.9)' : 'rgba(255, 255, 255, 0.75)'
+                                backgroundColor: components[key]
                             }}>
                             {}
                         </div>)}
@@ -208,20 +254,26 @@ class TryItImage extends Component {
                 <div className='try-actions-container'>
 
                     <Tooltip placement="bottom" title={"Export JSON"}>
-                        <IconButton className='' size='small' onClick={(e) => { e.stopPropagation(); exportJSON(components) }}> <CloudDownloadIcon /> </IconButton>
+                        <IconButton size='small' onClick={(e) => { e.stopPropagation(); exportJSON(components) }}> <CloudDownloadIcon /> </IconButton>
                     </Tooltip>
 
                     <Tooltip placement="bottom" title={"Reset Applied Colors"}>
-                        <IconButton className='' size='small' onClick={this.reset}> <AutorenewIcon />  </IconButton>
+                        <IconButton size='small' onClick={this.reset}> <AutorenewIcon />  </IconButton>
                     </Tooltip>
 
-                    <IconButton className='' size='small' onClick={this.dequeueFutureQueue}>
+                    <IconButton size='small' onClick={this.undo} disabled={this.state.historyStack.length == 0}>
                         <UndoIcon />
                     </IconButton>
 
-                    <IconButton className='' size='small' onClick={this.popHistoryStack} disabled={this.state.futureQueue}>
+                    <IconButton size='small' onClick={this.redo} disabled={this.state.futureStack.length == 0}>
                         <RedoIcon />
                     </IconButton>
+
+                    <Tooltip placement="bottom" title={this.state.showBlindness ? "Hide blind colors" : "Show blind colors"}>
+                        <IconButton size='small' onClick={() => this.setState({ showBlindness: !this.state.showBlindness })}>
+                            {this.state.showBlindness && <VisibilityOffIcon /> || <VisibilityIcon />}
+                        </IconButton>
+                    </Tooltip>
 
                 </div>
 
@@ -230,4 +282,4 @@ class TryItImage extends Component {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(TryItImage);
+export default connect(mapStateToProps, mapDispatchToProps)(TryIt);

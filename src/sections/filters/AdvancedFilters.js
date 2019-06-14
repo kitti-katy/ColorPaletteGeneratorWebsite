@@ -1,12 +1,12 @@
 import React, { Component } from "react";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
-import { selectColor } from '../../../redux/SelectedColorReducer'
-import { setAdvancedHSLInput } from '../../../redux/HSLAdvancedReducer'
-import { exportJSON } from '../../../utilities/ExportJSON'
+import { selectColor } from '../../redux/SelectedColorReducer'
+import { setAdvancedHSLInput } from '../../redux/HSLAdvancedReducer'
+import { exportJSON } from '../../utilities/ExportJSON'
 import { Slider } from 'antd';
 import { Label } from "@blueprintjs/core";
-import SelectBaseColorButton from "../../../components/SelectBaseColorButton";
+import SelectBaseColorButton from "../../components/SelectBaseColorButton";
 
 let mapStateToProps = (state) => {
   return {
@@ -44,7 +44,7 @@ class HSLFilters extends Component {
   render() {
     const { hueChange, satChange, lightChange, hueStep, satStep, lightStep, numberOfColors } = this.props
     return (
-      <div>
+      <div  style={{ height: '100%' }}>
         <div className=' filters'>
           {/* HSL FILTERS */}
           <div style={{ display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap', alignItems: 'center' }}>

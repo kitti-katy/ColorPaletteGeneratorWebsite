@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
-import HSLPaletteGenerator from "../../../utilities/HSLPaletteGenerator";
-import { convertToBlind } from "../../../utilities/BlindConversion";
-import { selectColor } from '../../../redux/SelectedColorReducer'
+import HSLPaletteGenerator from "../../utilities/HSLPaletteGenerator";
+import { convertToBlind } from "../../utilities/BlindConversion";
+import { selectColor } from '../../redux/SelectedColorReducer'
 
 let mapStateToProps = (state) => {
     return {
@@ -37,7 +37,7 @@ class AdvancedTiles extends Component {
         let palette = new HSLPaletteGenerator(this.props.baseColor, hueChange, satChange, lightChange, hueStep, satStep, lightStep, numberOfColors).palette
 
         return (
-            <div style={{ display: 'table', alignItems: 'center', height: '100%', width: '100%' }}>
+            <div style={{ display: 'table', alignItems: 'center', height: '100%', width: '100%' }} className='tiles-section'>
                 <div style={{ display: 'table-cell', verticalAlign: 'middle' }}>
                     <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center'}} >
 

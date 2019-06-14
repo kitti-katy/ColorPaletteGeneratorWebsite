@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { ExportJSONButton } from '../../components/ExportJSONButton'
-import { SelectedColorPanel } from "../../components/SelectedColorPanel";
-import SelectBlindness from "../../components/SelectBlindness";
+import { SelectedColorPanel } from "./SelectedColorPanel";
+import SelectBlindness from "./SelectBlindness";
 
 let mapStateToProps = (state) => {
     return {

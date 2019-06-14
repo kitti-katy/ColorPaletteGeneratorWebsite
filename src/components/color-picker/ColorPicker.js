@@ -5,7 +5,7 @@ import { changeBaseColor } from "../../redux/BaseColorReducer";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import './ColorPicker.css'
-import { Card, Label, NumericInput } from "@blueprintjs/core";
+import { Label, NumericInput } from "@blueprintjs/core";
 import ColorPickerCanvas from './ColorPickerCanvas'
 import { drawHueCanvas, drawSaturationCanvas } from './CanvasFunctions'
 
@@ -76,7 +76,7 @@ class ColorPicker extends Component {
             <div className="input-boxes" >
               <div>
                 <Label style={{ marginBottom: '0', whiteSpace: 'nowrap' }}>Hex: #</Label>
-                <input id='hex-intput-txt-box' class="bp3-input" value={this.state.hexValue} onChange={this.setFromHex} />
+                <input id='hex-intput-txt-box' className="bp3-input" value={this.state.hexValue} onChange={this.setFromHex} />
               </div>
             </div>
             <div id='picked-color' style={{ backgroundColor: hexString }} />

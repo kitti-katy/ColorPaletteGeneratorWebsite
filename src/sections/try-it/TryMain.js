@@ -1,10 +1,8 @@
 import React, { Component } from "react";
-import { Icon } from "@blueprintjs/core";
 import TryItGradient from "./TryItGradient";
-import TryIt from "./TryIt";
-import { SelectedColorPanel } from "../SelectedColorPanel";
+import TryWeb from "./TryWeb";
 import { connect } from "react-redux";
-
+import TryPixelArt from "./TryPixelArt";
 
 let mapStateToProps = (state) => {
     return {
@@ -14,16 +12,20 @@ let mapStateToProps = (state) => {
 
 const switchers = [
     {
-        label: 'WEB', component: () => <TryIt />
+        label: 'WEB', component: () => <TryWeb />
     },
     {
         label: 'GRADIENT', component: () => <TryItGradient />
-    }/*,
+    },
+    {
+        label: 'PIXEL ART', component: () => <TryPixelArt />
+    }
+    /*,
     {
         label: 'IMAGE', component: () => <TryItGradient />
     },
     {
-        label: 'PIXEL ART', component: () => <TryItGradient />
+        label: 'PIXEL ART', component: () => <TryPixelArt />
     },
     {
         label: 'SHADER', component: () => <TryItGradient />
@@ -33,25 +35,11 @@ class TryMain extends Component {
     state = {
         selectedTryIndex: 0
     }
-    switchNext = () => {
-        let selected = this.state.selectedTryIndex
-        if (selected == switchers.length - 1)
-            this.setState({ selectedTryIndex: 0 })
-        else
-            this.setState({ selectedTryIndex: selected + 1 })
-    }
-    switchPrevious = () => {
-        let selected = this.state.selectedTryIndex
-        if (selected == 0)
-            this.setState({ selectedTryIndex: switchers.length - 1 })
-        else
-            this.setState({ selectedTryIndex: selected - 1 })
-    }
+
     setSelected = (i) => this.setState({ selectedTryIndex: i })
 
     render() {
         const selectedTryIndex = this.state.selectedTryIndex
-        //<SelectedColorPanel selectedColor={this.props.selected} />
 
         const label = switchers[selectedTryIndex].label
         const tryComponent = switchers[selectedTryIndex].component()

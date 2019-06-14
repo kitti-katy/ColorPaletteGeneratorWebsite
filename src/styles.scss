@@ -127,6 +127,13 @@ code {
 
 }
 
+.upload-image-input {
+  opacity: 0; 
+  position: absolute;
+  z-index: -1; 
+  width: 1px;
+}
+
 // SELECT COLOR
 .base-color-select-container:hover,
 .base-color-select-container:focus{
@@ -154,9 +161,15 @@ code {
   border-right: $borderStyle;
   border-top: $borderStyle;
   display: grid;
-  grid-template-columns: 17% 15.75% 51.5% 15.75%; 
-  overflow: auto;
+  grid-template-columns: 17% 83%; 
 } 
+#palette-container > div:nth-child(2)
+{
+  height: -webkit-fill-available;
+  overflow: auto;
+  display: flex;
+  align-items: center;
+}
 .tiles-actions-bar{
   @include btn-icon-color;
   border-right: $borderStyle;
@@ -182,6 +195,13 @@ code {
 }
 .arrow-btn:first-child{
   margin-right: $padding-l2; 
+}
+
+.tiles-section{
+  padding-left: 18.5%;
+  padding-right: 18.5%;
+  width: 100%;
+  margin: auto;
 }
 
 // TRY PART

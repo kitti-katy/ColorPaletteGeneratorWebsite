@@ -1,11 +1,9 @@
 import React, { Component } from "react";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
-import Color, { RGBtoHSL } from "../../../../utilities/Color";
-import { selectColor } from "../../../../redux/SelectedColorReducer";
-import { setPalettes } from "../../../../redux/PictureReducer";
-import "./PictureUpload.css"
-import Button from '@material-ui/core/Button';
+import Color, { RGBtoHSL } from "../../utilities/Color";
+import { setPalettes } from "../../redux/PictureReducer";
+
 
 let mapStateToProps = state => {
   return { baseColor: state.BaseColorReducer.baseColor };
@@ -14,7 +12,7 @@ let mapDispatchToProps = dispatch => {
   return bindActionCreators({ setPalettes }, dispatch);
 };
 
-class PictureUpload extends Component {
+class PictureFilters extends Component {
   state = {
     palette1: [],
     palette2: [],
@@ -106,7 +104,6 @@ class PictureUpload extends Component {
 
       // By Hue Version
       let extractColorsFunction = obj => new Color(obj.totalHue / obj.number, obj.totalSat / obj.number, obj.totalLight / obj.number, 'HSL')
-      //"hsl(" + obj.totalHue / obj.number + ", " + obj.totalSat / obj.number + "%, " + obj.totalLight / obj.number + "% )";
       let palette1 = arr12Colors.map(extractColorsFunction);
       let palette2 = arr24Colors1.map(extractColorsFunction);
       let palette3 = arr48Colors1.map(extractColorsFunction);
@@ -117,9 +114,9 @@ class PictureUpload extends Component {
         //looks better when dark goes first
         let darkLightArr = arr.map(obj => {
           let light = obj.light;
-          let lightStr = new Color(light.totalHue / light.number, light.totalSat / light.number, light.totalLight / light.number, 'HSL') // "hsl(" + light.totalHue / light.number + ", " + light.totalSat / light.number + "%, " + light.totalLight / light.number + "% )";
+          let lightStr = new Color(light.totalHue / light.number, light.totalSat / light.number, light.totalLight / light.number, 'HSL')
           let dark = obj.dark;
-          let darkStr = new Color(dark.totalHue / dark.number, dark.totalSat / dark.number, dark.totalLight / dark.number, 'HSL') //"hsl(" + dark.totalHue / dark.number + ", " + dark.totalSat / dark.number + "%, " + dark.totalLight / dark.number + "% )";
+          let darkStr = new Color(dark.totalHue / dark.number, dark.totalSat / dark.number, dark.totalLight / dark.number, 'HSL')
           return { dark: darkStr, light: lightStr };
         });
         let darks = darkLightArr.map(obj => obj.dark);
@@ -160,18 +157,15 @@ class PictureUpload extends Component {
     }
 
     return (
-      <div >
+      <div style={{ height: '100%' }}>
         <div style={{ height: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'space-evenly' }}>
           {$imagePreview}
           <div>
-            <label for="upload-photo" style={{ cursor: 'pointer' }} className="upload-photo-label">
+            <label htmlFor="upload-photo" style={{ cursor: 'pointer' }} className="upload-photo-label">
               Upload image...
             </label>
             <input type="file" name="photo" id="upload-photo"
-              style={{
-                opacity: 0, position: 'absolute',
-                zIndex: -1
-              }}
+              className='upload-image-input'
               onChange={this.handleImageChange}
             />
           </div>
@@ -182,4 +176,4 @@ class PictureUpload extends Component {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(PictureUpload);
+export default connect(mapStateToProps, mapDispatchToProps)(PictureFilters);

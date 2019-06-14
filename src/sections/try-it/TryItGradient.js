@@ -57,7 +57,7 @@ class TryItGradient extends Component {
     }
     )
 
-    reset = (e) => { e.stopPropagation(); this.pushCurrentStateToHistory(); this.setState(this.initialComponentsState);  }
+    reset = (e) => { e.stopPropagation(); this.pushCurrentStateToHistory(); this.setState(this.initialComponentsState); }
 
     setNumberOfColors = (n) => {
         let oldN = this.state.numberOfColors
@@ -80,9 +80,9 @@ class TryItGradient extends Component {
         newColors[colorIndex] = this.getSelectedColor()
         this.setState({ gradientColors: newColors })
     }
+
     // selectedColor when passed from a compononent
     getSelectedColor = () => this.props.selectedColor != null ? this.props.selectedColor : this.props.selected
-
 
     // Add/Remove History
 
@@ -135,7 +135,6 @@ class TryItGradient extends Component {
 
     render() {
         let gradientColors = this.state.gradientColors
-        let selectedColor = this.getSelectedColor()
 
         let gradientString = "linear-gradient(to right," + gradientColors.join(',') + ")"
 
@@ -145,7 +144,7 @@ class TryItGradient extends Component {
                 <div className="try-colors-container" style={{ backgroundImage: gradientString, gridAutoFlow: 'column', display: 'grid' }}>
                     {gradientColors.map(
                         (color, i) =>
-                            <div style={{ paddingTop: '150px', }}
+                            <div style={{ paddingTop: '150px', }} key={color + i}
                                 onClick={(e) => this.setColor(e, i)} id={'gradient-' + i} />
                     )}
                 </div>
@@ -155,8 +154,8 @@ class TryItGradient extends Component {
                 </div>
 
                 <div className="applied-colors-container">
-                    {gradientColors.map( (color, i) =>
-                        <div className="applied-color"
+                    {gradientColors.map((color, i) =>
+                        <div className="applied-color" key={'applied' + color + i}
                             style={{ backgroundColor: color, color: new Color(color, 0, 0, 'Hex').hsl.light > 40 ? 'rgb(33, 33, 33)' : 'white' }}
                             onClick={(e) => this.setColor(e, i)}>
                         </div>)}
@@ -186,4 +185,4 @@ class TryItGradient extends Component {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(TryPixelArt);
+export default connect(mapStateToProps, mapDispatchToProps)(TryItGradient);

@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
-import { selectColor } from '../../../redux/SelectedColorReducer'
-import { getAdvancedPalette } from "../../../utilities/HSLPaletteGenerator";
-import { convertToBlind } from "../../../utilities/BlindConversion";
+import { selectColor } from '../../redux/SelectedColorReducer'
+import { getAdvancedPalette } from "../../utilities/HSLPaletteGenerator";
+import { convertToBlind } from "../../utilities/BlindConversion";
 
 let mapStateToProps = (state) => {
     return {
@@ -22,7 +22,7 @@ let mapStateToProps = (state) => {
 let mapDispatchToProps = (dispatch) => { return bindActionCreators({ selectColor: selectColor }, dispatch) }
 
 
-class Tiles extends Component {
+class BasicTiles extends Component {
     state = { selectedKey: '' }
 
     getPadding = (palette) => {
@@ -168,7 +168,7 @@ class Tiles extends Component {
         }
 
         return (
-            <div style={{ display: 'table', alignItems: 'center', height: '100%' }}>
+            <div style={{ display: 'table', alignItems: 'center', height: '100%' }} className='tiles-section'>
                 <div style={{ display: 'table-cell', verticalAlign: 'middle' }}>
 
                     <div style={wrapperStyle}>
@@ -201,5 +201,5 @@ class Tiles extends Component {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Tiles);
+export default connect(mapStateToProps, mapDispatchToProps)(BasicTiles);
 

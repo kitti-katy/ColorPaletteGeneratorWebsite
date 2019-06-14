@@ -5,8 +5,8 @@ import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
-import { setBlindness } from '../redux/ColorBlindnessReducer'
-import { blindnessNames } from "../utilities/BlindConversion";
+import { setBlindness } from '../../redux/ColorBlindnessReducer'
+import { blindnessNames } from "../../utilities/BlindConversion";
 
 let mapStateToProps = (state) => {
     return {
@@ -30,7 +30,7 @@ class SelectBlindness extends React.Component {
                     value={this.props.blindness}
                     onChange={this.handleChange}
                 >
-                    {blindnessNames.map(name => <MenuItem value={name}>{name}</MenuItem>)}
+                    {blindnessNames.map(name => <MenuItem value={name} key={name}>{name}</MenuItem>)}
                 </Select>
             </FormControl>
         )

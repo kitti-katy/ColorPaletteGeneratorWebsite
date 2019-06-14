@@ -1,6 +1,6 @@
 import React from "react";
-import { ClipboardCopier } from './ClipboardCopier'
-import Color from "../utilities/Color";
+import { ClipboardCopier } from '../../components/ClipboardCopier'
+import Color from "../../utilities/Color";
 import { Icon } from "@blueprintjs/core";
 
 export const SelectedColorPanel = (props) => {

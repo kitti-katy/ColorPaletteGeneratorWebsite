@@ -27,8 +27,10 @@ class ColorPickerCanvas extends Component {
         window.addEventListener("resize", () => drawHueCanvas(this.state.selectedColor));
     }
     componentWillUnmount() {
-        window.removeEventListener("resize", drawSaturationCanvas);
-        window.removeEventListener("resize", drawHueCanvas);
+        window.removeEventListener("resize", this.drawSaturationCanvas);
+        window.removeEventListener("resize", this.drawHueCanvas);
+        window.removeEventListener("mouseup", this.setMouseDownToFalse);
+        window.removeEventListener("mouseup", this.setSatMouseDownToFalse);
     }
 
     enableColorChange = () => this.setState({ allowClrChange: true });
