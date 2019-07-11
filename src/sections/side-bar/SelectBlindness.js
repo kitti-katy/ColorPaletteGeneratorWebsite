@@ -1,39 +1,27 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
-import { bindActionCreators } from "redux";
-import { connect } from "react-redux";
-import { setBlindness } from '../../redux/ColorBlindnessReducer'
 import { blindnessNames } from "../../utilities/BlindConversion";
+import { StoreContext } from '../../Store';
 
-let mapStateToProps = (state) => {
-    return {
-        blindness: state.ColorBlindnessReducer.blindness
-    }
+export default function SelectBlindness(props) {
+    const [state, dispatch] = useContext(StoreContext)
+    const { blindness } = state
+    const setBlindness = (v) => dispatch({ type: 'setBlindness', payload: v })
+
+    const handleChange = event => setBlindness(event.target.value)
+
+    return (
+        <FormControl style={{ minWidth: 150 }}>
+            <InputLabel htmlFor="age-simple">Color Blindness</InputLabel>
+            <Select
+                value={blindness}
+                onChange={handleChange}
+            >
+                {blindnessNames.map(name => <MenuItem value={name} key={name}>{name}</MenuItem>)}
+            </Select>
+        </FormControl>
+    )
 }
-let mapDispatchToProps = (dispatch) => { return bindActionCreators({ setBlindness: setBlindness }, dispatch) }
-
-
-class SelectBlindness extends React.Component {
-
-    handleChange = event =>
-        this.props.setBlindness(event.target.value)
-
-    render() {
-
-        return (
-            <FormControl style={{ minWidth: 150 }}>
-                <InputLabel htmlFor="age-simple">Color Blindness</InputLabel>
-                <Select
-                    value={this.props.blindness}
-                    onChange={this.handleChange}
-                >
-                    {blindnessNames.map(name => <MenuItem value={name} key={name}>{name}</MenuItem>)}
-                </Select>
-            </FormControl>
-        )
-    }
-}
-export default connect(mapStateToProps, mapDispatchToProps)(SelectBlindness);

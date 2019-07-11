@@ -9,7 +9,7 @@ import { ShowExtraToolsReducer } from "./ShowExtraToolsReducer";
 import { HSLAdvancedReducer } from "./HSLAdvancedReducer";
 import { PictureReducer } from "./PictureReducer";
 import { FilterModeReducer } from "./FilterModeReducer";
-
+import { LayoutReducer } from "./LayoutReducer";
 
 const rootReducer = combineReducers({
   BaseColorReducer,
@@ -20,6 +20,7 @@ const rootReducer = combineReducers({
   ShowExtraToolsReducer,
   HSLAdvancedReducer,
   PictureReducer,
-  FilterModeReducer
+  FilterModeReducer,
+  LayoutReducer
 });
 export default rootReducer;

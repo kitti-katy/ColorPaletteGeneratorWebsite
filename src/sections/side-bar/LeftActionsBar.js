@@ -1,14 +1,8 @@
 import React, { Component } from "react";
-import { connect } from "react-redux";
 import { ExportJSONButton } from '../../components/ExportJSONButton'
-import { SelectedColorPanel } from "./SelectedColorPanel";
+import SelectedColorPanel from "./SelectedColorPanel";
 import SelectBlindness from "./SelectBlindness";
 
-let mapStateToProps = (state) => {
-    return {
-        selected: state.SelectedColorReducer.selected
-    }
-}
 class LeftActionsBar extends Component {
 
     render() {
@@ -26,12 +20,12 @@ class LeftActionsBar extends Component {
                         </div>
                         */}
                 <div>
-                    <SelectedColorPanel selectedColor={this.props.selected} />
+                    <SelectedColorPanel />
                 </div>
             </div>
         );
     }
 }
 
-export default connect(mapStateToProps)(LeftActionsBar);
+export default LeftActionsBar;
 

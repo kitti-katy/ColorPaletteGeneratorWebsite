@@ -47,7 +47,7 @@ class HSLFilters extends Component {
       <div  style={{ height: '100%' }}>
         <div className=' filters'>
           {/* HSL FILTERS */}
-          <div style={{ display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap', alignItems: 'center' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap', alignItems: 'center', height: '100%' }}>
             {/* Changes */}
             <div className='advanced-hsl-filters-group'>
               {this.getSliderInput(hueChange, 0, 120, 'Hue Change', 'hueChange')}
@@ -61,10 +61,10 @@ class HSLFilters extends Component {
               {this.getSliderInput(lightStep, 1, 30, 'Light Step', 'lightStep')}
             </div>
             {/* Number Of Colors */}
-            <div className='advanced-hsl-filters-group'>
+            <div className='advanced-hsl-filters-group' style ={{height: '28%'}}>
               {this.getSliderInput(numberOfColors, 6, 181, 'Number of Colors', 'numberOfColors')}
             </div>
-            <div className='advanced-hsl-filters-group'>
+            <div className='advanced-hsl-filters-group' style ={{height: '28%'}}>
               <SelectBaseColorButton />
             </div>
 

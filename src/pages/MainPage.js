@@ -40,8 +40,8 @@ class MainPage extends Component {
                 <div id='palette-container' >
                     <LeftActionsBar exportJSON={this.handleExportJSON_ButtonClick} />
                     <div>
-                        <div style={this.getDisplayOption(showBasic)} > <BasicTiles /></div>
-                        <div style={this.getDisplayOption(showAdvanced)} > <AdvancedTiles /></div>
+                        <div style={{ ...this.getDisplayOption(showBasic), margin: 'auto'}} > <BasicTiles /></div>
+                        <div style={{ ...this.getDisplayOption(showAdvanced), margin: 'auto' }} > <AdvancedTiles /></div>
                         <div style={{ ...this.getDisplayOption(showFromImage), margin: 'auto' }} > <PictureTiles /></div>
                     </div>
 

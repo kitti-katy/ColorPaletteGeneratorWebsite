@@ -1,36 +1,22 @@
-import React, { Component } from "react";
-import { bindActionCreators } from "redux";
-import { connect } from "react-redux";
-import { selectColor } from '../../redux/SelectedColorReducer'
+import React, { useState, useContext } from "react";
 import { getAdvancedPalette } from "../../utilities/HSLPaletteGenerator";
 import { convertToBlind } from "../../utilities/BlindConversion";
 
-let mapStateToProps = (state) => {
-    return {
-        baseColor: state.BaseColorReducer.baseColor,
-        selected: state.SelectedColorReducer.selected,
-        hueSplit: state.HSLBasicReducer.hueSplit,
-        satSplit: state.HSLBasicReducer.satSplit,
-        lightSplit: state.HSLBasicReducer.lightSplit,
-        displayOrder: state.HSLBasicReducer.displayOrder,
-        l1: state.HSLBasicReducer.l1,
-        l2: state.HSLBasicReducer.l2,
-        l3: state.HSLBasicReducer.l3,
-        blindness: state.ColorBlindnessReducer.blindness
-    }
-}
-let mapDispatchToProps = (dispatch) => { return bindActionCreators({ selectColor: selectColor }, dispatch) }
+import { StoreContext } from '../../Store';
 
+export default function BasicTiles(props) {
 
-class BasicTiles extends Component {
-    state = { selectedKey: '' }
+    const [state, dispatch] = useContext(StoreContext)
+    const [selectedKey, setSelectedKey] = useState('');
+    const {hueSplit, satSplit, lightSplit, baseColor, blindness} = state
+    const selectColor = (color) => dispatch({type: 'selectColor', payload: color}) 
 
-    getPadding = (palette) => {
+    let getPadding = (palette) => {
         let horizontal = palette[0][0].length
         let padding = 100 / (horizontal * 2) // * by 2 because padding takes left and right parts
         return padding //- 0.1
     }
-    getRowHolderWidth = (palette) => {
+    let getRowHolderWidth = (palette) => {
         let outer = palette.length
         let width = palette[0][0].length
         let vertical = palette[0].length
@@ -144,62 +130,52 @@ class BasicTiles extends Component {
 
         return 2
     }
-    getPalette = () => {
-        let { baseColor, hueSplit, satSplit, lightSplit, l1, l2, l3 } = this.props
-        let palette = getAdvancedPalette(baseColor, hueSplit, satSplit, lightSplit, l1, l2, l3, 0, 0)
-        return palette
-    }
 
     // TILES PART
-    handleSelectColor = (hexValue, selectedKey) => {
-        this.setState({ selectedKey })
-        this.props.selectColor(hexValue)
+    let handleSelectColor = (hexValue, selectedKey) => {
+        setSelectedKey(selectedKey)
+        selectColor(hexValue)
     }
 
+    let palette = getAdvancedPalette(baseColor, hueSplit, satSplit, lightSplit, 'h', 's', 'l', 0, 0)
+    let tilePadding = getPadding(palette)
+    let numberOfFractions = getRowHolderWidth(palette)
+    let wrapperStyle = {
+        display: 'flex',
+        flexWrap: 'wrap',
+        justifyContent: 'center'
+    }
 
-    render() {
-        let palette = this.getPalette()
-        let tilePadding = this.getPadding(palette)
-        let numberOfFractions = this.getRowHolderWidth(palette)
-        let wrapperStyle = {
-            display: 'flex',
-            flexWrap: 'wrap',
-            justifyContent: 'center'
-        }
+    return (
+        <div style={{ display: 'table', alignItems: 'center', height: '100%' }} className='tiles-section'>
+            <div style={{ display: 'table-cell', verticalAlign: 'middle' }}>
 
-        return (
-            <div style={{ display: 'table', alignItems: 'center', height: '100%' }} className='tiles-section'>
-                <div style={{ display: 'table-cell', verticalAlign: 'middle' }}>
+                <div style={wrapperStyle}>
+                    {palette.map((satArr, i1) =>
+                        <div key={i1 + "l1"} style={{ border: 'solid 4px white', width: (100 / numberOfFractions) - 1 + '%' }}>
 
-                    <div style={wrapperStyle}>
-                        {palette.map((satArr, i1) =>
-                            <div key={i1 + "l1"} style={{ border: 'solid 4px white', width: (100 / numberOfFractions) - 1 + '%' }}>
-
-                                {satArr.map((lightArr, i2) =>
-                                    <div key={i1 + "-" + i2 + "l2"} style={{ lineHeight: 0 }}>
-                                        {lightArr.map((lightColor, i3) => {
-                                            let color = lightColor.HEXString
-                                            let blindedColor = convertToBlind(lightColor, this.props.blindness)
-                                            let colorKey = i1 + '' + i2 + '' + i3 + color
-                                            let isSelected = this.state.selectedKey == colorKey
-                                            return <div key={colorKey} id={color}
-                                                className={"single-tile-basic " + (isSelected ? 'selected-tile' : '')}
-                                                style={{
-                                                    background: blindedColor, padding: tilePadding + '%', width: tilePadding * 2 + '%', height: tilePadding * 2 + '%',
-                                                    border: 'none'
-                                                }}
-                                                onClick={() => this.handleSelectColor(color, colorKey)} />
-                                        }
-                                        )}
-                                    </div>
-                                )}
-                            </div >)}
-                    </div>
+                            {satArr.map((lightArr, i2) =>
+                                <div key={i1 + "-" + i2 + "l2"} style={{ lineHeight: 0 }}>
+                                    {lightArr.map((lightColor, i3) => {
+                                        let color = lightColor.HEXString
+                                        let blindedColor = convertToBlind(lightColor, blindness)
+                                        let colorKey = i1 + '' + i2 + '' + i3 + color
+                                        let isSelected = selectedKey == colorKey
+                                        return <div key={colorKey} id={color}
+                                            className={"single-tile-basic " + (isSelected ? 'selected-tile' : '')}
+                                            style={{
+                                                background: blindedColor, padding: tilePadding + '%', width: tilePadding * 2 + '%', height: tilePadding * 2 + '%',
+                                                border: 'none'
+                                            }}
+                                            onClick={() => handleSelectColor(color, colorKey)} />
+                                    }
+                                    )}
+                                </div>
+                            )}
+                        </div >)}
                 </div>
             </div>
-        );
-    }
+        </div>
+    );
 }
-
-export default connect(mapStateToProps, mapDispatchToProps)(BasicTiles);
 
