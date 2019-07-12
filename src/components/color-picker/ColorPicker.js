@@ -12,7 +12,7 @@ export default function ColorPicker(props) {
 
   const [state, dispatch] = useContext(StoreContext)
   const {baseColor} = state
-  const changeBaseColor = (v) => dispatch({type: 'changeBaseColor', payload: v}) 
+  const changeBaseColor = (value) => dispatch({name: 'baseColor', value}) 
 
   let handleFormInput = color => {
     changeBaseColor(color);

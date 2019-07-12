@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { exportJSON } from '../utilities/ExportJSON'
 import SelectMode from "../sections/filters/SelectMode"
 import TryMain from "../sections/try-it/TryMain";
-import LeftActionsBar from "../sections/side-bar/LeftActionsBar";
+import {LeftActionsBar} from "../sections/side-bar/LeftActionsBar";
 import BasicTiles from "../sections/tiles/BasicTiles";
 import AdvancedTiles from "../sections/tiles/AdvancedTiles";
 import PictureTiles from "../sections/tiles/PictureTiles";

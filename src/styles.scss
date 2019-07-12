@@ -3,7 +3,14 @@
 @import "~@blueprintjs/icons/lib/css/blueprint-icons.css";
 @import "./variables";
 
-
+.MuiSlider-root{
+  color: $lightColor1 !important;
+}
+.apply-color-title{
+  background: $darkColor2;
+  color: white;
+  text-align: center;
+}
 .App{
   height: $fill;
   grid-template-rows: 5% 95%; 
@@ -42,8 +49,8 @@ code {
 
 .header {
   @include align-inner-element-center-vertically;
-  padding-left: $padding-l1;
-  background: $darkerColor1;
+  //padding-left: $padding-l1;
+  background: $darkerColor1 !important;
 
 }
 .header >h2 {
@@ -52,11 +59,15 @@ code {
   font-weight: 400;
   letter-spacing: 0.05em;
 }
+#menu-button{
+  margin-right: $padding-l2
+}
 // RIGHT PART
 .filters-part{
   display: grid;
   border-top: $borderStyle;
   grid-template-rows: 11% 89%;
+  //background-color: $lightestColor
 }
 .filters-long-part{
   display: grid;
@@ -65,7 +76,8 @@ code {
 
 // SELECT FILTERS MODE
 .selected-mode{
-  background: white !important;
+  //background: white !important;
+  background-color: $lightestColor !important;
 }
 .select-mode-table > div{
     @include align-inner-element-center-vertically;
@@ -74,7 +86,7 @@ code {
     text-align: center;
     font-size: ms(0);
     color: $darkerColor1;
-    background: $lightestColor;
+    background: $lighterColor2;
     cursor: pointer;
     transition: box-shadow;
     transition-timing-function: cubic-bezier(0.4, 0, 0.6, 1);
@@ -82,7 +94,7 @@ code {
 }
 
 .select-mode-table > div:hover{
-  background:white;
+  background-color: $lightestColor !important;
 }
 .select-mode-table > div:nth-last-child(1){
     border: none

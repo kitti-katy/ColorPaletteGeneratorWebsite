@@ -26,6 +26,7 @@
     border-top: $borderStyle; 
     border-color: $lighterColor2;
     height: 100%;
+    //background-color: $lightestColor;
 }
 
 .try-holder .select-mode-table > div {
@@ -34,8 +35,8 @@
     font-weight: 600; 
 }
 
-.try-holder .select-mode-table > div:hover{
-    background:white;
+.try-holder .select-mode-table > div:hover, .try-holder .selected-mode{
+    background: $lightestColor !important;
   }
 .try-switch {
     display: grid;
@@ -80,10 +81,14 @@
     @include btn-icon-color-hover;
 }
 .try-card-holder{
-    height: fit-content;
+    cursor: pointer;
     max-width: 83%; //62%;
     letter-spacing: 0.5px;
    // margin-left: $padding-l0;
+}
+.try-component {
+    transition: outline 0.1s;
+    transition-timing-function: ease-out;
 }
 #try-background {
     cursor: pointer; 
@@ -99,12 +104,12 @@
     cursor: pointer; 
 }
 #try-text{
-    font-size: ms(-1);
+    //font-size: ms(-1);
     cursor: pointer; 
 }
 .try-button{
-    margin-right: $padding-l2;
-    font-size: ms(-1);
+    margin-right: $padding-l2 !important;
+    //font-size: ms(-1) !important;
     padding-top: $padding-l4; 
     padding-bottom: $padding-l4; 
     padding-left: $padding-l3; 

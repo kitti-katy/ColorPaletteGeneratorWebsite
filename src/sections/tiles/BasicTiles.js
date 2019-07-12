@@ -8,8 +8,8 @@ export default function BasicTiles(props) {
 
     const [state, dispatch] = useContext(StoreContext)
     const [selectedKey, setSelectedKey] = useState('');
-    const {hueSplit, satSplit, lightSplit, baseColor, blindness} = state
-    const selectColor = (color) => dispatch({type: 'selectColor', payload: color}) 
+    const { hueSplit, satSplit, lightSplit, baseColor, blindness } = state
+    const selectColor = (color) => dispatch({ name: 'selected', value: color })
 
     let getPadding = (palette) => {
         let horizontal = palette[0][0].length

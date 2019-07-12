@@ -1,67 +1,46 @@
-import React, { Component } from "react";
-import { bindActionCreators } from "redux";
-import { connect } from "react-redux";
+import React, { useContext, useState} from "react";
 import HSLPaletteGenerator from "../../utilities/HSLPaletteGenerator";
 import { convertToBlind } from "../../utilities/BlindConversion";
-import { selectColor } from '../../redux/SelectedColorReducer'
+import { StoreContext } from '../../Store';
 
-let mapStateToProps = (state) => {
-    return {
-        baseColor: state.BaseColorReducer.baseColor,
-        selected: state.SelectedColorReducer.selected,
+export default function AdvancedTiles(props) {
 
-        hueChange: state.HSLAdvancedReducer.hueChange,
-        satChange: state.HSLAdvancedReducer.satChange,
-        lightChange: state.HSLAdvancedReducer.lightChange,
-        hueStep: state.HSLAdvancedReducer.hueStep,
-        satStep: state.HSLAdvancedReducer.satStep,
-        lightStep: state.HSLAdvancedReducer.lightStep,
-        numberOfColors: state.HSLAdvancedReducer.numberOfColors,
-        blindness: state.ColorBlindnessReducer.blindness
-    }
-}
-let mapDispatchToProps = (dispatch) => { return bindActionCreators({ selectColor: selectColor }, dispatch) }
+    const [selectedKey, setSelectedKey] = useState('');
 
-class AdvancedTiles extends Component {
-    state = {
-        selectedKey: ''
-    };
-    
-    handleSelectColor = (hexValue, selectedKey) => {
-        this.setState({ selectedKey })
-        this.props.selectColor(hexValue)
+    const [state, dispatch] = useContext(StoreContext)
+    const { baseColor, hueChange, satChange, lightChange, hueStep, satStep, lightStep, numberOfColors, blindness } = state
+    const set = (name, value) => dispatch({ name, value })
+
+    const handleSelectColor = (hexValue, selectedKey) => {
+        setSelectedKey({ selectedKey })
+        set('selected', hexValue)
     }
 
-    render() {
-        const { hueChange, satChange, lightChange, hueStep, satStep, lightStep, numberOfColors } = this.props
-        let palette = new HSLPaletteGenerator(this.props.baseColor, hueChange, satChange, lightChange, hueStep, satStep, lightStep, numberOfColors).palette
+    let palette = new HSLPaletteGenerator(baseColor, hueChange, satChange, lightChange, hueStep, satStep, lightStep, numberOfColors).palette
 
-        return (
-            <div style={{ display: 'table', alignItems: 'center', height: '100%', width: '100%' }} className='tiles-section'>
-                <div style={{ display: 'table-cell', verticalAlign: 'middle' }}>
-                    <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center'}} >
+    return (
+        <div style={{ display: 'table', alignItems: 'center', height: '100%', width: '100%' }} className='tiles-section'>
+            <div style={{ display: 'table-cell', verticalAlign: 'middle' }}>
+                <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center' }} >
 
-                        {palette.map((color, index) => {
-                            let hex = color.HEXString
-                            let blindedColor = convertToBlind(color, this.props.blindness)
-                            let colorKey = index + hex
-                            let isSelected = this.state.selectedKey == colorKey
-                            return <div key={colorKey} id={hex}
-                                className={"single-tile-basic " + (isSelected ? 'selected-tile' : '')}
-                                style={{
-                                    background: blindedColor, padding: '5%', width: '10%', height: '10%',
-                                    border: 'none'
-                                }}
-                                onClick={() => this.handleSelectColor(hex, colorKey)} />
-                        }
-                        )}
-                    </div>
+                    {palette.map((color, index) => {
+                        let hex = color.HEXString
+                        let blindedColor = convertToBlind(color, blindness)
+                        let colorKey = index + hex
+                        let isSelected = selectedKey == colorKey
+                        return <div key={colorKey} id={hex}
+                            className={"single-tile-basic " + (isSelected ? 'selected-tile' : '')}
+                            style={{
+                                background: blindedColor, padding: '5%', width: '10%', height: '10%',
+                                border: 'none'
+                            }}
+                            onClick={() => handleSelectColor(hex, colorKey)} />
+                    }
+                    )}
                 </div>
-            </div >
+            </div>
+        </div >
 
-        )
-    }
+    )
 }
-export default connect(mapStateToProps, mapDispatchToProps)(AdvancedTiles);
-
 

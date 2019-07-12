@@ -5,7 +5,7 @@ import { Icon } from "@blueprintjs/core";
 
 import { StoreContext } from '../../Store';
 
-export default function SelectedColorPanel(props) {
+export const SelectedColorPanel = (props) => {
     const [state] = useContext(StoreContext)
     const { selected } = state
 

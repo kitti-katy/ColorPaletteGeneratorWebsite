@@ -9,9 +9,7 @@ import { StoreContext } from '../../Store';
 export default function SelectBlindness(props) {
     const [state, dispatch] = useContext(StoreContext)
     const { blindness } = state
-    const setBlindness = (v) => dispatch({ type: 'setBlindness', payload: v })
-
-    const handleChange = event => setBlindness(event.target.value)
+    const handleChange = event => dispatch({ name: 'blindness', value: event.target.value }) 
 
     return (
         <FormControl style={{ minWidth: 150 }}>
