@@ -100,7 +100,7 @@ class Color {
     }
 
     // not sure about this part
-    let hsl = { hue: Math.round(h * 360), sat: Math.round(s * 100), light: Math.round(l * 100) }
+    let hsl = { hue: Math.floor(h * 360), sat: Math.floor(s * 100), light: Math.floor(l * 100) }
     hsl.hue = hsl.hue == 360 ? 0 : hsl.hue
     return hsl;
   };
