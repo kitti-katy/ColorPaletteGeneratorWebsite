@@ -16,6 +16,7 @@
     height: 7px;
     border: 1px solid; 
     border-radius: 3px;
+    pointer-events: none
 }
 
 #pickerCircle{
@@ -25,6 +26,7 @@
     border-radius: 15px;
     position: absolute; 
     z-index: 100;
+    pointer-events: none;
 }
 
 #main-canvas-color-picker{

@@ -4,15 +4,11 @@ class HSLPaletteGenerator {
   constructor(baseColor, hueChange, satChange, lightChange, hueStep, satStep, lightStep, numberOfColors) {
     let { hue, sat, light } = baseColor.hsl;
     light = parseInt(light)
-    console.log("old")
-    console.log(light)
     let lightOffset = light == 0 ? 0 : 1
     this._palette = Array.apply(null, { length: numberOfColors }).map((el, index) => {
       let h = (parseInt(hue) + (Math.floor(index / hueStep) * hueChange)) % 360
       let s = (parseInt(sat) + (Math.floor(index / satStep) * satChange)) % 100
       let l = light == 100 && index == 0 ? 100 : (light + (Math.floor(index / lightStep) * lightChange)) % (100 + lightOffset)
-      console.log("new:")
-      console.log(new Color(h, s, l, 'HSL'))
       return new Color(h, s, l, 'HSL')
     })
   }
@@ -84,8 +80,8 @@ let getLevel = (level, h, s, l) => (level == 'h' ? h : level == 's' ? s : l)
 export let getAdvancedPalette = (baseColor, hueSplitter, satSplitter, lightSplitter, l1, l2, l3, offsetSat, offSetLight) => {
   let { hue, sat, light } = baseColor.hsl;
   let hueChange = 360 / hueSplitter
-  let satChange = 100 / satSplitter
-  let lightChange = 100 / lightSplitter
+  let satChange = 101 / satSplitter
+  let lightChange = 101 / lightSplitter
 
   // Level 1: saturation
   // Level 2: hue
@@ -98,9 +94,9 @@ export let getAdvancedPalette = (baseColor, hueSplitter, satSplitter, lightSplit
   let l2_change = getLevel(l2, hueChange, satChange, lightChange)
   let l3_change = getLevel(l3, hueChange, satChange, lightChange)
 
-  let l1_divider = getLevel(l1, 360, 100, 100)
-  let l2_divider = getLevel(l2, 360, 100, 100)
-  let l3_divider = getLevel(l3, 360, 100, 100)
+  let l1_divider = getLevel(l1, 360, 101, 101)
+  let l2_divider = getLevel(l2, 360, 101, 101)
+  let l3_divider = getLevel(l3, 360, 101, 101)
 
   let l1_v = getLevel(l1, hue, sat, light)
   let l2_v = getLevel(l2, hue, sat, light)

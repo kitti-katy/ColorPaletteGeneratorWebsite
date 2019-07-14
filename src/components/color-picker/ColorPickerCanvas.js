@@ -2,7 +2,7 @@
 import React, { Component } from "react";
 import Color from "../../utilities/Color";
 import { Throttle } from "react-throttle";
-import { drawHueCanvas, drawSaturationCanvas, getColorSaturationCanvas, getColorHueCanvas, getScaledHueWidth } from './CanvasFunctions'
+import { drawHueCanvas, drawSaturationCanvas, getColorFromSaturationCanvas, getColorFromHueCanvas, getScaledHueWidth } from './CanvasFunctions'
 
 class ColorPickerCanvas extends Component {
     state = {
@@ -21,16 +21,18 @@ class ColorPickerCanvas extends Component {
     componentDidMount = () => {
         drawHueCanvas(this.props.baseColor);
         drawSaturationCanvas(this.props.baseColor);
-        document.addEventListener("mouseup", this.setMouseDownToFalse, false);
-        document.addEventListener("mouseup", this.setSatMouseDownToFalse, false);
+        window.addEventListener("mouseup", this.onWindowMouseUp, false);
+        document.getElementById('canvases-container').addEventListener("mouseup", this.onWindowMouseUp, false);
         window.addEventListener("resize", () => drawSaturationCanvas(this.state.selectedColor));
         window.addEventListener("resize", () => drawHueCanvas(this.state.selectedColor));
+        window.addEventListener("mousemove", this.onWindowMouseMove)
     }
     componentWillUnmount() {
         window.removeEventListener("resize", this.drawSaturationCanvas);
         window.removeEventListener("resize", this.drawHueCanvas);
-        window.removeEventListener("mouseup", this.setMouseDownToFalse);
-        window.removeEventListener("mouseup", this.setSatMouseDownToFalse);
+        window.removeEventListener("mouseup", this.onWindowMouseUp);
+        window.removeEventListener("mousemove", this.onWindowMouseMove);
+        document.getElementById('canvases-container').removeEventListener("mouseup", this.onWindowMouseUp);
     }
 
     enableColorChange = () => this.setState({ allowClrChange: true });
@@ -41,6 +43,7 @@ class ColorPickerCanvas extends Component {
         this.setMouseDownToTrue();
         this.enableColorChange();
         this.setColorFromMainCanvas(evt.clientX, evt.clientY);
+        this.makeAllUnselectable()
     };
     handleMouseMoveMainCanvas = evt => {
         if (this.state.mouseDownMainCanvas && this.state.allowClrChange)
@@ -50,7 +53,7 @@ class ColorPickerCanvas extends Component {
     setMouseDownToFalse = () => this.setState({ mouseDownMainCanvas: false });
 
     setColorFromMainCanvas = (clientX, clientY) => {
-        let color = getColorHueCanvas(clientX, clientY, this.props.baseColor)
+        let color = getColorFromHueCanvas(clientX, clientY, this.props.baseColor)
         this.setState({ selectedColor: color })
         this.props.onChange(color);
         drawSaturationCanvas(color);
@@ -63,6 +66,7 @@ class ColorPickerCanvas extends Component {
         this.setSatMouseDownToTrue();
         this.enableColorChange();
         this.setColorFromSatCanvas(evt.clientY);
+        this.makeAllUnselectable()
     };
     handleMouseMoveSatCanvas = evt => {
         if (this.state.mouseDownSatCanvas && this.state.allowClrChange)
@@ -72,12 +76,41 @@ class ColorPickerCanvas extends Component {
     setSatMouseDownToFalse = () => this.setState({ mouseDownSatCanvas: false });
 
     setColorFromSatCanvas = clientY => {
-        let color = getColorSaturationCanvas(clientY, this.props.baseColor)
+        let color = getColorFromSaturationCanvas(clientY, this.props.baseColor)
         this.props.onChange(color);
         this.setState({ selectedColor: color })
         drawHueCanvas(color);
         this.props.setHexInput(color.HEXString.substring(1))
     };
+
+    // Window Events
+    makeAllUnselectable = () => {
+        window.document.body.className = window.document.body.className + ' unselectable'
+        document.getElementById('canvases-container').className = document.getElementById('canvases-container').className + ' unselectable'
+    }
+    makeAllSelectable = () => {
+        window.document.body.className = window.document.body.className.replace('unselectable', '');
+        document.getElementById('canvases-container').className = document.getElementById('canvases-container').className.replace('unselectable', '');
+    }
+    onWindowMouseMove = (evt) => {
+        if (this.state.mouseDownMainCanvas && this.state.allowClrChange) {
+            this.setColorFromMainCanvas(evt.clientX, evt.clientY)
+        }
+        if (this.state.mouseDownSatCanvas && this.state.allowClrChange) {
+            this.setColorFromSatCanvas(evt.clientY)
+        }
+    }
+
+    onWindowMouseUp = () => {
+        if (this.state.allowClrChange && (this.state.mouseDownMainCanvas || this.state.mouseDownSatCanvas)) {
+            this.makeAllSelectable()
+            this.setMouseDownToFalse()
+            this.setSatMouseDownToFalse()
+            this.disableColorChange()
+        }
+    }
+
+
 
     render() {
         let baseColor = this.props.baseColor;
@@ -91,14 +124,14 @@ class ColorPickerCanvas extends Component {
                     <Throttle time="20" handler="onMouseMove">
                         <canvas height="200" width={getScaledHueWidth()} id="main-canvas-color-picker"
                             onMouseDown={this.handleMouseDownMainCanvas} onMouseMove={this.handleMouseMoveMainCanvas}
-                            onMouseLeave={this.disableColorChange} onMouseEnter={this.enableColorChange} />
+                            onMouseEnter={this.enableColorChange}  />
                     </Throttle>
                 </div>
 
                 <div style={{ marginLeft: "10px" }}
                     onMouseDown={this.handleMouseDownSatCanvas} onMouseMove={this.handleMouseMoveSatCanvas}
-                    onMouseLeave={this.disableColorChange} onMouseEnter={this.enableColorChange}>
-                    <div id="saturationCircle" style={{ backgroundColor: hexString, borderColor: "#394B59", marginTop: sat * 2 - 5 + "px" }} />
+                    onMouseEnter={this.enableColorChange}>
+                    <div id="saturationCircle" style={{ backgroundColor: hexString, borderColor: "#394B59"}} />
                     <canvas id="saturation-canvas-color-picker" height="200" width="10" />
                 </div>
 

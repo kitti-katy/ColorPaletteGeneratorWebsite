@@ -26,7 +26,7 @@ const tryIds = ["try-background", "try-title", "try-title-background", "try-head
     "try-button-success-font", "try-button-info", "try-button-info-font", "try-button-danger", "try-button-danger-font"]
 
 const texts = ['title', 'header', 'primaryButtonFont', 'secondaryButtonFont', 'successButtonFont', 'dangerButtonFont', 'warningButtonFont', 'infoButtonFont', 'paragraph']
-const backgrounds = ['background', 'primaryButton', 'secondaryButton', 'successButton', 'warningButton', 'dangerButton', 'infoButton']
+const backgrounds = ['titleBackground', 'background', 'primaryButton', 'secondaryButton', 'successButton', 'warningButton', 'dangerButton', 'infoButton']
 
 const backgroundColor = '#ffffff'
 const textColor = '#030202'

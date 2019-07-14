@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import TryItGradient from "./TryItGradient";
 import TryWeb from "./TryWeb";
-import Typography from '@material-ui/core/Typography';
 //import TryPixelArt from "./TryPixelArt";
 
 

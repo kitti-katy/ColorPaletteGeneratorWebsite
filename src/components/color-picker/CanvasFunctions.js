@@ -2,11 +2,13 @@ import Color from "../../utilities/Color";
 export const getScaler = () => window.innerWidth >= 2400 ? 1 : window.innerWidth / 2400
 export const getScaledHueWidth = () => 360 * getScaler()
 export const getScaledHeight = () => 200 * getScaler()
+export const getMainCanvas = () => (document.getElementById("main-canvas-color-picker"))
+export const getSaturationCanvas = () => (document.getElementById("saturation-canvas-color-picker"))
 
 export const drawHueCanvas = (baseColor) => {
     let scaler = getScaler()
     let sat = baseColor.hsl.sat;
-    let canvas = document.getElementById("main-canvas-color-picker");
+    let canvas = getMainCanvas()
     let ctx = canvas.getContext("2d");
     let scaledWidth = getScaledHueWidth()
     let scaledHeight = getScaledHeight()
@@ -28,7 +30,7 @@ export const drawSaturationCanvas = (baseColor) => {
     let scaler = getScaler()
     let hue = baseColor.hsl.hue;
     let light = baseColor.hsl.light;
-    let canvas = document.getElementById("saturation-canvas-color-picker");
+    let canvas = getSaturationCanvas()
     let scaledHeight = getScaledHeight()
     canvas.setAttribute("height", scaledHeight)
     let ctx = canvas.getContext("2d");
@@ -42,13 +44,17 @@ export const drawSaturationCanvas = (baseColor) => {
     setHuePickerStyle(baseColor)
 }
 
-export const getColorHueCanvas = (clientX, clientY, baseColor) => {
-    let canvas = document.getElementById("main-canvas-color-picker");
-    let rect = canvas.getBoundingClientRect();
+const getValueAdjustedIntoBoundaries = (val, min, max) => val < min ? min : val > max ? max : val
+
+export const getColorFromHueCanvas = (clientX, clientY, baseColor) => {
+    let rect = getMainCanvasRectangle()
     let x = clientX - rect.left;
     let y = clientY - rect.top;
     let scaledBackX = Math.round(x * 360 / getScaledHueWidth())
     let scaledBackY = Math.round(y * 200 / getScaledHeight())
+    // when mouse is out of canvas but is down
+    scaledBackX = getValueAdjustedIntoBoundaries(scaledBackX, 0, 360)
+    scaledBackY = getValueAdjustedIntoBoundaries(scaledBackY, 0, 200)
     let hue = Math.round(scaledBackX);
     let sat = baseColor.hsl.sat;
     let light = Math.round(scaledBackY / 2);
@@ -56,15 +62,14 @@ export const getColorHueCanvas = (clientX, clientY, baseColor) => {
     return color
 }
 
-export const getColorSaturationCanvas = (clientY, baseColor) => {
-    let canvas = document.getElementById("saturation-canvas-color-picker");
-    let rect = canvas.getBoundingClientRect();
+export const getColorFromSaturationCanvas = (clientY, baseColor) => {
+    let rect = getSaturationCanvasRectangle()
     let y = clientY - rect.top;
-    if (y < 0 || y > 200) return;
-    let hsl = baseColor.hsl;
-    let hue = hsl.hue;
-    let sat = Math.round(y / 2);
-    let light = hsl.light;
+    let scaledBackY = Math.round(y * 200 / getScaledHeight())
+    // when mouse is out of canvas but is down
+    scaledBackY = getValueAdjustedIntoBoundaries(scaledBackY, 0, 200)
+    let { hue, light } = baseColor.hsl;
+    let sat = Math.round(scaledBackY / 2);
     let color = new Color(hue, sat, light, "HSL");
     return color
 }
@@ -72,15 +77,20 @@ export const getColorSaturationCanvas = (clientY, baseColor) => {
 let setHuePickerStyle = (color) => {
     let circle = document.getElementById('pickerCircle')
     let scaler = getScaler()
-    let scaledPositionTop =  (color.hsl.light * 2 ) * scaler - 8
+    let scaledPositionTop = (color.hsl.light * 2) * scaler - 8
     circle.style.marginTop = scaledPositionTop + "px"
-    let scaledPositionLeft = (color.hsl.hue ) * scaler - 8
+    let scaledPositionLeft = (color.hsl.hue) * scaler - 8
     circle.style.marginLeft = scaledPositionLeft + "px"
-} 
+}
 
 let setSaturationPickerStyle = (color) => {
     let circle = document.getElementById('saturationCircle')
-    let scaler = getScaler()
-    let scaledPositionTop =  (color.hsl.sat * 2 ) * scaler - 8
+    let scaledPositionTop = (color.hsl.sat * 2) * getScaler() - 3.5
     circle.style.marginTop = scaledPositionTop + "px"
-} 
+}
+
+export const getMainCanvasRectangle = () =>
+    (getMainCanvas().getBoundingClientRect())
+
+export const getSaturationCanvasRectangle = () =>
+    (getSaturationCanvas().getBoundingClientRect())

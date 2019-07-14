@@ -2,7 +2,10 @@
 @import "~@blueprintjs/core/lib/css/blueprint.css";
 @import "~@blueprintjs/icons/lib/css/blueprint-icons.css";
 @import "./variables";
-
+.unselectable{
+  user-select: none;
+  -webkit-touch-callout: none
+}
 .MuiSlider-root{
   color: $lightColor1 !important;
 }
