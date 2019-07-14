@@ -32,7 +32,7 @@ class ColorPickerCanvas extends Component {
         window.removeEventListener("resize", this.drawHueCanvas);
         window.removeEventListener("mouseup", this.onWindowMouseUp);
         window.removeEventListener("mousemove", this.onWindowMouseMove);
-        document.getElementById('canvases-container').removeEventListener("mouseup", this.onWindowMouseUp);
+        //document.getElementById('canvases-container').removeEventListener("mouseup", this.onWindowMouseUp);
     }
 
     enableColorChange = () => this.setState({ allowClrChange: true });
@@ -131,7 +131,7 @@ class ColorPickerCanvas extends Component {
                 <div style={{ marginLeft: "10px" }}
                     onMouseDown={this.handleMouseDownSatCanvas} onMouseMove={this.handleMouseMoveSatCanvas}
                     onMouseEnter={this.enableColorChange}>
-                    <div id="saturationCircle" style={{ backgroundColor: hexString, borderColor: "#394B59"}} />
+                    <div id="saturationCircle" style={{ backgroundColor: hexString}} />
                     <canvas id="saturation-canvas-color-picker" height="200" width="10" />
                 </div>
 

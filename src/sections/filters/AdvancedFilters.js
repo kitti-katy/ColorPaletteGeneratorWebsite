@@ -7,7 +7,7 @@ import Typography from '@material-ui/core/Typography';
 export default function HSLFilters(props) {
 
   const [state, dispatch] = useContext(StoreContext)
-  const { hueChange, satChange, lightChange, hueStep, satStep, lightStep, numberOfColors } = state
+  const { hueChange, satChange, lightChange, hueStep, satStep, lightStep, numberOfColors, filterMode } = state
   const set = (name, value) => dispatch({ name, value })
 
   const getSliderInput = (value, min, max, label, name) =>
@@ -41,7 +41,8 @@ export default function HSLFilters(props) {
             {getSliderInput(numberOfColors, 6, 181, 'Number of Colors', 'numberOfColors')}
           </div>
           <div className='advanced-hsl-filters-group' style={{ height: '28%' }}>
-            <SelectBaseColorButton />
+            {/* NEED THIS TO AVOID COLOR PICKER GLITCH */}
+            {filterMode == 'ADVANCED' && <SelectBaseColorButton />}
           </div>
 
         </div>

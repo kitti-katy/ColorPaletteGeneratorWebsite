@@ -10,17 +10,10 @@ const initialState = {
     blindness: 'None',
     hueChange: 27, satChange: 0, lightChange: 20,
     hueStep: 1, satStep: 1, lightStep: 1,
-    numberOfColors: 72,
+    numberOfColors: 72, 
+    filterMode: 'BASIC'
 };
 
-const changeStateMappings = {
-    'changeBaseColor': 'baseColor',
-    'setHueSplit': 'hueSplit',
-    'setSatSplit': 'satSplit',
-    'setLightSplit': 'lightSplit',
-    'selectColor': 'selected',
-    'setBlindness': 'blindness'
-}
 
 function reducer(state, action) {
     //let stateName = changeStateMappings[action.type]

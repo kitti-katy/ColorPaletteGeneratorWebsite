@@ -70,8 +70,9 @@ export default function TryIt(props) {
         setHoverEffects()
         if (!componentDidMount) {
             pushCurrentStateAndClearFuture()
+            setComponentDidMount(true)
         }
-        setComponentDidMount(true)
+        
     });
 
 

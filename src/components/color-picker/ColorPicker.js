@@ -11,8 +11,8 @@ export default function ColorPicker(props) {
   const [hexValue, setHexValue] = useState('edb407');
 
   const [state, dispatch] = useContext(StoreContext)
-  const {baseColor} = state
-  const changeBaseColor = (value) => dispatch({name: 'baseColor', value}) 
+  const { baseColor } = state
+  const changeBaseColor = (value) => dispatch({ name: 'baseColor', value })
 
   let handleFormInput = color => {
     changeBaseColor(color);
@@ -27,16 +27,16 @@ export default function ColorPicker(props) {
   let setFromHue = value => handleFormInput(new Color(value, baseColor.hsl.sat, baseColor.hsl.light, "HSL"))
   let setFromSat = value => handleFormInput(new Color(baseColor.hsl.hue, value, baseColor.hsl.light, "HSL"))
   let setFromLight = value => handleFormInput(new Color(baseColor.hsl.hue, baseColor.hsl.sat, value, "HSL"))
-  let setFromRed = value => handleFormInput(new Color(value, baseColor.rgb.g, baseColor.rgb.b, "RGB"))
+  let setFromRed = value => { if (value > 0 || value < 256) handleFormInput(new Color(value, baseColor.rgb.g, baseColor.rgb.b, "RGB")) }
   let setFromGreen = value => handleFormInput(new Color(baseColor.rgb.r, value, baseColor.rgb.b, "RGB"))
   let setFromBlue = value => handleFormInput(new Color(baseColor.rgb.r, baseColor.rgb.g, value, "RGB"))
   let setFromHex = e => {
     let val = e.target.value
     if (val.length < 7) {
-      this.setState({ hexValue: val })
+      setHexValue(val)
       var re = /[0-9A-Fa-f]{6}/g;
       if (re.test(val)) {
-        this.handleFormInput(new Color('#' + e.target.value, 0, 0, "Hex"))
+        handleFormInput(new Color('#' + e.target.value, 0, 0, "Hex"))
       }
     }
   }

@@ -14,9 +14,9 @@
     margin-left: -5.5px; 
     width: 24px; 
     height: 7px;
-    border: 1px solid; 
+    border: 1px solid #0000001c; 
     border-radius: 3px;
-    pointer-events: none
+    pointer-events: none;
 }
 
 #pickerCircle{
@@ -40,7 +40,7 @@
 #saturation-canvas-color-picker{ 
     display: inline; 
     margin-right: 7px; 
-    border: 1px solid #394B59;
+    border: 1px solid #0000001c;
     border-radius: 2%;
 }
 

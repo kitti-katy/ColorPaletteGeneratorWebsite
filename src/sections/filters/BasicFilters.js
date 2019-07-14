@@ -12,7 +12,7 @@ const satDividers = [1, 2, 4, 5, 10]
 export default function BasicTiles(props) {
 
     const [state, dispatch] = useContext(StoreContext)
-    const { hueSplit, satSplit, lightSplit } = state
+    const { hueSplit, satSplit, lightSplit, filterMode } = state
     const set = (name, value) => dispatch({ name, value })
 
     let getSliderInput = (value, label, name, dividers) =>
@@ -38,7 +38,8 @@ export default function BasicTiles(props) {
                 {getSliderInput(satSplit, 'Saturations', 'satSplit', satDividers)}
                 {getSliderInput(lightSplit, 'Lights', 'lightSplit', lightDividers)}
 
-                <SelectBaseColorButton />
+                {/* NEED THIS TO AVOID COLOR PICKER GLITCH */}
+                {filterMode == 'BASIC' && <SelectBaseColorButton />}
             </div>
         </div>
     );
