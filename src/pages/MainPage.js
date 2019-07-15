@@ -10,7 +10,7 @@ import AdvancedFilters from "../sections/filters/AdvancedFilters";
 import BasicFilters from "../sections/filters/BasicFilters";
 import PictureFilters from "../sections/filters/PictureFilters";
 import { StoreContext } from '../Store';
-
+import { Fade } from '../animations/Fade'
 
 export default function MainPage() {
     const [state] = useContext(StoreContext)
@@ -35,12 +35,14 @@ export default function MainPage() {
 
             <div id='palette-container' >
                 <LeftActionsBar exportJSON={handleExportJSON_ButtonClick} />
+                
                 <div>
-                    <div style={{ ...getDisplayOption(showBasic), margin: 'auto' }} > <BasicTiles /></div>
+                    <div style={{ ...getDisplayOption(showBasic), margin: 'auto' }} > 
+                     <BasicTiles />
+                    </div>
                     <div style={{ ...getDisplayOption(showAdvanced), margin: 'auto' }} > <AdvancedTiles /></div>
                     <div style={{ ...getDisplayOption(showFromImage), margin: 'auto' }} > <PictureTiles /></div>
                 </div>
-
             </div>
 
             <div className='vertical-holder-sl'>

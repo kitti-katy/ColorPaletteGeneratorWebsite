@@ -2,6 +2,11 @@
 @import "~@blueprintjs/core/lib/css/blueprint.css";
 @import "~@blueprintjs/icons/lib/css/blueprint-icons.css";
 @import "./variables";
+@import "./animations";
+
+.react-swipeable-view-container{
+  height: 100%;
+}
 .unselectable{
   user-select: none;
   -webkit-touch-callout: none
@@ -188,6 +193,9 @@ code {
   overflow: auto;
   display: flex;
   align-items: center;
+}
+#tiles-holder{
+  width: 100%;
 }
 .tiles-actions-bar{
   @include btn-icon-color;

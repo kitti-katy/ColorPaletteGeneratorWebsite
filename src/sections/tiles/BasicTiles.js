@@ -3,12 +3,13 @@ import { getAdvancedPalette } from "../../utilities/HSLPaletteGenerator";
 import { convertToBlind } from "../../utilities/BlindConversion";
 
 import { StoreContext } from '../../Store';
+import { Fade } from "@material-ui/core";
 
 export default function BasicTiles(props) {
 
     const [state, dispatch] = useContext(StoreContext)
     const [selectedKey, setSelectedKey] = useState('');
-    const { hueSplit, satSplit, lightSplit, baseColor, blindness } = state
+    const { hueSplit, satSplit, lightSplit, baseColor, blindness, filterMode } = state
     const selectColor = (color) => dispatch({ name: 'selected', value: color })
 
     let getPadding = (palette) => {
@@ -145,8 +146,9 @@ export default function BasicTiles(props) {
         flexWrap: 'wrap',
         justifyContent: 'center'
     }
-
+let isDisplayed = filterMode == 'BASIC'
     return (
+        
         <div style={{ display: 'table', alignItems: 'center', height: '100%' }} className='tiles-section'>
             <div style={{ display: 'table-cell', verticalAlign: 'middle' }}>
 
@@ -176,6 +178,7 @@ export default function BasicTiles(props) {
                 </div>
             </div>
         </div>
+        
     );
 }
 
