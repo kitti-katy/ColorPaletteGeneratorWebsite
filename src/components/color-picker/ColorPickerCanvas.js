@@ -1,7 +1,6 @@
 
 import React, { Component } from "react";
 import Color from "../../utilities/Color";
-import { Throttle } from "react-throttle";
 import { drawHueCanvas, drawSaturationCanvas, getColorFromSaturationCanvas, getColorFromHueCanvas, getScaledHueWidth } from './CanvasFunctions'
 
 class ColorPickerCanvas extends Component {
@@ -121,11 +120,9 @@ class ColorPickerCanvas extends Component {
             <div id="canvases-container">
                 <div>
                     <div id="pickerCircle" style={{ borderColor: light > 50 ? "#757575" : "white", backgroundColor: hexString }} />
-                    <Throttle time="20" handler="onMouseMove">
                         <canvas height="200" width={getScaledHueWidth()} id="main-canvas-color-picker"
                             onMouseDown={this.handleMouseDownMainCanvas} onMouseMove={this.handleMouseMoveMainCanvas}
                             onMouseEnter={this.enableColorChange}  />
-                    </Throttle>
                 </div>
 
                 <div style={{ marginLeft: "10px" }}
