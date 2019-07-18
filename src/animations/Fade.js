@@ -1,7 +1,7 @@
 import { Transition } from 'react-transition-group';
 import React from "react";
 
-const duration = 300;
+const duration = 1000;
 
 const defaultStyle = {
   transition: `opacity ${duration}ms ease-in-out`,
@@ -16,15 +16,17 @@ const transitionStyles = {
   exited:  { opacity: 0 },
 };
 
-export const Fade = ({ in: inProp , element}) => (
-  <Transition in={inProp} timeout={duration} style={{width: '100%'}}>
-    {state => (
+export const Fade = ({ in: inProp , element, style}) => (
+  <Transition in={inProp} timeout={duration} style={style}>
+    {state => {
+      console.log(state)
+      return (
       <div style={{
         ...defaultStyle,
         ...transitionStyles[state]
       }}>
        {element}
-      </div>
-    )}
+      </div>)}
+    }
   </Transition>
 );

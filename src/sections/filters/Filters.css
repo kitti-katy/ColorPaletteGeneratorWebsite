@@ -5,6 +5,7 @@
     display: inline-block;
     cursor: pointer;
     transition: border-radius 0.1s linear;
+    border: none
 }
 .single-tile-basic:hover{
     border-radius: 25%
@@ -28,3 +29,15 @@
     height: 62%;
 }
 
+.advanced-tile{
+    padding: 5%;
+    width: 10%; 
+    height: 10%; 
+    border: none
+}
+.picture-tile{
+    padding: 4.15%; 
+    width: 8.3%; 
+    height: 8.3%;
+    border: none;
+}

@@ -4,22 +4,12 @@ import 'antd/dist/antd.css';
 import "./styles.scss";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
-import { Provider } from "react-redux";
-import { createStore, applyMiddleware, compose } from "redux";
-import rootReducer from "./redux/index";
 import { BrowserRouter } from "react-router-dom";
-import 'primereact/resources/themes/nova-light/theme.css';
-import 'primereact/resources/primereact.min.css';
-import 'primeicons/primeicons.css';
-
-const store = createStore(rootReducer);
 
 ReactDOM.render(
-  <Provider store={store}>
     <BrowserRouter>
       <App />
     </BrowserRouter>
-  </Provider >
   ,
   document.getElementById("root")
 );

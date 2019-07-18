@@ -2,7 +2,7 @@
 @import "~@blueprintjs/core/lib/css/blueprint.css";
 @import "~@blueprintjs/icons/lib/css/blueprint-icons.css";
 @import "./variables";
-@import "./animations";
+//@import "./animations";
 
 .react-swipeable-view-container{
   height: 100%;
@@ -96,7 +96,7 @@ code {
     color: $darkerColor1;
     background: $lighterColor2;
     cursor: pointer;
-    transition: box-shadow;
+    transition: background-color 0.16s;
     transition-timing-function: cubic-bezier(0.4, 0, 0.6, 1);
     font-weight: 600;
 }
@@ -186,6 +186,8 @@ code {
   border-top: $borderStyle;
   display: grid;
   grid-template-columns: 17% 83%; 
+  // workaround for animation transition
+  overflow-x: hidden;
 } 
 #palette-container > div:nth-child(2)
 {
@@ -229,6 +231,15 @@ code {
   padding-right: 18.5%;
   width: 100%;
   margin: auto;
+  display: table; 
+  align-items: center; 
+  height: 100%; 
+  width: 100%; 
+}
+.tiles-section-cell{
+  display: flex; 
+  flex-wrap: wrap; 
+  justify-content: center;
 }
 
 // TRY PART

@@ -11,7 +11,8 @@ const initialState = {
     hueChange: 27, satChange: 0, lightChange: 20,
     hueStep: 1, satStep: 1, lightStep: 1,
     numberOfColors: 72, 
-    filterMode: 'BASIC'
+    filterMode: 'BASIC',
+    picturePalettes: []
 };
 
 

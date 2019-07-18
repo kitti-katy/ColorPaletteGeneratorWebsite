@@ -35,13 +35,18 @@ export default function MainPage() {
 
             <div id='palette-container' >
                 <LeftActionsBar exportJSON={handleExportJSON_ButtonClick} />
-                
-                <div>
-                    <div style={{ ...getDisplayOption(showBasic), margin: 'auto' }} > 
-                     <BasicTiles />
-                    </div>
-                    <div style={{ ...getDisplayOption(showAdvanced), margin: 'auto' }} > <AdvancedTiles /></div>
+
+                <div style={{ width: '300%', marginLeft: showBasic? 0 :showAdvanced? '-100%' : '-200%' }}>
+                    <Fade style={{ margin: 'auto' }} in={showBasic} element={<BasicTiles />}></Fade>
+                    <Fade style={{  margin: 'auto' }} in={showAdvanced} element={<AdvancedTiles />}></Fade>
+                    <Fade style={{  margin: 'auto' }} in={showFromImage} element={<PictureTiles />}></Fade>
+                    {         /*           <div style={{ ...getDisplayOption(showBasic), margin: 'auto' }} > 
+                     
+    </div>
+      <div style={{ ...getDisplayOption(showAdvanced), margin: 'auto' }} > <AdvancedTiles /></div>
                     <div style={{ ...getDisplayOption(showFromImage), margin: 'auto' }} > <PictureTiles /></div>
+    */}
+
                 </div>
             </div>
 

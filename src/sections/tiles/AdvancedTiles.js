@@ -1,7 +1,8 @@
-import React, { useContext, useState} from "react";
+import React, { useContext, useState } from "react";
 import HSLPaletteGenerator from "../../utilities/HSLPaletteGenerator";
 import { convertToBlind } from "../../utilities/BlindConversion";
 import { StoreContext } from '../../Store';
+import '../../animations.css'
 
 export default function AdvancedTiles(props) {
 
@@ -19,9 +20,8 @@ export default function AdvancedTiles(props) {
     let palette = new HSLPaletteGenerator(baseColor, hueChange, satChange, lightChange, hueStep, satStep, lightStep, numberOfColors).palette
 
     return (
-        <div style={{ display: 'table', alignItems: 'center', height: '100%', width: '100%' }} className='tiles-section'>
-            <div style={{ display: 'table-cell', verticalAlign: 'middle' }}>
-                <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center' }} >
+        <div className='tiles-section'>
+                <div className='tiles-section-cell' >
 
                     {palette.map((color, index) => {
                         let hex = color.HEXString
@@ -29,16 +29,12 @@ export default function AdvancedTiles(props) {
                         let colorKey = index + hex
                         let isSelected = selectedKey == colorKey
                         return <div key={colorKey} id={hex}
-                            className={"single-tile-basic " + (isSelected ? 'selected-tile' : '')}
-                            style={{
-                                background: blindedColor, padding: '5%', width: '10%', height: '10%',
-                                border: 'none'
-                            }}
+                            className={"advanced-tile single-tile-basic " + (isSelected ? 'selected-tile' : '')}
+                            style={{background: blindedColor}}
                             onClick={() => handleSelectColor(hex, colorKey)} />
                     }
                     )}
                 </div>
-            </div>
         </div >
 
     )

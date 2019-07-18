@@ -1,37 +1,22 @@
-import React, { Component } from "react";
-import { bindActionCreators } from "redux";
-import { connect } from "react-redux";
+import React, { useState, useContext, useEffect } from "react";
 import Color, { RGBtoHSL } from "../../utilities/Color";
-import { setPalettes } from "../../redux/PictureReducer";
+import { StoreContext } from '../../Store';
 
-
-let mapStateToProps = state => {
-  return { baseColor: state.BaseColorReducer.baseColor };
-};
-let mapDispatchToProps = dispatch => {
-  return bindActionCreators({ setPalettes }, dispatch);
-};
-
-class PictureFilters extends Component {
-  state = {
-    palette1: [],
-    palette2: [],
-    palette3: [],
-    palette4: [],
-    palette5: [],
-    palette6: [],
-    palette7: [],
-    palette8: [],
+export default function PictureFilters(props) {
+  const [state, setState] = useState({
     clickedColor: 0,
     image: "",
     imagePreviewUrl: "",
     generated: false
-  };
+  });
 
-  handleSubmit = e => {
+  const [storeState, dispatch] = useContext(StoreContext)
+  const setPicturePalettes = (value) => dispatch({ name: 'picturePalettes', value })
+
+  const handleSubmit = () => {
     //e.preventDefault();
     let img = new Image();
-    img.src = this.state.imagePreviewUrl;
+    img.src = state.imagePreviewUrl;
     img.onload = () => {
       let canvas = document.createElement("canvas");
       canvas.width = img.width;
@@ -131,49 +116,46 @@ class PictureFilters extends Component {
       let palette7 = extractColorsFunction2(arr48Colors2);
       let palette8 = extractColorsFunction2(arr72Colors2);
 
-      this.setState({ palette1, palette2, palette3, palette4, palette5, palette6, palette7, palette8, generated: true });
 
       let palettes = [palette1, palette2, palette3, palette4, palette5, palette6, palette7, palette8]
-      this.props.setPalettes(palettes)
+      setPicturePalettes(palettes)
     }
   };
-
-  handleImageChange = e => {
+  useEffect(() => {
+    handleSubmit();
+  }, [state])
+  const handleImageChange = e => {
     e.preventDefault();
     let reader = new FileReader();
     let file = e.target.files[0];
     reader.onloadend = (obj) => {
-      this.setState({ image: file, imagePreviewUrl: reader.result }, this.handleSubmit);
+      setState({ image: file, imagePreviewUrl: reader.result });
+      //handleSubmit()
     }
     reader.readAsDataURL(file);
   };
 
-  render() {
-    const { imagePreviewUrl } = this.state;
-    let $imagePreview = null;
-    if (imagePreviewUrl) {
-      $imagePreview = (
-        <img id="uploaded-image" src={imagePreviewUrl} style={{ maxHeight: '145pt' }} />);
-    }
-
-    return (
-      <div style={{ height: '100%' }}>
-        <div style={{ height: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'space-evenly' }}>
-          {$imagePreview}
-          <div>
-            <label htmlFor="upload-photo" style={{ cursor: 'pointer' }} className="upload-photo-label">
-              Upload image...
-            </label>
-            <input type="file" name="photo" id="upload-photo"
-              className='upload-image-input'
-              onChange={this.handleImageChange}
-            />
-          </div>
-
-        </div>
-      </div>
-    );
+  let $imagePreview = null;
+  if (state.imagePreviewUrl) {
+    $imagePreview = (
+      <img id="uploaded-image" src={state.imagePreviewUrl} style={{ maxHeight: '145pt' }} />);
   }
-}
 
-export default connect(mapStateToProps, mapDispatchToProps)(PictureFilters);
+  return (
+    <div style={{ height: '100%' }}>
+      <div style={{ height: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'space-evenly' }}>
+        {$imagePreview}
+        <div>
+          <label htmlFor="upload-photo" style={{ cursor: 'pointer' }} className="upload-photo-label">
+            Upload image...
+            </label>
+          <input type="file" name="photo" id="upload-photo"
+            className='upload-image-input'
+            onChange={handleImageChange}
+          />
+        </div>
+
+      </div>
+    </div>
+  );
+}
