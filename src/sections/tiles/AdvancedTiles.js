@@ -2,7 +2,6 @@ import React, { useContext, useState } from "react";
 import HSLPaletteGenerator from "../../utilities/HSLPaletteGenerator";
 import { convertToBlind } from "../../utilities/BlindConversion";
 import { StoreContext } from '../../Store';
-import '../../animations.css'
 
 export default function AdvancedTiles(props) {
 
@@ -21,20 +20,20 @@ export default function AdvancedTiles(props) {
 
     return (
         <div className='tiles-section'>
-                <div className='tiles-section-cell' >
+            <div className='tiles-section-cell' style={{ justifyContent: 'left' }}>
 
-                    {palette.map((color, index) => {
-                        let hex = color.HEXString
-                        let blindedColor = convertToBlind(color, blindness)
-                        let colorKey = index + hex
-                        let isSelected = selectedKey == colorKey
-                        return <div key={colorKey} id={hex}
-                            className={"advanced-tile single-tile-basic " + (isSelected ? 'selected-tile' : '')}
-                            style={{background: blindedColor}}
-                            onClick={() => handleSelectColor(hex, colorKey)} />
-                    }
-                    )}
-                </div>
+                {palette.map((color, index) => {
+                    let hex = color.HEXString
+                    let blindedColor = convertToBlind(color, blindness)
+                    let colorKey = index + hex
+                    let isSelected = selectedKey == colorKey
+                    return <div key={colorKey} id={hex}
+                        className={"advanced-tile single-tile-basic " + (isSelected ? 'selected-tile' : '')}
+                        style={{ background: blindedColor }}
+                        onClick={() => handleSelectColor(hex, colorKey)} />
+                }
+                )}
+            </div>
         </div >
 
     )

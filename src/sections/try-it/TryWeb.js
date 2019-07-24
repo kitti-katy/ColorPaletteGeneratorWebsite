@@ -72,7 +72,7 @@ export default function TryIt(props) {
             pushCurrentStateAndClearFuture()
             setComponentDidMount(true)
         }
-        
+
     });
 
 
@@ -246,17 +246,13 @@ export default function TryIt(props) {
                             onMouseOver={() => setHoverEffectInPalette(name)}
                             onMouseLeave={() => setHoverEffectInPalette(null)}
                             onClick={(e) => setColor(e, name)}
-                            style={{
-                                backgroundColor: bg_color
-                            }} />)
+                            style={{ backgroundColor: bg_color }} />)
                 }
                 )}
                 {texts.map((key, i) =>
                     <div className="applied-color" key={"bg_" + key + "_" + i}
                         onClick={(e) => setColor(e, key)}
-                        style={{
-                            backgroundColor: blindComponents[key]
-                        }}>
+                        style={{ backgroundColor: blindComponents[key] }}>
                         {}
                     </div>)}
             </div>

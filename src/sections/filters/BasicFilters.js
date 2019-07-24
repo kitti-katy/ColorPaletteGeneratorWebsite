@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import Slider from '@material-ui/core/Slider';
-import './Filters.css'
+import './Filters.scss'
 import SelectBaseColorButton from "../../components/SelectBaseColorButton";
 import { StoreContext } from '../../Store';
 import Typography from '@material-ui/core/Typography';

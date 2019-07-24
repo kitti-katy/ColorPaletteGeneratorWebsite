@@ -1,1 +1,0 @@
-export const borderStyle = '1px solid rgb(224, 224, 224)'

@@ -1,0 +1,29 @@
+$tile-bg: #cfcfdf;
+@keyframes pulse {
+  0% {
+    opacity: 0;
+  }
+
+  25% {
+    opacity: 50%;
+  }
+
+  50% {
+    opacity: 75%;
+  }
+}
+
+.item-enter {
+  opacity: 0;
+}
+.item-enter-active {
+  opacity: 1;
+  transition: opacity 5000ms ease-in;
+}
+.item-exit {
+  opacity: 1;
+}
+.item-exit-active {
+  opacity: 0;
+  transition: opacity 5000ms ease-in;
+}
