@@ -145,8 +145,6 @@ export default function BasicTiles(props) {
     let numberOfFractions = getRowHolderWidth(palette)
 
     return (
-
-        <div className='tiles-section'>
             <div className='tiles-section-cell'>
                 {palette.map((satArr, i1) =>
                     <div key={i1 + "l1"} style={{ border: 'solid 4px white', width: (100 / numberOfFractions) - 1 + '%' }}>
@@ -170,8 +168,6 @@ export default function BasicTiles(props) {
                     </div >
                 )}
             </div>
-        </div>
-
     );
 }
 

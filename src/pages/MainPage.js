@@ -35,7 +35,7 @@ export default function MainPage() {
             <div id='palette-container' >
                 <LeftActionsBar exportJSON={handleExportJSON_ButtonClick} />
 
-                <div className='tiles-wrapper' id='tiles-wrapper' style={{ width: '100%' }}>
+                <div className='tiles-section'>
                     <div style={{ ...getDisplayOption(showBasic), margin: 'auto' }} > <BasicTiles /></div>
                     <div style={{ ...getDisplayOption(showAdvanced), margin: 'auto' }} > <AdvancedTiles /></div>
                     <div style={{ ...getDisplayOption(showFromImage), margin: 'auto' }} > <PictureTiles /></div>

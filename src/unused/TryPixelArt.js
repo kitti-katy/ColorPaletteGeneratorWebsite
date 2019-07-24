@@ -1,9 +1,8 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import Color, { RGBtoHSL } from '../../utilities/Color';
-import { exportJSON } from '../../utilities/ExportJSON';
-import { changeColorsInPixelArray } from '../../utilities/ChangeColorsInPixelArray';
-import "./TryIt.scss"
+import Color, { RGBtoHSL } from '../utilities/Color';
+import { exportJSON } from '../utilities/ExportJSON';
+import { changeColorsInPixelArray } from '../utilities/ChangeColorsInPixelArray';
 import { Tooltip, Slider } from 'antd'
 import AutorenewIcon from '@material-ui/icons/Autorenew'
 import CloudDownloadIcon from '@material-ui/icons/CloudDownload'

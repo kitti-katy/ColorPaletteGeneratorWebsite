@@ -37,7 +37,7 @@ export default function PictureTiles(props) {
     selectColor(hexValue)
   }
   return (
-    <div className="tiles-section">
+    <div>
       {picturePalettes.length != 0 && (
         <div style={{ width: '100%', margin: 'auto' }}>
           <h1 style={{ textAlign: 'center' }}> By Hue </h1>

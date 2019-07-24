@@ -1,7 +1,6 @@
 import React, { useState, useContext, useEffect } from "react";
 import Color from '../../utilities/Color'
 import { exportJSON } from '../../utilities/ExportJSON';
-import "./TryIt.scss"
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import CloudDownloadIcon from '@material-ui/icons/CloudDownload'

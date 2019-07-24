@@ -1,8 +1,8 @@
 import React, { useState, useContext, useEffect } from "react";
 import Color from '../../utilities/Color'
 import { exportJSON } from '../../utilities/ExportJSON';
-import "./TryIt.scss"
-import { Tooltip, Slider } from 'antd'
+import { Tooltip } from 'antd'
+import Slider from '@material-ui/core/Slider';
 import AutorenewIcon from '@material-ui/icons/Autorenew'
 import CloudDownloadIcon from '@material-ui/icons/CloudDownload'
 import UndoIcon from '@material-ui/icons/Undo'
@@ -11,7 +11,7 @@ import IconButton from '@material-ui/core/IconButton';
 import * as _ from 'lodash'
 import { StoreContext } from '../../Store';
 
-const getInitialGradientColors = () => (["#4dd1f9","#c9f1fd","#c9c9fd","#020345"])
+const getInitialGradientColors = () => (["#4dd1f9", "#c9f1fd", "#c9c9fd", "#020345"])
 
 
 export default function TryItGradient(props) {
@@ -62,7 +62,7 @@ export default function TryItGradient(props) {
 
     const reset = (e) => { e.stopPropagation(); pushCurrentStateToHistory(); setGradientColors(getInitialGradientColors); setNumberOfColors(4) }
 
-    const handleNumberOfColorsInputChange = (n) => {
+    const handleNumberOfColorsInputChange = (e, n) => {
         let oldN = numberOfColors
         let newGradientColors = Array.from(gradientColors)
         if (n > oldN)
@@ -152,7 +152,7 @@ export default function TryItGradient(props) {
             </div>
 
             <div >
-                <Slider className="slider-input gradient-slider" style={{ width: '100%' }} min={2} max={8} onChange={handleNumberOfColorsInputChange} value={numberOfColors} />
+                <Slider className="slider-input gradient-slider" style={{ width: '100%' }} min={2} max={8} onChange={handleNumberOfColorsInputChange} value={numberOfColors} tooltipVisible />
             </div>
 
             <div className="applied-colors-container">

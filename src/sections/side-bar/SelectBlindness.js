@@ -13,7 +13,7 @@ export default function SelectBlindness(props) {
 
     return (
         <FormControl style={{ minWidth: 150 }}>
-            <InputLabel htmlFor="age-simple">Color Blindness</InputLabel>
+            <InputLabel>Color Blindness</InputLabel>
             <Select
                 value={blindness}
                 onChange={handleChange}

@@ -19,7 +19,6 @@ export default function AdvancedTiles(props) {
     let palette = new HSLPaletteGenerator(baseColor, hueChange, satChange, lightChange, hueStep, satStep, lightStep, numberOfColors).palette
 
     return (
-        <div className='tiles-section'>
             <div className='tiles-section-cell' style={{ justifyContent: 'left' }}>
 
                 {palette.map((color, index) => {
@@ -34,8 +33,6 @@ export default function AdvancedTiles(props) {
                 }
                 )}
             </div>
-        </div >
-
     )
 }
 

@@ -1,4 +1,5 @@
-@import "../../variables";
+@import "./variables";
+
 .applied-color {
   height: $padding-l2;
   margin-top: auto;
@@ -57,15 +58,6 @@
 .try-web > div {
   width: 83%; //62%;
 }
-.try-right {
-  display: flex;
-  justify-content: space-between;
-  line-height: 1;
-}
-
-.try-left > div {
-  margin-bottom: $padding-l2;
-}
 .try-actions-container {
   display: flex;
   width: 63%;
@@ -117,12 +109,6 @@ button[id^="try-"] {
   padding-left: $padding-l3;
   padding-right: $padding-l3;
   border-radius: 4px;
-}
-.applied-colors-header {
-  margin-top: $padding-l2;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
 }
 
 .gradient-slider {

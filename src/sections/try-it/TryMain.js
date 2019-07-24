@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 import TryItGradient from "./TryItGradient";
 import TryWeb from "./TryWeb";
-//import TryPixelArt from "./TryPixelArt";
-
 
 const switchers = [
     {
@@ -10,11 +8,8 @@ const switchers = [
     },
     {
         label: 'GRADIENT', component: () => <TryItGradient />
-    },
-    /*
-    {
-        label: 'PIXEL ART', component: () => <TryPixelArt />
-    }*/]
+    }
+]
 
 
 export default function TryMain(props) {

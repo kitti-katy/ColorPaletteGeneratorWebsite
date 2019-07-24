@@ -142,19 +142,16 @@ export default function PictureFilters(props) {
   }
 
   return (
-    <div style={{ height: '100%' }}>
-      <div style={{ height: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'space-evenly' }}>
-        {$imagePreview}
-        <div>
-          <label htmlFor="upload-photo" style={{ cursor: 'pointer' }} className="upload-photo-label">
-            Upload image...
+    <div style={{ height: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'space-evenly' }}>
+      {$imagePreview}
+      <div>
+        <label htmlFor="upload-photo" className="upload-photo-label">
+          Upload image...
             </label>
-          <input type="file" name="photo" id="upload-photo"
-            className='upload-image-input'
-            onChange={handleImageChange}
-          />
-        </div>
-
+        <input type="file" name="photo" id="upload-photo"
+          className='upload-image-input'
+          onChange={handleImageChange}
+        />
       </div>
     </div>
   );

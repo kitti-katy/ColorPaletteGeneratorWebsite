@@ -3,6 +3,8 @@
 @import "~@blueprintjs/icons/lib/css/blueprint-icons.css";
 @import "./variables";
 @import "./medias";
+@import "./Filters";
+@import "./TryIt";
 
 .react-swipeable-view-container {
   height: 100%;
@@ -150,6 +152,7 @@ code {
   padding-right: $padding-l1;
   padding-top: $padding-l3;
   padding-bottom: $padding-l3;
+  cursor: pointer;
 }
 
 .upload-image-input {
@@ -284,102 +287,4 @@ code {
 }
 .export-json-btn:hover {
   @include btn-icon-color-hover;
-}
-
-.tiles-holder {
-}
-
-$ant-slider-box-shadow-1: inset 0 0 0 1px rgba(16, 22, 26, 0.2), inset 0 -1px 0 rgba(16, 22, 26, 0.1);
-$ant-slider-box-shadow-2: 0 0 0 1px rgba(16, 22, 26, 0.2), 0 1px 1px rgba(16, 22, 26, 0.2);
-.ant-slider-rail {
-  background-color: #ededed;
-}
-
-.ant-slider-track {
-  background: transparent;
-}
-.ant-slider-step {
-  border: none;
-  border-radius: 50%;
-}
-
-.ant-slider-handle:hover {
-  background-color: #394b59;
-}
-
-.ant-slider-handle:hover {
-  box-shadow: 0 0 0 1px rgba(16, 22, 26, 0.4);
-  background-color: #30404d;
-}
-.ant-slider-handle-white {
-  box-shadow: $ant-slider-box-shadow-1;
-  background-color: #f5f8fa;
-  background-image: -webkit-gradient(
-    linear,
-    left top,
-    left bottom,
-    from(hsla(0, 0%, 100%, 0.8)),
-    to(hsla(0, 0%, 100%, 0))
-  );
-  background-image: linear-gradient(180deg, hsla(0, 0%, 100%, 0.8), hsla(0, 0%, 100%, 0));
-  color: #182026;
-}
-.ant-slider-handle:hover {
-  box-shadow: $ant-slider-box-shadow-1;
-  background-clip: padding-box;
-  background-color: #ebf1f5;
-  z-index: 2;
-  box-shadow: $ant-slider-box-shadow-2;
-  cursor: -webkit-grab;
-  cursor: grab;
-}
-.ant-slider-handle {
-}
-
-.ant-slider-handle {
-  background-color: white;
-  background-image: -webkit-gradient(
-    linear,
-    left top,
-    left bottom,
-    from(hsla(0, 0%, 100%, 0.05)),
-    to(hsla(0, 0%, 100%, 0))
-  );
-  background-image: linear-gradient(180deg, hsla(0, 0%, 100%, 0.05), hsla(0, 0%, 100%, 0));
-  color: #f5f8fa;
-  position: absolute;
-  left: 0;
-  border-radius: 3px;
-  box-shadow: $ant-slider-box-shadow-2;
-  cursor: pointer;
-  width: 16px;
-  height: 16px;
-  border: none;
-}
-
-.ant-slider-handle:focus {
-  border: none;
-  box-shadow: $ant-slider-box-shadow-2;
-}
-.ant-slider {
-  margin: 0 !important;
-}
-
-.ant-slider-dot-active {
-  box-shadow: $ant-slider-box-shadow-2;
-  border: none;
-}
-
-.ant-slider-dot {
-  box-shadow: $ant-slider-box-shadow-2;
-  border: none;
-  background-color: rgb(249, 250, 251);
-  background-image: linear-gradient(180deg, hsla(0, 0%, 100%, 0.05), hsla(0, 0%, 100%, 0));
-}
-
-.ant-slider-mark-text-active {
-}
-.ant-slider-mark-text {
-  color: $darkerColor2;
-  font-size: ms(-2);
 }

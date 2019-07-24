@@ -16,7 +16,7 @@ export const SelectedColorPanel = (props) => {
     return (
         <ClipboardCopier value={selectedColor} >
             <div className="selected-color-panel" style={{ backgroundColor: selectedColor, color: selectedColorFont }}>
-                <label>{selectedColor}   </label>
+                <label> {selectedColor} </label>
             </div>
         </ClipboardCopier >
     )
