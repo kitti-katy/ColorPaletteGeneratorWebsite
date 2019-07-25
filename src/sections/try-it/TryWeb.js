@@ -163,8 +163,6 @@ export default function TryIt(props) {
         newColors[compName] = selected
         setComponents(newColors)
     }
-    // selectedColor when passed from a compononent
-    //const getSelectedColor = () => selectedColor != null ? selectedColor : selected
 
     const getTryButton = (component, id, background, font, text) =>
         <Button style={{ backgroundColor: background, color: font }} variant="contained" className='try-button' size='small'

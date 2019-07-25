@@ -1,6 +1,4 @@
-
 import React, { Component } from "react";
-import Color from "../../utilities/Color";
 import { drawHueCanvas, drawSaturationCanvas, getColorFromSaturationCanvas, getColorFromHueCanvas, getScaledHueWidth } from './CanvasFunctions'
 
 class ColorPickerCanvas extends Component {
@@ -13,25 +11,21 @@ class ColorPickerCanvas extends Component {
         pickerCirclePositionX: 0,
         pickerCirclePositionY: 0,
         saturationRectPositionY: 0,
-
-        selectedColor: new Color('#edb407', 0, 0, 'Hex'),
-        hexValue: 'edb407'
     };
     componentDidMount = () => {
         drawHueCanvas(this.props.baseColor);
         drawSaturationCanvas(this.props.baseColor);
-        window.addEventListener("mouseup", this.onWindowMouseUp, false);
-        document.getElementById('canvases-container').addEventListener("mouseup", this.onWindowMouseUp, false);
-        window.addEventListener("resize", () => drawSaturationCanvas(this.state.selectedColor));
-        window.addEventListener("resize", () => drawHueCanvas(this.state.selectedColor));
-        window.addEventListener("mousemove", this.onWindowMouseMove)
+        window.addEventListener("mouseup", this.onWindowMouseUp);
+        window.addEventListener("resize", this.redrawCanvaseOnResize);
+        
     }
+    redrawCanvaseOnResize = () => {
+         drawSaturationCanvas(this.props.baseColor)
+         drawHueCanvas(this.props.baseColor)
+        }
     componentWillUnmount() {
-        window.removeEventListener("resize", this.drawSaturationCanvas);
-        window.removeEventListener("resize", this.drawHueCanvas);
+        window.removeEventListener("resize", this.redrawCanvaseOnResize);
         window.removeEventListener("mouseup", this.onWindowMouseUp);
-        window.removeEventListener("mousemove", this.onWindowMouseMove);
-        //document.getElementById('canvases-container').removeEventListener("mouseup", this.onWindowMouseUp);
     }
 
     enableColorChange = () => this.setState({ allowClrChange: true });
@@ -43,6 +37,7 @@ class ColorPickerCanvas extends Component {
         this.enableColorChange();
         this.setColorFromMainCanvas(evt.clientX, evt.clientY);
         this.makeAllUnselectable()
+        window.addEventListener("mousemove", this.onWindowMouseMove)
     };
     handleMouseMoveMainCanvas = evt => {
         if (this.state.mouseDownMainCanvas && this.state.allowClrChange)
@@ -53,7 +48,6 @@ class ColorPickerCanvas extends Component {
 
     setColorFromMainCanvas = (clientX, clientY) => {
         let color = getColorFromHueCanvas(clientX, clientY, this.props.baseColor)
-        this.setState({ selectedColor: color })
         this.props.onChange(color);
         drawSaturationCanvas(color);
         this.props.setHexInput(color.HEXString.substring(1))
@@ -66,6 +60,7 @@ class ColorPickerCanvas extends Component {
         this.enableColorChange();
         this.setColorFromSatCanvas(evt.clientY);
         this.makeAllUnselectable()
+        window.addEventListener("mousemove", this.onWindowMouseMove)
     };
     handleMouseMoveSatCanvas = evt => {
         if (this.state.mouseDownSatCanvas && this.state.allowClrChange)
@@ -77,7 +72,6 @@ class ColorPickerCanvas extends Component {
     setColorFromSatCanvas = clientY => {
         let color = getColorFromSaturationCanvas(clientY, this.props.baseColor)
         this.props.onChange(color);
-        this.setState({ selectedColor: color })
         drawHueCanvas(color);
         this.props.setHexInput(color.HEXString.substring(1))
     };
@@ -106,14 +100,13 @@ class ColorPickerCanvas extends Component {
             this.setMouseDownToFalse()
             this.setSatMouseDownToFalse()
             this.disableColorChange()
+            window.removeEventListener("mousemove", this.onWindowMouseMove);
         }
     }
 
-
-
     render() {
         let baseColor = this.props.baseColor;
-        const { hue, sat, light } = baseColor.hsl
+        const {  light } = baseColor.hsl
         let hexString = baseColor.HEXString;
 
         return (

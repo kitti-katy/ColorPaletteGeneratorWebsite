@@ -2,8 +2,6 @@ import React, { useState, useContext } from "react";
 import { getAdvancedPalette } from "../../utilities/HSLPaletteGenerator";
 import { convertToBlind } from "../../utilities/BlindConversion";
 import { StoreContext } from '../../Store';
-import { Fade } from "@material-ui/core";
-
 
 const getPadding = (palette) => {
     let horizontal = palette[0][0].length

@@ -2,14 +2,11 @@ import React from "react";
 import ReactDOM from "react-dom";
 import 'antd/dist/antd.css';
 import "./scss/styles.scss";
-import {App} from "./App";
+import { App } from "./App";
 import * as serviceWorker from "./serviceWorker";
-import { BrowserRouter } from "react-router-dom";
 
 ReactDOM.render(
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
+  <App />
   ,
   document.getElementById("root")
 );

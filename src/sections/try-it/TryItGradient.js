@@ -103,6 +103,8 @@ export default function TryItGradient(props) {
             setHistoryStack(newHistoryStack)
         }
     }
+
+    
     const clearFutureStack = () =>
         setFutureStack([])
 
@@ -118,7 +120,7 @@ export default function TryItGradient(props) {
     }
     const setCurrentStateFromHistory = () => {
         let newHistoryStack = Array.from(historyStack)
-        let newGradientColors = historyStack.pop()
+        let newGradientColors = newHistoryStack.pop()
         setHistoryStack(newHistoryStack)
         setGradientColors(newGradientColors)
     }

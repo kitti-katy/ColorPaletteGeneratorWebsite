@@ -6,6 +6,7 @@
     "@blueprintjs/core": "^3.13.0",
     "@material-ui/core": "^4.2.0",
     "@material-ui/icons": "^3.0.1",
+    "antd": "^3.20.6",
     "modularscale-sass": "^3.0.8",
     "node-sass": "^4.11.0",
     "npm": "^6.4.1",
