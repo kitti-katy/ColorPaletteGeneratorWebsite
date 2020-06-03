@@ -1,6 +1,7 @@
 import React, { useState, useContext, useEffect } from "react";
 import Color, { RGBtoHSL } from "../../utilities/Color";
 import { StoreContext } from '../../Store';
+import {quantiziedPalette} from "../../utilities/PaletteFromPictureFunc"
 
 export default function PictureFilters(props) {
   const [state, setState] = useState({
@@ -12,6 +13,7 @@ export default function PictureFilters(props) {
 
   const [storeState, dispatch] = useContext(StoreContext)
   const setPicturePalettes = (value) => dispatch({ name: 'picturePalettes', value })
+  const setPicturePalettesQuantized = (value) => dispatch({ name: 'picturePalettesQuantized', value })
 
   const handleSubmit = () => {
     //e.preventDefault();
@@ -24,6 +26,13 @@ export default function PictureFilters(props) {
       let ctx = canvas.getContext("2d");
       ctx.drawImage(img, 0, 0);
       let pixelArray = ctx.getImageData(0, 0, img.width, img.height).data;
+      let arr = []
+      for (let i = 0; i<pixelArray.length/3; i++){
+        arr.push([pixelArray[i*3 + 0], pixelArray[i*3 + 1], pixelArray[i*3 + 2]])
+      }
+      let q = quantiziedPalette
+      setPicturePalettesQuantized([q(arr, 4),q(arr, 8),q(arr, 10), q(arr, 12), q(arr, 16), q(arr, 24), q(arr, 36), q(arr, 62)])
+      
 
       // By Hue Version
       let pushVersion1Function = (arr, n) => { for (var i = 0; i < n; i++) { arr.push({ totalHue: 0, totalSat: 0, totalLight: 0, number: 0 }); } };
@@ -130,7 +139,6 @@ export default function PictureFilters(props) {
     let file = e.target.files[0];
     reader.onloadend = (obj) => {
       setState({ image: file, imagePreviewUrl: reader.result });
-      //handleSubmit()
     }
     reader.readAsDataURL(file);
   };

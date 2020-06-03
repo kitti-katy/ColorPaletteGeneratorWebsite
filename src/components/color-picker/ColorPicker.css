@@ -1,14 +1,15 @@
-#color-picker{ 
+
+*[id*='color-picker']{ 
     width: min-content;
     margin: auto;
 }
 
-#canvases-container{
+*[id*='canvases-container']{
     display: flex;
     margin-bottom: 16px;
 }
 
-#saturationCircle{
+*[id*='saturationCircle']{
     position: absolute;
     display: inline; 
     margin-left: -5.5px; 
@@ -19,7 +20,7 @@
     pointer-events: none;
 }
 
-#pickerCircle{
+*[id*='pickerCircle']{
     width: 16px;
     height: 16px; 
     border: 1px solid; 
@@ -29,7 +30,7 @@
     pointer-events: none;
 }
 
-#main-canvas-color-picker{
+*[id*='main-canvas-color-picker']{
     display: inline; 
     position: relative; 
     float: left;
@@ -37,7 +38,7 @@
     border-radius: 2%;
 }
 
-#saturation-canvas-color-picker{ 
+*[id*='saturation-canvas-color-picker']{ 
     display: inline; 
     margin-right: 7px; 
     border: 1px solid #0000001c;
@@ -60,23 +61,24 @@
     vertical-align: middle;
 }
 
-#picked-color{ 
+*[id*='picked-color']{ 
     padding: 1.8em 4.8em; 
     display: inline-block; 
     border-radius: 1%; 
     margin-bottom: 16px; 
 }
 
-#hex-intput{ 
+*[id*='hex-intput']{ 
     display: inline-block; 
 }
-#hex-intput-txt-box{ 
+
+*[id*='hex-intput-txt-box']{ 
    width: 82px;
    margin-left: 2px; 
    height: 1.4em;
 }
 
-#color-inputs-container{
+*[id*='color-inputs-container']{
     display: flex;
     justify-content: space-between;
 }

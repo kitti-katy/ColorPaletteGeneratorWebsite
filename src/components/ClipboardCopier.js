@@ -8,7 +8,7 @@ message.config({
 });
 
 export const ClipboardCopier = (props) => (
-  <CopyToClipboard text={props.value} onCopy={() => message.success(props.value + ' copied to clipboard', 1)}>
+  <CopyToClipboard text={props.value} onCopy={() => message.success((props.value.length > 40 ? props.value.substring(0, 40) + '...' : props.value) + ' copied to clipboard', 1)}>
     <span style={{ cursor: 'pointer' }}>
       {props.children}
     </span>

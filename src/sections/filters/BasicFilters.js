@@ -34,7 +34,7 @@ export default function BasicTiles(props) {
             {getSliderInput(satSplit, 'Saturations', 'satSplit', satDividers)}
             {getSliderInput(lightSplit, 'Lights', 'lightSplit', lightDividers)}
 
-            {/* NEED THIS TO AVOID COLOR PICKER GLITCH */}
+            {/* NEED THIS CHECK TO AVOID COLOR PICKER GLITCH */}
             {filterMode == 'BASIC' && <SelectBaseColorButton />}
         </div>
     );

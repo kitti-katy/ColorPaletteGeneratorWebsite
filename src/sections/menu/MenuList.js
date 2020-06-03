@@ -9,7 +9,10 @@ import Link from '@material-ui/core/Link';
 import { Icon } from 'antd'
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
-
+/*import Modal from '@material-ui/core/Modal';
+import Paper from '@material-ui/core/Paper';
+import { CookiePolicy } from "../../components/descriptions/CookiePolicy";
+*/
 export default function MenuList(props) {
 
     const [state, setState] = useState({
@@ -60,6 +63,7 @@ export default function MenuList(props) {
             <Drawer open={state.left} onClose={toggleDrawer('left', false)}>
                 {sideList('left')}
             </Drawer>
+
         </div>
     );
 }

@@ -2,6 +2,9 @@ import React, { useState, useContext } from "react";
 import { getAdvancedPalette } from "../../utilities/HSLPaletteGenerator";
 import { convertToBlind } from "../../utilities/BlindConversion";
 import { StoreContext } from '../../Store';
+import CheckIcon from '@material-ui/icons/Check';
+import SelectColorHeader from "../../components/SelectColorHeader";
+
 
 const getPadding = (palette) => {
     let horizontal = palette[0][0].length
@@ -123,19 +126,35 @@ const getRowHolderWidth = (palette) => {
     return 2
 }
 
-
 export default function BasicTiles(props) {
 
     const [state, dispatch] = useContext(StoreContext)
     const [selectedKey, setSelectedKey] = useState('');
-    const { hueSplit, satSplit, lightSplit, baseColor, blindness, filterMode } = state
+    const { hueSplit, satSplit, lightSplit, baseColor, blindness, selectionOn, colorsSelectedToExport } = state
     const selectColor = (color) => dispatch({ name: 'selected', value: color })
+    const set = (name, value) => dispatch({ name, value })
+
 
 
     // TILES PART
     let handleSelectColor = (hexValue, selectedKey) => {
+        if (selectionOn)
+        {
+            console.log(hexValue)
+            console.log(selectedKey)
+            if(colorsSelectedToExport.has(selectedKey))
+                colorsSelectedToExport.delete(selectedKey)
+            else
+                colorsSelectedToExport.add(selectedKey)
+            console.log(colorsSelectedToExport)
+            set('colorsSelectedToExport', colorsSelectedToExport)
+            
+        }
+        else{
         setSelectedKey(selectedKey)
         selectColor(hexValue)
+    }
+
     }
 
     let palette = getAdvancedPalette(baseColor, hueSplit, satSplit, lightSplit, 'h', 's', 'l', 0, 0)
@@ -144,6 +163,9 @@ export default function BasicTiles(props) {
 
     return (
             <div className='tiles-section-cell'>
+                {!props.animationOn && <SelectColorHeader/>}
+                 
+
                 {palette.map((satArr, i1) =>
                     <div key={i1 + "l1"} style={{ border: 'solid 4px white', width: (100 / numberOfFractions) - 1 + '%' }}>
 
@@ -153,11 +175,18 @@ export default function BasicTiles(props) {
                                     let color = lightColor.HEXString
                                     let blindedColor = convertToBlind(lightColor, blindness)
                                     let colorKey = i1 + '' + i2 + '' + i3 + color
-                                    let isSelected = selectedKey == colorKey
+                                    let isSelected = selectedKey == colorKey && !selectionOn
                                     return <div key={colorKey} id={color}
+
                                         className={"single-tile-basic " + (isSelected ? 'selected-tile' : '')}
-                                        style={{ background: blindedColor, padding: tilePadding + '%', width: tilePadding * 2 + '%', height: tilePadding * 2 + '%' }}
-                                        onClick={() => handleSelectColor(color, colorKey)} />
+                                        style={{ background: blindedColor, padding: tilePadding + '%', width: tilePadding * 2 + '%', height: tilePadding * 2   + '%', 
+                                        position: 'relative'}}
+                                        onClick={() => handleSelectColor(color, colorKey)} >
+                                            {colorsSelectedToExport.has(colorKey) && selectionOn && 
+                                            <CheckIcon
+                                            style={{position:'absolute', height: tilePadding*4+'%', width: tilePadding*4+'%',
+                                        left: 0, top: 0, height: '100%',width: '100%', color: lightColor.hsl.light > 40 ? 'rgb(33, 33, 33)' : 'white'}}/>} 
+                                            </div>
 
                                 }
                                 )}

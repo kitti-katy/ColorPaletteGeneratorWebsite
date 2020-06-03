@@ -5,6 +5,7 @@
 @import "./medias";
 @import "./Filters";
 @import "./TryIt";
+@import "./mixins.scss";
 
 .react-swipeable-view-container {
   height: 100%;
@@ -82,6 +83,12 @@ code {
   grid-template-rows: 11% 89%;
   //background-color: $lightestColor
 }
+.mixer-filters{
+  grid-template-rows: 7% 93%;
+}
+.mixer-holder{
+ // grid-template-rows: 100% !important;
+}
 .filters-long-part {
   display: grid;
   height: 100%;
@@ -91,6 +98,12 @@ code {
 .selected-mode {
   //background: white !important;
   background-color: $lightestColor !important;
+}
+.select-mode-table > div > div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
 }
 .select-mode-table > div {
   @include align-inner-element-center-vertically;
@@ -123,14 +136,11 @@ code {
 }
 // HSL FILTERS
 .filters {
-  display: flex;
-  flex-direction: column;
-  margin-top: auto;
-  margin-bottom: auto;
-  margin: auto;
-  width: 83%;
-  height: 100%;
-  justify-content: center;
+  @include filters-flex();
+}
+.filters-deep-learning {
+  @include filters-flex();
+  justify-content: space-evenly;
 }
 .filters > div {
   font-size: ms(0);
@@ -183,8 +193,51 @@ code {
   font-weight: 500;
 }
 
+//EXPORT DIALOGUE
+.export-dialogue{
+}
+.tiles-dialogue{
+  display: flex;
+  flex-wrap: wrap;
+  align-content: center;
+  justify-content: center;
+}
+.select-color-to-export-header{
+  width: 100%;
+  padding-left: 12px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 6px !important;
+}
+.dialogue-color-values{
+  padding-top: $padding-l2 !important;
+  padding-bottom: $padding-l2 !important;
+  width: 100%;
+}
+#dialogue-group-container{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-right: 12px;
+}
+.dialogue-color-format-button{
+  background: $lighterColor2 !important;
+}
+.dialogue-color-format-button-selected{
+  background: $lightestColor !important;
+}
+.copy-download-buttons{
+  display: flex;
+  justify-content: space-evenly;
+  width: 100%;
+}
+.color-formats-group{
+  margin-bottom: $padding-l2;
+}
 // TILES
-
 #palette-container {
   border-right: $borderStyle;
   border-top: $borderStyle;
@@ -196,7 +249,8 @@ code {
   height: -webkit-fill-available;
   overflow: auto;
   display: flex;
-  align-items: center;
+  flex-direction: column;
+  align-items: baseline;
 }
 #tiles-holder {
   width: 100%;
@@ -287,4 +341,40 @@ code {
 }
 .export-json-btn:hover {
   @include btn-icon-color-hover;
+}
+
+/* CLIPBOARD COPIER */
+.ant-message{
+  z-index: 9999999 !important;
+}
+
+.sidebar-button{
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  cursor: pointer;
+}
+.sidebar-button>*{
+  cursor: pointer;
+}
+
+/* ANIMATION */
+.animation-holder{
+  width: 400px;
+  height: 423px;
+  border: $borderStyle;
+  margin: auto;
+  padding: 12px;
+  padding-top: 18px;
+  border-width: 5px;
+}
+.animation-holder > *{
+  pointer-events: none !important;
+}
+.landing-page-holder{
+  width: 62%;
+  margin: auto;
+  display: grid;
+  grid-template-columns: 38% 62%;
+  height: 100%;
 }

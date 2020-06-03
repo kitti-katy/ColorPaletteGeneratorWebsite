@@ -13,15 +13,15 @@ class ColorPickerCanvas extends Component {
         saturationRectPositionY: 0,
     };
     componentDidMount = () => {
-        drawHueCanvas(this.props.baseColor);
-        drawSaturationCanvas(this.props.baseColor);
+        drawHueCanvas(this.props.baseColor, this.props.id);
+        drawSaturationCanvas(this.props.baseColor, this.props.id);
         window.addEventListener("mouseup", this.onWindowMouseUp);
         window.addEventListener("resize", this.redrawCanvaseOnResize);
         
     }
     redrawCanvaseOnResize = () => {
-         drawSaturationCanvas(this.props.baseColor)
-         drawHueCanvas(this.props.baseColor)
+         drawSaturationCanvas(this.props.baseColor, this.props.id)
+         drawHueCanvas(this.props.baseColor, this.props.id)
         }
     componentWillUnmount() {
         window.removeEventListener("resize", this.redrawCanvaseOnResize);
@@ -47,9 +47,9 @@ class ColorPickerCanvas extends Component {
     setMouseDownToFalse = () => this.setState({ mouseDownMainCanvas: false });
 
     setColorFromMainCanvas = (clientX, clientY) => {
-        let color = getColorFromHueCanvas(clientX, clientY, this.props.baseColor)
+        let color = getColorFromHueCanvas(clientX, clientY, this.props.baseColor, this.props.id)
         this.props.onChange(color);
-        drawSaturationCanvas(color);
+        drawSaturationCanvas(color, this.props.id);
         this.props.setHexInput(color.HEXString.substring(1))
     };
 
@@ -70,20 +70,20 @@ class ColorPickerCanvas extends Component {
     setSatMouseDownToFalse = () => this.setState({ mouseDownSatCanvas: false });
 
     setColorFromSatCanvas = clientY => {
-        let color = getColorFromSaturationCanvas(clientY, this.props.baseColor)
+        let color = getColorFromSaturationCanvas(clientY, this.props.baseColor, this.props.id)
         this.props.onChange(color);
-        drawHueCanvas(color);
+        drawHueCanvas(color, this.props.id);
         this.props.setHexInput(color.HEXString.substring(1))
     };
 
     // Window Events
     makeAllUnselectable = () => {
         window.document.body.className = window.document.body.className + ' unselectable'
-        document.getElementById('canvases-container').className = document.getElementById('canvases-container').className + ' unselectable'
+        document.getElementById('canvases-container'+this.props.id).className = document.getElementById('canvases-container'+this.props.id).className + ' unselectable'
     }
     makeAllSelectable = () => {
         window.document.body.className = window.document.body.className.replace('unselectable', '');
-        document.getElementById('canvases-container').className = document.getElementById('canvases-container').className.replace('unselectable', '');
+        document.getElementById('canvases-container'+this.props.id).className = document.getElementById('canvases-container'+this.props.id).className.replace('unselectable', '');
     }
     onWindowMouseMove = (evt) => {
         if (this.state.mouseDownMainCanvas && this.state.allowClrChange) {
@@ -110,10 +110,10 @@ class ColorPickerCanvas extends Component {
         let hexString = baseColor.HEXString;
 
         return (
-            <div id="canvases-container">
+            <div id={"canvases-container"+this.props.id}>
                 <div>
-                    <div id="pickerCircle" style={{ borderColor: light > 50 ? "#757575" : "white", backgroundColor: hexString }} />
-                        <canvas height="200" width={getScaledHueWidth()} id="main-canvas-color-picker"
+                    <div id={"pickerCircle"+this.props.id} style={{ borderColor: light > 50 ? "#757575" : "white", backgroundColor: hexString }} />
+                        <canvas height="200" width={getScaledHueWidth()} id={"main-canvas-color-picker"+this.props.id}
                             onMouseDown={this.handleMouseDownMainCanvas} onMouseMove={this.handleMouseMoveMainCanvas}
                             onMouseEnter={this.enableColorChange}  />
                 </div>
@@ -121,8 +121,8 @@ class ColorPickerCanvas extends Component {
                 <div style={{ marginLeft: "10px" }}
                     onMouseDown={this.handleMouseDownSatCanvas} onMouseMove={this.handleMouseMoveSatCanvas}
                     onMouseEnter={this.enableColorChange}>
-                    <div id="saturationCircle" style={{ backgroundColor: hexString}} />
-                    <canvas id="saturation-canvas-color-picker" height="200" width="10" />
+                    <div id={"saturationCircle"+this.props.id} style={{ backgroundColor: hexString}} />
+                    <canvas id={"saturation-canvas-color-picker"+this.props.id} height="200" width="10" />
                 </div>
 
             </div>

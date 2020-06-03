@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { ClipboardCopier } from '../../components/ClipboardCopier'
 import Color from "../../utilities/Color";
-import { Icon } from "@blueprintjs/core";
+import FileCopyIcon from '@material-ui/icons/FileCopy';
 
 import { StoreContext } from '../../Store';
 
@@ -16,7 +16,7 @@ export const SelectedColorPanel = (props) => {
     return (
         <ClipboardCopier value={selectedColor} >
             <div className="selected-color-panel" style={{ backgroundColor: selectedColor, color: selectedColorFont }}>
-                <label> {selectedColor} </label>
+                <label className='sidebar-button'> <FileCopyIcon fontSize='small'/> <span>{selectedColor}</span> </label>
             </div>
         </ClipboardCopier >
     )

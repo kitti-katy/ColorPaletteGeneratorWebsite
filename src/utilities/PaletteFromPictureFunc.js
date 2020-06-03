@@ -1,6 +1,7 @@
 
 import Color from "./Color"
-
+import * as skmeans  from "skmeans"
+/*
 let getColorArrFromPixelArr = (pixelArray) => {
   let colors = []
   for (let i = 0; i < pixelArray.length - 4; i += 4) {
@@ -70,4 +71,11 @@ export let getPaletteFromPicture = (pixelArray, hueSplitter, satSplitter, lightS
   let hueSatLightSlicedColors = hueSatSlicedColors.map( satArr => satArr.map(arr=> throwHueSatIntoLightArr(hueSatSlicedColors, lightSliceSize, lightSplitter) ) )
 
   return hueSatLightSlicedColors;
+}
+*/
+export let quantiziedPalette = (arrayOfPixels, maximumColorCount) => {
+  let palette = skmeans(arrayOfPixels,maximumColorCount).centroids
+  palette = palette.map(arr => [parseInt(arr[0]), parseInt(arr[1]), parseInt(arr[2])] )
+  console.log(palette)
+  return palette.map(rgb => new Color(rgb[0], rgb[1], rgb[2], "RGB"))
 }

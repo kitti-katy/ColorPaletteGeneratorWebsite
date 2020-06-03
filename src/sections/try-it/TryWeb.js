@@ -3,7 +3,7 @@ import Color from '../../utilities/Color'
 import { exportJSON } from '../../utilities/ExportJSON';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
-import CloudDownloadIcon from '@material-ui/icons/CloudDownload'
+import GetAppIcon from '@material-ui/icons/GetApp'
 import UndoIcon from '@material-ui/icons/Undo'
 import RedoIcon from '@material-ui/icons/Redo'
 import VisibilityIcon from '@material-ui/icons/Visibility'
@@ -200,16 +200,17 @@ export default function TryIt(props) {
                 <CardHeader
                     onClick={(e) => setColor(e, 'titleBackground')}
                     title={
-                        <span id="try-title" style={{ color: title }} onClick={(e) => setColor(e, 'title')} >Title </span>
+                        <span id="try-title" style={{ color: title }} onClick={(e) => setColor(e, 'title')} >Header </span>
                     } style={{ backgroundColor: titleBackground }} id="try-title-background" />
                 <CardContent id="try-background" onClick={(e) => setColor(e, 'background')}
                     style={{ backgroundColor: background }}>
 
                     <Typography variant="h6" gutterBottom style={{ color: header }} id="try-header" onClick={(e) => setColor(e, 'header')}>
-                        Header
+                    Title
                     </Typography>
 
                     <Typography variant="subtitle2" gutterBottom id="try-text" onClick={(e) => setColor(e, 'paragraph')} style={{ color: paragraph }}>
+                       {/* Click on the compononets in this section to see how the selected colors look together. You can see what color is currently selected on the left panel.*/}
                         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
                             {/* Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. */}
 
@@ -223,7 +224,7 @@ export default function TryIt(props) {
                         </div>
                         <br />
                     </CardActions><CardActions>
-                        <div style={{ display: 'flex' }}>
+                        <div style={{ display: 'flex' }} id="try-buttons-group-2">
                             {getTryButton('successButton', "try-button-success", successButton, successButtonFont, 'Success')}
                             {getTryButton('infoButton', "try-button-info", infoButton, infoButtonFont, 'Info')}
                             {getTryButton('warningButton', "try-button-warning", warningButton, warningButtonFont, 'Warning')}
@@ -257,7 +258,7 @@ export default function TryIt(props) {
             <div className='try-actions-container'>
 
                 <Tooltip placement="bottom" title={"Export JSON"}>
-                    <IconButton size='small' onClick={(e) => { e.stopPropagation(); exportJSON(blindComponents) }}> <CloudDownloadIcon /> </IconButton>
+                    <IconButton size='small' onClick={(e) => { e.stopPropagation(); exportJSON(blindComponents) }}> <GetAppIcon /> </IconButton>
                 </Tooltip>
 
                 <Tooltip placement="bottom" title={"Reset Applied Colors"}>

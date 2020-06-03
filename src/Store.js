@@ -12,7 +12,23 @@ const initialState = {
     hueStep: 1, satStep: 1, lightStep: 1,
     numberOfColors: 72, 
     filterMode: 'BASIC',
-    picturePalettes: []
+    picturePalettes: [],
+    picturePalettesQuantized: [],
+    aiNumberOfColorsIndex: 1,
+    categories: 'opencountry',
+    withBaseColorAi: false,
+    aiAlgorithm: 'Agglomerative Clustering',
+    GRNumberOfColorsIndex: 1,
+    selectedAIDataset: 'Landscape',
+    openMainTour: false,
+    mainLoaded: false,
+    selectionOn: false,
+    colorsSelectedToExport: new Set(),
+    exportColorsDialogueOpen: false,
+    exportSelectedColorFormat: 'Hex #',
+    exportFormat: 'None',
+    exportTileWidth: 12.5,
+    landingColors: []
 };
 
 

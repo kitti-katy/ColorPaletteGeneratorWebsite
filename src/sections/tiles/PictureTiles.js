@@ -5,7 +5,7 @@ import { StoreContext } from '../../Store';
 export default function PictureTiles(props) {
   const [selectedKey, setSelectedKey] = useState('');
   const [state, dispatch] = useContext(StoreContext)
-  const { blindness, picturePalettes } = state
+  const { blindness, picturePalettesQuantized, picturePalettes } = state
   const selectColor = (value) => dispatch({ name: 'selected', value })
 
   const getTiles = palette => {
@@ -38,6 +38,19 @@ export default function PictureTiles(props) {
   }
   return (
     <div>
+      {picturePalettesQuantized.length != 0 && (
+        <div style={{ width: '100%', margin: 'auto' }}>
+          <h1 style={{ textAlign: 'center' }}> By Hue </h1>
+          <h2> Version 1 </h2> <div> {getTiles(picturePalettesQuantized[0])} </div><br />
+          <h2> Version 2 </h2> <div> {getTiles(picturePalettesQuantized[1])} </div><br />
+          <h2> Version 3 </h2> <div> {getTiles(picturePalettesQuantized[2])} </div><br />
+          <h2> Version 4 </h2> <div> {getTiles(picturePalettesQuantized[3])} </div><br />
+          <h2> Version 1 </h2> <div> {getTiles(picturePalettesQuantized[4])} </div><br />
+          <h2> Version 2 </h2> <div> {getTiles(picturePalettesQuantized[5])} </div><br />
+          <h2> Version 3 </h2> <div> {getTiles(picturePalettesQuantized[6])} </div><br />
+          <h2> Version 4 </h2> <div> {getTiles(picturePalettesQuantized[7])} </div>
+        </div>
+      )}
       {picturePalettes.length != 0 && (
         <div style={{ width: '100%', margin: 'auto' }}>
           <h1 style={{ textAlign: 'center' }}> By Hue </h1>

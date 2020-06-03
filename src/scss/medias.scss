@@ -1,3 +1,56 @@
+@media (min-width: 320px) and (max-width: 639px)  {
+  html {
+    font-size: 15px;
+  }
+  .horizontal-holder-ls {
+    grid-template-rows: 38% 62%;
+  }
+  #palette-container {
+    grid-template-rows: 38% 62%;
+  }
+  #root {
+    height: 1600px !important;
+}
+.tiles-actions-bar > div {
+  margin-bottom: 8px !important;
+  margin-top: 8px !important;
+}
+#palette-container > div:nth-child(2) {
+  height: 100% !important;
+}
+.vertical-holder-sl {
+  grid-template-rows: 40% 60% !important;
+}
+.try-button{
+  margin-top: 8px;
+}
+.App {
+  grid-template-rows: 3% 97% !important;
+}
+#try-buttons-group-2{
+  flex-wrap: wrap !important;
+  line-height: 34px;;
+}
+#try-button-danger, #try-button-warning{
+  margin-top: 16px;
+}
+.tiles-section {
+  padding-left: 0% !important; 
+ padding-right: 0% !important;
+}
+}
+
+@media (min-width: 400px) and (max-width: 639px)  {
+ 
+  #try-button-danger{
+    margin-top: 16px;
+  }
+  #try-button-warning{
+    margin-top: 0px;
+  }
+}
+
+
 @media (min-width: 640px) {
   html {
     font-size: 15px;

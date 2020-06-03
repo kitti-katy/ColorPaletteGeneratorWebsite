@@ -4,7 +4,7 @@ import { exportJSON } from '../../utilities/ExportJSON';
 import { Tooltip } from 'antd'
 import Slider from '@material-ui/core/Slider';
 import AutorenewIcon from '@material-ui/icons/Autorenew'
-import CloudDownloadIcon from '@material-ui/icons/CloudDownload'
+import GetAppIcon from '@material-ui/icons/GetApp'
 import UndoIcon from '@material-ui/icons/Undo'
 import RedoIcon from '@material-ui/icons/Redo'
 import IconButton from '@material-ui/core/IconButton';
@@ -167,7 +167,7 @@ export default function TryItGradient(props) {
 
             <div className='try-actions-container'>
                 <Tooltip placement="bottom" title={"Export JSON"}>
-                    <IconButton size='small' onClick={() => exportJSON(gradientColors)} > <CloudDownloadIcon /> </IconButton>
+                    <IconButton size='small' onClick={() => exportJSON(gradientColors)} > <GetAppIcon /> </IconButton>
                 </Tooltip>
 
                 <Tooltip placement="bottom" title={"Reset Applied Colors"}>
